@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/06/06 11:50:14 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/06/06 13:34:16 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,19 @@
 # include <sys/types.h>
 # include <sys/ioctl.h>
 # include "./libft/libft.h"
+
+typedef int	(*t_builtin_ptr)(t_list *, t_info *);
+
+typedef struct s_info
+{
+	t_builtin_ptr	builtins[7];
+	char			reserved_word[7];
+	char			**envp;
+	t_list			envp_list;
+	char			envp_f;
+	char			exit_t;
+}					t_info;
+
+t_info		*ft_init_info(void);
 
 #endif

@@ -6,12 +6,12 @@
 #    By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/06 11:31:44 by wlanette          #+#    #+#              #
-#    Updated: 2022/06/06 11:55:05 by wlanette         ###   ########.fr        #
+#    Updated: 2022/06/06 13:28:09 by wlanette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
-SRCS		= ./srcs/main.c
+SRCS		= ./srcs/main.c ./srcs/ft_init.c
 OBJS		= $(SRCS:.c=.o)
 
 INCS		= ./includes/
