@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:53:54 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/06/08 14:05:47 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/06/15 17:18:40 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	error_exit(char *msg, int len)
 	exit (EXIT_FAILURE);
 }
 
-char	**msh_split_line(char *line)
+char	**msh_split_line(char *line, const char *sep)
 {
 	int		bufsize;
 	int		pos;
@@ -28,7 +28,7 @@ char	**msh_split_line(char *line)
 	bufsize = TOK_BUFSIZE;
 	pos = 0;
 	tokens = malloc(bufsize * sizeof(char *));
-	token = strtok(line, TOK_DELIM);
+	token = strtok(line, sep);
 	while (token)
 	{
 		tokens[pos] = token;
@@ -38,7 +38,7 @@ char	**msh_split_line(char *line)
 			bufsize += TOK_BUFSIZE;
 			tokens = realloc(tokens, bufsize * sizeof(char *));
 			if (!tokens)
-				error_exit("Error malloc TOK_BUFSIZE\n", 25);
+				error_exit("Error malloc msh_split_line\n", 25);
 		}
 	token = strtok(NULL, TOK_DELIM);
 	}

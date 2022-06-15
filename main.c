@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:49:37 by Wmiyu             #+#    #+#             */
-/*   Updated: 2022/06/14 17:21:57 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/06/15 17:33:15 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*msh_readline(char *pmt)
 	return (str);
 }
 
-void	print_tokens(char **tokens)
+int	count_tokens(char **tokens)
 {
 	char	*token;
 	int		c;
@@ -37,6 +37,7 @@ void	print_tokens(char **tokens)
 		c++;
 	}
 	printf("========================\n");
+	return (c);
 }
 
 void	msh_loop(void)
@@ -44,21 +45,30 @@ void	msh_loop(void)
 	char	*line;
 	char	**args;
 	int		status;
+	char	**pipes;
+	int		i;
 
 	status = 1;
 	args = NULL;
-	printf("=== Minishell v.0.1 by WW-Team\n\n");	
 	while (status)
 	{
 		line = msh_readline(BOLDGREEN "MiniShell $> "CLOSE);
-		args = msh_split_line(line);
-		print_tokens(args);
-		status = msh_execute(args);
-		free(line);
-		free(args);
+		if (strchr(line, '|') != 0)
+		{
+			//printf("PIPE!\n");
+			pipes = msh_split_line(line, "|");
+		}
+		i = 0;
+		while (i < count_tokens(pipes))
+		{
+			args = msh_split_line(pipes[i], TOK_DELIM);
+			status = msh_execute(args);
+			free(line);
+			free(args);
+			i++;
+		}
 	}
 }
-
 
 int	main(int argc, char **argv, char **envp)
 {

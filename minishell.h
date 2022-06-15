@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:55:05 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/06/14 16:45:07 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/06/15 17:17:21 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
+# include <fcntl.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -25,10 +27,11 @@
 # define CLOSE "\033[0m"
 # define BOLDGREEN "\033[1m\033[49;32m"
 
-char	**msh_split_line(char *line);
+char	**msh_split_line(char *line, const char *sep);
 int		msh_launch(char **args);
 int		msh_execute(char **args);
 int		msh_num_builtins(char **builtin_str);
 int		run_bultin_num(int fnum, char **args, char **builtin_str);
+void	main_pipex2(int argc, char **argv, char **envp);
 
 #endif
