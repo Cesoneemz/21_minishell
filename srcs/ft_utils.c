@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
-/*   Updated: 2022/06/29 12:29:21 by wlanette         ###   ########.fr       */
+/*   Created: 2022/06/29 10:42:36 by wlanette          #+#    #+#             */
+/*   Updated: 2022/06/29 13:48:55 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*ft_readline(char *prompt)
+char	*ft_realloc_str(char *str, char c)
 {
-	char	*res;
+	char	*result;
+	char	*s_str;
+	char	*tmp;
 
-	res = readline(prompt);
-	if (res)
-		add_history(res);
-	return (res);
-}
-
-int	main(void)
-{
-	t_info	*info;
-	char	*str;
-	char	**tokens;
-
-	info = ft_init_info();
-	while (!info->exit_t)
+	result = (char *)malloc(sizeof(char) * 2);
+	if (!result)
+		return (NULL);
+	s_str = str;
+	if (!s_str)
 	{
-		str = ft_readline("minishell$>");
-		if (str == NULL)
-			info->exit_t = 1;
-		tokens = ft_lexer(str);
+		s_str = (char *)malloc(sizeof(char));
+		if (!s_str)
+			return (NULL);
+		s_str[0] = '\0';
 	}
-	free(info);
-	return (0);
+	result[0] = c;
+	result[1] = '\0';
+	tmp = result;
+	result = ft_strjoin(s_str, result);
+	free(tmp);
+	free(s_str);
+	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/06/06 13:34:16 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/06/29 13:13:59 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,10 @@
 # include <sys/ioctl.h>
 # include "./libft/libft.h"
 
-typedef int	(*t_builtin_ptr)(t_list *, t_info *);
 
 typedef struct s_info
 {
-	t_builtin_ptr	builtins[7];
+	char			builtins[7];
 	char			reserved_word[7];
 	char			**envp;
 	t_list			envp_list;
@@ -44,5 +43,13 @@ typedef struct s_info
 }					t_info;
 
 t_info		*ft_init_info(void);
+
+/* LEXER */
+
+char		**ft_lexer(char *str);
+
+/* UTILS */
+
+char		*ft_realloc_str(char *str, char c);
 
 #endif

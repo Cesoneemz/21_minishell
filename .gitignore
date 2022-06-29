@@ -1,6 +1,9 @@
 .vscode/
+.idea/
 
 *.o
 *.d
+
+minishell
 
 vgcore.*
