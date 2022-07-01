@@ -6,7 +6,7 @@
 #    By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/06 11:31:44 by wlanette          #+#    #+#              #
-#    Updated: 2022/06/14 17:42:46 by wmiyu            ###   ########.fr        #
+#    Updated: 2022/06/15 16:36:28 by wmiyu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ RM			= rm -rf
 #all:
 #	gcc -g -Wall -Werror -Wextra -lreadline split_line.c launcher.c builtins.c main.c -o minishell0
 
-all:		$(NAME)
+all:		$(NAME) clean
 
 $(NAME):	$(OBJS)
 			$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME)

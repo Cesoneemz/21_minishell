@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:49:37 by Wmiyu             #+#    #+#             */
-/*   Updated: 2022/06/15 17:33:15 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/07/01 13:32:28 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,35 @@ int	count_tokens(char **tokens)
 	return (c);
 }
 
+void	pipes_proceed(char	*line)
+{
+	char	**args;
+	int		status;
+	char	**pipes;
+	int		i;
+	int		tok_count;
+
+	printf("PIPE_PROCEED!\n");
+	pipes = msh_split_line(line, "|");
+	i = 0;
+	tok_count = count_tokens(pipes);
+	while (i < tok_count)
+	{
+		args = msh_split_line(pipes[i], TOK_DELIM);
+		status = msh_execute(args);
+		i++;
+	}
+	if (line)
+		free(line);
+	if (args)
+		free(args);
+}
+
 void	msh_loop(void)
 {
 	char	*line;
 	char	**args;
 	int		status;
-	char	**pipes;
-	int		i;
 
 	status = 1;
 	args = NULL;
@@ -55,17 +77,16 @@ void	msh_loop(void)
 		line = msh_readline(BOLDGREEN "MiniShell $> "CLOSE);
 		if (strchr(line, '|') != 0)
 		{
-			//printf("PIPE!\n");
-			pipes = msh_split_line(line, "|");
+			pipes_proceed(line);
 		}
-		i = 0;
-		while (i < count_tokens(pipes))
+		else
 		{
-			args = msh_split_line(pipes[i], TOK_DELIM);
+			args = msh_split_line(line, TOK_DELIM);
 			status = msh_execute(args);
-			free(line);
-			free(args);
-			i++;
+			if (line)
+				free(line);
+			if (args)
+				free(args);
 		}
 	}
 }
