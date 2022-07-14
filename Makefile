@@ -12,14 +12,15 @@
 
 NAME		= minishell
 SRCS		= ./srcs/main.c ./srcs/ft_init.c ./srcs/ft_lexer.c \
-				./srcs/ft_utils.c
+				./srcs/utils/ft_remove_spaces.c ./srcs/utils/ft_free_split.c ./srcs/utils/ft_strclen.c \
+				./srcs/env/ft_env_utils.c
 OBJS		= $(SRCS:.c=.o)
 
 INCS		= ./includes/
 INCS_HEADER	= ./includes/minishell.h
 
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra -I$(INCS) -g
+CFLAGS		= -I$(INCS) -g
 RM			= rm -rf
 
 LIBFT		= ./includes/libft/libft.a

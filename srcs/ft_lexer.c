@@ -12,50 +12,73 @@
 
 #include "minishell.h"
 
-static int	ft_tokens_count(char *str)
+static void	ft_check_special_tokens(t_tokens *tokens, char **str, int pos)
 {
-	int	result;
-	int	index;
-
-	result = 0;
-	index = 0;
-	while (str[index] != '\0')
+	if (ft_strncmp(str[pos], ">", 1) == 0)
 	{
-		if (ft_isascii(str[index]))
-		{
-			while (str[index] != ' ' && str[index] != '\0')
-				index++;
-			result++;
-		}
-		index++;
+		tokens->type = TRUNC;
+		tokens->value = ft_strdup(str[pos]);
 	}
-	result++;
-	return (result - 1);
+	if (ft_strncmp(str[pos], "<", 1) == 0)
+	{
+		tokens->type = INPUT;
+		tokens->value = ft_strdup(str[pos]);
+	}
+	if (ft_strncmp(str[pos], ">>", 1) == 0)
+	{
+		tokens->type = APPEND;
+		tokens->value = ft_strdup(str[pos]);
+	}
+	if (ft_strncmp(str[pos], "<<", 1) == 0)
+	{
+		tokens->type = HEREDOC;
+		tokens->value = ft_strdup(str[pos]);
+	}
+	if (ft_strncmp(str[pos], "|", 1) == 0)
+	{
+		tokens->type = PIPE;
+		tokens->value = ft_strdup(str[pos]);
+	}
 }
 
-char	**ft_lexer(char *str)
+static void	ft_get_tokens(t_tokens *tokens, char **str, t_env *env)
 {
 	int		index;
-	char	**tokens;
-	int		token_index;
+	char	*env_value;
 
 	index = 0;
-	token_index = 0;
-	tokens = (char **)malloc(sizeof(char) * ft_tokens_count(str));
-	if (!tokens)
-		return (NULL);
-	while (str[index] != '\0')
+	while (str[index])
 	{
-		if (str[index] == ' ')
+		tokens->index = index;
+		ft_check_special_tokens(tokens, str, index);
+		if (tokens->type == NONE)
 		{
-			while (str[index] == ' ')
-				index++;
-			token_index++;
+			if (str[index][0] == '$')
+			{
+				env_value = ft_get_env(env, ft_substr(str[index], 1, ft_strlen(str[index]) - 1))->value;
+				tokens->value = ft_strdup(env_value);
+			}
+			else
+				tokens->value = ft_strdup(str[index]);
 		}
-		if (ft_isascii(str[index]))
-			tokens[token_index] = ft_realloc_str(tokens[token_index], \
-			str[index]);
+		if (str[index + 1] != NULL)
+		{
+			tokens->next = ft_init_tokens_node();
+			tokens = tokens->next;
+		}
 		index++;
 	}
+}
+
+t_tokens	*ft_lexer(char *str, t_env *env)
+{
+	t_tokens	*tokens;
+	char		**split_str;
+
+	tokens = ft_init_tokens_node();
+	str = ft_remove_spaces(str);
+	split_str = ft_split(str, ' ');
+	ft_get_tokens(tokens, split_str, env);
+	ft_free_split(split_str);
 	return (tokens);
 }

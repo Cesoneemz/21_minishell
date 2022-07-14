@@ -31,6 +31,31 @@
 # include <sys/ioctl.h>
 # include "./libft/libft.h"
 
+typedef enum s_token_types
+{
+	NONE,
+	ARG,
+	TRUNC,
+	INPUT,
+	APPEND,
+	PIPE,
+	HEREDOC
+}			t_token_types;
+
+typedef struct s_tokens
+{
+	int				index;
+	t_token_types 	type;
+	char			*value;
+	struct s_tokens	*next;
+}				t_tokens;
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}				t_env;
 
 typedef struct s_info
 {
@@ -42,14 +67,27 @@ typedef struct s_info
 	char			exit_t;
 }					t_info;
 
+/* INITIALIZATION */
+
+t_tokens	*ft_init_tokens_node(void);
+t_env		*ft_init_env_node(void);
+t_env		*ft_init_env_struct(char **envp);
 t_info		*ft_init_info(void);
+
+/* ENV */
+
+char		*ft_get_env_vars(char *str, t_env *env);
+t_env		*ft_get_env(t_env *env, char *var);
 
 /* LEXER */
 
-char		**ft_lexer(char *str);
+t_tokens	*ft_lexer(char *str, t_env *env);
 
 /* UTILS */
 
-char		*ft_realloc_str(char *str, char c);
+char		*ft_remove_spaces(char *str);
+void		ft_free_split(char **split);
+int			ft_strclen(char *str, char c);
+
 
 #endif

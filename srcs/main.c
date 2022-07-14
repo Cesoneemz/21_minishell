@@ -22,19 +22,41 @@ static char	*ft_readline(char *prompt)
 	return (res);
 }
 
-int	main(void)
+static void	ft_signal_handler(int signal)
 {
-	t_info	*info;
-	char	*str;
-	char	**tokens;
+	rl_on_new_line();
+	rl_redisplay();
+	if (signal == SIGINT)
+	{
+		write(1, "  \b\b\n", 5);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	else
+		write(1, "  \b\b", 4);
+}
 
+int	main(int argc, char **argv, char **envp)
+{
+	t_info		*info;
+	t_env		*env;
+	char		*str;
+	t_tokens	*tokens;
+
+	(void)argc;
+	(void)argv;
+	env = ft_init_env_struct(envp);
 	info = ft_init_info();
+	signal(SIGINT, ft_signal_handler);
+	signal(SIGQUIT, ft_signal_handler);
 	while (!info->exit_t)
 	{
 		str = ft_readline("minishell$>");
-		if (str == NULL)
+		if (str == NULL || ft_strncmp(str, "exit", 5) == 0)
 			info->exit_t = 1;
-		tokens = ft_lexer(str);
+		tokens = ft_lexer(str, env);
+		printf("%s\n", tokens->value);
 	}
 	free(info);
 	return (0);
