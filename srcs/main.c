@@ -46,17 +46,17 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	env = ft_init_env_struct(envp);
 	info = ft_init_info();
 	signal(SIGINT, ft_signal_handler);
 	signal(SIGQUIT, ft_signal_handler);
+	tokens = ft_new_token();
 	while (!info->exit_t)
 	{
 		str = ft_readline("minishell$>");
 		if (str == NULL || ft_strncmp(str, "exit", 5) == 0)
 			info->exit_t = 1;
-		tokens = ft_lexer(str, env);
-		printf("%s\n", tokens->value);
+		str = ft_remove_spaces(str);
+		ft_lexer(str, tokens);
 	}
 	free(info);
 	return (0);

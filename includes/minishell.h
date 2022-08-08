@@ -33,18 +33,20 @@
 
 typedef enum s_token_types
 {
-	NONE,
-	ARG,
+	WORD,
+	SEP,
 	TRUNC,
 	INPUT,
 	APPEND,
 	PIPE,
-	HEREDOC
+	HEREDOC,
+	EXP_FIELD,
+	FIELD
 }			t_token_types;
 
 typedef struct s_tokens
 {
-	int				index;
+	int				len;
 	t_token_types 	type;
 	char			*value;
 	struct s_tokens	*next;
@@ -69,7 +71,6 @@ typedef struct s_info
 
 /* INITIALIZATION */
 
-t_tokens	*ft_init_tokens_node(void);
 t_env		*ft_init_env_node(void);
 t_env		*ft_init_env_struct(char **envp);
 t_info		*ft_init_info(void);
@@ -81,13 +82,15 @@ t_env		*ft_get_env(t_env *env, char *var);
 
 /* LEXER */
 
-t_tokens	*ft_lexer(char *str, t_env *env);
+void		ft_lexer(char *str, t_tokens *tokens);
+t_tokens	*ft_new_token(void);
+int			ft_check_quotes(char *str);
 
 /* UTILS */
 
+int			ft_is_space(char c);
 char		*ft_remove_spaces(char *str);
-void		ft_free_split(char **split);
-int			ft_strclen(char *str, char c);
+void		ft_print_error(char *message);
 
 
 #endif
