@@ -40,12 +40,12 @@ static void	ft_signal_handler(int signal)
 int	main(int argc, char **argv, char **envp)
 {
 	t_info		*info;
-	t_env		*env;
 	char		*str;
 	t_tokens	*tokens;
 
 	(void)argc;
 	(void)argv;
+	(void)envp;
 	info = ft_init_info();
 	signal(SIGINT, ft_signal_handler);
 	signal(SIGQUIT, ft_signal_handler);
@@ -55,7 +55,6 @@ int	main(int argc, char **argv, char **envp)
 		str = ft_readline("minishell$>");
 		if (str == NULL || ft_strncmp(str, "exit", 5) == 0)
 			info->exit_t = 1;
-		str = ft_remove_spaces(str);
 		ft_lexer(str, tokens);
 	}
 	free(info);

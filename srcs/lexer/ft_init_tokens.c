@@ -7,6 +7,7 @@ t_tokens	*ft_new_token(void)
 	tokens = (t_tokens *)malloc(sizeof(t_tokens));
 	if (!tokens)
 		return (NULL);
+	tokens->len = 0;
 	tokens->value = NULL;
 	tokens->next = NULL;
 	tokens->type = 0;

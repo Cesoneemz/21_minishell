@@ -47,17 +47,10 @@ typedef enum s_token_types
 typedef struct s_tokens
 {
 	int				len;
-	t_token_types 	type;
+	t_token_types	type;
 	char			*value;
 	struct s_tokens	*next;
 }				t_tokens;
-
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}				t_env;
 
 typedef struct s_info
 {
@@ -71,14 +64,7 @@ typedef struct s_info
 
 /* INITIALIZATION */
 
-t_env		*ft_init_env_node(void);
-t_env		*ft_init_env_struct(char **envp);
 t_info		*ft_init_info(void);
-
-/* ENV */
-
-char		*ft_get_env_vars(char *str, t_env *env);
-t_env		*ft_get_env(t_env *env, char *var);
 
 /* LEXER */
 
@@ -91,6 +77,6 @@ int			ft_check_quotes(char *str);
 int			ft_is_space(char c);
 char		*ft_remove_spaces(char *str);
 void		ft_print_error(char *message);
-
+int			ft_check_in_quotes(char *str, int pos, char quote, char other);
 
 #endif
