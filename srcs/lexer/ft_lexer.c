@@ -6,9 +6,9 @@ static void	ft_get_type_of_token(t_tokens *tokens)
 		tokens->type = TRUNC;
 	if (ft_strncmp(tokens->value, "<", 1) == 0)
 		tokens->type = INPUT;
-	if (ft_strncmp(tokens->value, ">>", 1) == 0)
+	if (ft_strncmp(tokens->value, ">>", 2) == 0)
 		tokens->type = APPEND;
-	if (ft_strncmp(tokens->value, "<<", 1) == 0)
+	if (ft_strncmp(tokens->value, "<<", 2) == 0)
 		tokens->type = HEREDOC;
 	if (ft_strncmp(tokens->value, "|", 1) == 0)
 		tokens->type = PIPE;
@@ -31,7 +31,7 @@ static int	ft_tokenize_quotes(char *str, int index, t_tokens *tokens)
 		tokens->type = EXP_FIELD;
 	else
 		tokens->type = FIELD;
-	return (index);
+	return (tokens->len + 1);
 }
 
 static int	ft_tokenize_str(char *str, int index, t_tokens *tokens)
@@ -39,14 +39,14 @@ static int	ft_tokenize_str(char *str, int index, t_tokens *tokens)
 	int	temp;
 
 	temp = index;
-	while ((!ft_is_space(str[index]) && str[index] != '\0'))
+	while (str[index] != ' ' && str[index] != '\0')
 	{
 		tokens->len++;
 		index++;
 	}
 	tokens->value = ft_substr(str, temp, tokens->len);
 	ft_get_type_of_token(tokens);
-	return (index);
+	return (tokens->len);
 }
 
 void	ft_lexer(char *str, t_tokens *tokens)
@@ -54,13 +54,13 @@ void	ft_lexer(char *str, t_tokens *tokens)
 	int			index;
 	int			quote;
 
+	if (!ft_check_quotes(str))
+		return ;
 	index = 0;
 	while (str[index] != '\0')
 	{
 		quote = 0;
-		if (!ft_check_quotes(str))
-			return ;
-		while (ft_is_space(str[index]))
+		while (str[index] == ' ')
 			index++;
 		if (str[index] == '\"' || str[index] == '\'')
 		{
