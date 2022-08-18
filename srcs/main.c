@@ -49,13 +49,14 @@ int	main(int argc, char **argv, char **envp)
 	info = ft_init_info();
 	signal(SIGINT, ft_signal_handler);
 	signal(SIGQUIT, ft_signal_handler);
-	tokens = ft_new_token();
 	while (!info->exit_t)
 	{
+		tokens = ft_new_token();
 		str = ft_readline("minishell$>");
 		if (str == NULL || ft_strncmp(str, "exit", 5) == 0)
 			info->exit_t = 1;
 		ft_lexer(str, tokens);
+		ft_free_tokens(tokens);
 	}
 	free(info);
 	return (0);

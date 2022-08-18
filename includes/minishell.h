@@ -71,6 +71,7 @@ t_info		*ft_init_info(void);
 void		ft_lexer(char *str, t_tokens *tokens);
 t_tokens	*ft_new_token(void);
 int			ft_check_quotes(char *str);
+int			ft_get_len_of_token(char *str, int index, t_tokens *tokens);
 
 /* UTILS */
 
@@ -78,5 +79,6 @@ int			ft_is_space(char c);
 char		*ft_remove_spaces(char *str);
 void		ft_print_error(char *message);
 int			ft_check_in_quotes(char *str, int pos, char quote, char other);
+void		ft_free_tokens(t_tokens *tokens);
 
 #endif
