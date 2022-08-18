@@ -27,6 +27,8 @@ static int	ft_tokenize_quotes(char *str, int index, t_tokens *tokens)
 		index++;
 	}
 	tokens->value = ft_substr(str, temp, tokens->len);
+	if (!tokens->value)
+		return (-1);
 	if (str[index] == '\"')
 		tokens->type = EXP_FIELD;
 	else
@@ -57,6 +59,8 @@ static int	ft_tokenize_str(char *str, int index, t_tokens *tokens)
 	}
 	tokens->len = ft_get_len_of_token(str, index, tokens);
 	tokens->value = ft_substr(str, temp, tokens->len);
+	if (!tokens->value)
+		return (-1);
 	return (tokens->len);
 }
 
@@ -71,18 +75,20 @@ static int	ft_tokenize_sep(char *str, int index, t_tokens *tokens)
 		index++;
 	}
 	tokens->value = ft_substr(str, temp, tokens->len);
+	if (!tokens->value)
+		return (-1);
 	tokens->type = SEP;
 	return (tokens->len);
 }
 
-void	ft_lexer(char *str, t_tokens *tokens)
+int	ft_lexer(char *str, t_tokens *tokens)
 {
 	int			index;
 
 	if (!ft_check_quotes(str))
-		return ;
+		return (-1);
 	index = 0;
-	while (str[index] != '\0')
+	while (str[index] != '\0' && index != -1)
 	{
 		if (str[index + 1] != '\0' && index != 0)
 		{
@@ -102,4 +108,5 @@ void	ft_lexer(char *str, t_tokens *tokens)
 		index += ft_tokenize_str(str, index, tokens);
 		ft_get_type_of_token(tokens);
 	}
+	return (index);
 }

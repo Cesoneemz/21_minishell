@@ -13,7 +13,9 @@
 NAME		= minishell
 SRCS		= ./srcs/main.c ./srcs/ft_init.c ./srcs/lexer/ft_lexer.c \
 				./srcs/utils/ft_print_error.c ./srcs/lexer/ft_validators.c ./srcs/lexer/ft_lexer_utils.c\
-				./srcs/lexer/ft_init_tokens.c ./srcs/utils/ft_is_space.c ./srcs/utils/ft_free_tokens.c
+				./srcs/lexer/ft_init_tokens.c ./srcs/utils/ft_is_space.c ./srcs/utils/ft_free_tokens.c \
+				./srcs/env/ft_env.c ./srcs/parser/ft_count_cmds.c ./srcs/parser/ft_init_cmds.c \
+				./srcs/parser/ft_parser.c ./srcs/parser/ft_treatment.c
 OBJS		= $(SRCS:.c=.o)
 
 INCS		= ./includes/

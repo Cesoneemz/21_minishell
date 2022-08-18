@@ -13,10 +13,7 @@ static int	ft_parse_quote(char *str, char c)
 			while (str[index] != c && str[index] != '\0')
 				index++;
 			if (str[index] == '\0')
-			{
-				ft_print_error("parse error");
 				return (0);
-			}
 		}
 		index++;
 	}

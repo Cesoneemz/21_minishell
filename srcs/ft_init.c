@@ -19,6 +19,8 @@ t_info	*ft_init_info(void)
 	info = (t_info *)malloc(sizeof(t_info));
 	if (!info)
 		return (NULL);
+	info->cmd_list= NULL;
+	info->cmd_count = 0;
 	info->exit_t = 0;
 	return (info);
 }
