@@ -3,40 +3,45 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+         #
+#    By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/06 11:31:44 by wlanette          #+#    #+#              #
-#    Updated: 2022/06/06 11:55:05 by wlanette         ###   ########.fr        #
+#    Updated: 2022/09/13 18:03:24 by wmiyu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
-SRCS		= ./srcs/main.c
+SRCS		= 	./srcs/main.c \
+				./srcs/ft_split.c\
+				./srcs/pip8.c \
+				./srcs/execute.c \
+				./srcs/ft_strjoin.c 
+				
 OBJS		= $(SRCS:.c=.o)
 
 INCS		= ./includes/
 INCS_HEADER	= ./includes/minishell.h
 
-CC			= cc
+CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra -I$(INCS) -g
 RM			= rm -rf
 
 LIBFT		= ./includes/libft/libft.a
 
-all:		$(NAME) $(LIBFT)
+all:		$(NAME)
 
-$(NAME):	$(OBJS) $(INCS_HEADER) $(LIBFT)
-			$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+$(NAME):	$(OBJS) $(INCS_HEADER)
+			$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME)
 
 $(LIBFT):	
 			@make bonus -C ./includes/libft/
 
 clean:		
-			@make clean -C ./includes/libft/
+#			@make clean -C ./includes/libft/
 			$(RM) $(OBJS)
 
 fclean:		clean
-			@make fclean -C ./includes/libft/
+#			@make fclean -C ./includes/libft/
 			$(RM) $(NAME)
 
 re:			fclean all
