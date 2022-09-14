@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: Wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 14:55:18 by WMiyu             #+#    #+#             */
-/*   Updated: 2022/09/13 17:26:38 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/09/14 19:25:00 by Wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,31 @@ int	execute(char **newargv, char **envp)
 	if (cmd_path != NULL)
 	{
 		execve(cmd_path, newargv, envp);
+		perror("minishell");
+		return (EXIT_FAILURE);
+	}
+	else
+	{
+		perror("minishell");
+		return (EXIT_FAILURE);
+	}
+	return (2);
+}
+
+int	execute2(char *newcmd, char **newargv, char **envp)
+{
+	char	*cmd_path;
+	char	**fullargv;
+
+	fullargv = join_argv_arr(newcmd, newargv);
+
+	if (access(newcmd, F_OK) == 0)
+		cmd_path = newcmd;
+	else
+		cmd_path = find_cmd_in_path(newcmd, envp);
+	if (cmd_path != NULL)
+	{
+		execve(cmd_path, fullargv, envp);
 		perror("minishell");
 		return (EXIT_FAILURE);
 	}

@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: Wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 01:11:25 by Wmiyu             #+#    #+#             */
-/*   Updated: 2022/09/13 16:43:16 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/09/14 19:26:15 by Wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <stdlib.h>
+
+static size_t	ft_strlen(const char *str)
+{
+	size_t	index;
+
+	index = 0;
+	while (str[index])
+		index++;
+	return (index);
+}
 
 static void	ft_strxlcpy(const char *str1, char *dst, int x, int l)
 {

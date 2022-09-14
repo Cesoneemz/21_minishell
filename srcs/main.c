@@ -3,85 +3,68 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: Wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/07 14:49:37 by Wmiyu             #+#    #+#             */
-/*   Updated: 2022/09/13 17:27:54 by wmiyu            ###   ########.fr       */
+/*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
+/*   Updated: 2022/09/14 19:22:58 by Wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*msh_readline(char *pmt)
+static char	*ft_readline(char *prompt)
 {
-	char	*str;
+	char	*res;
 
-	str = NULL;
-	str = readline(pmt);
-	if (str != NULL)
-		add_history(str);
-	return (str);
+	res = readline(prompt);
+	if (res)
+		add_history(res);
+	return (res);
 }
 
-int	token_count(char *str, char tok)
+static void	ft_signal_handler(int signal)
 {
-	int	i;
-	int	c;
-
-	i = 0;
-	c = 0;
-	while (str && str[i])
+	rl_on_new_line();
+	rl_redisplay();
+	if (signal == SIGINT)
 	{
-		if (str[i] == tok)
-			c++;
-		i++;
+		write(1, "  \b\b\n", 5);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
-	return (c);
-}
-
-void	msh_loop(char **argv, char **envp)
-{
-	char	*line;
-	char	**args;
-	int		status;
-	int		pid_n;
-
-	(void)argv;
-	(void)envp;
-	status = 1;
-	args = NULL;
-	line = NULL;
-	while (status)
-	{
-		pid_n = fork();
-		if (pid_n == 0)
-		{
-			line = msh_readline(" => MiniShell v.0.6 $> ");
-			if (line && token_count(line, '|') > 0)
-			{
-			//	printf("#%d: %s\n", status, line);
-				exec_in_recurse(ft_split_count(line,'|'), ft_split(line, '|'), envp, NULL);
-			}
-			free(line);
-			line = NULL;
-			sleep(1);
-		}
-		else
-		{
-			//printf(" MiniShell waiting %d \n", pid_n);
-			waitpid(pid_n, 0, 0);
-		}
-	}
+	else
+		write(1, "  \b\b", 4);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
+	t_info		*info;
+	char		*str;
+	t_tokens	*tokens;
+    int         index = 0;
+
 	(void)argc;
-//===========================================
-	add_history("ls -m | wc -w | cat -e\n");
-	add_history("yes | head | wc |cat -e\n");
-	msh_loop(argv, envp);
-	printf("=-=- END 0_6 -=-=-\n");
-//===========================================
-	return (EXIT_SUCCESS);
+	(void)argv;
+	info = ft_init_info();
+	info->env = ft_init_env(envp);
+	signal(SIGINT, ft_signal_handler);
+	signal(SIGQUIT, ft_signal_handler);
+	while (!info->exit_t)
+	{
+		tokens = ft_new_token();
+		str = ft_readline("minishell$>");
+		if (str == NULL || ft_strncmp(str, "exit", 5) == 0)
+			info->exit_t = 1;
+		if (ft_lexer(str, tokens) == -1)
+		{
+			ft_print_error("Invalid syntax");
+			continue ;
+		}
+		ft_parse_command(info, tokens);
+
+		exec_in_recurse2(info->cmd_count, info, envp, NULL);
+	}
+	free(info);
+	return (0);
 }
