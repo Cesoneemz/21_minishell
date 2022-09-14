@@ -1,3 +1,6 @@
-//
-// Created by Wylde Lanette on 9/14/22.
-//
+#include "minishell.h"
+
+char    **ft_env_treatment(char **envp)
+{
+
+}

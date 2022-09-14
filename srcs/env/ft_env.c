@@ -12,8 +12,8 @@ static t_list	*ft_add_env_to_list(t_list *env, char *envp)
 	if (!split_content)
 		return (NULL);
 	key_value->key = split_content[0];
-	key_value->value = split_content[1];
-	ft_lstadd_back(&env, ft_lstnew(key_value));
+	key_value->value = getenv(key_value->key);
+    ft_lstadd_back(&env, ft_lstnew(key_value));
 	free(split_content);
 	return (env);
 }
@@ -40,8 +40,8 @@ t_list	*ft_init_env(char **envp)
 	t_list	*env;
 
 	index = 0;
-	env = NULL;
-	while (envp && envp[index])
+    env = NULL;
+	while (envp[index])
 	{
 		env = ft_add_env_to_list(env, envp[index]);
 		index++;

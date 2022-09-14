@@ -46,7 +46,7 @@ char	**ft_parse_args(t_tokens **tokens, t_info *info)
 	{
 		if ((*tokens)->type != SEP)
 		{
-			args[index] = ft_parse_cmd((*tokens)->value, (*tokens)->type, info);
+			args[index] = ft_strdup(ft_parse_cmd((*tokens)->value, (*tokens)->type, info));
 			index++;
 		}
 		(*tokens) = (*tokens)->next;

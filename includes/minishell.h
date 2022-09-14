@@ -64,6 +64,14 @@ typedef struct s_env
 	char	*value;
 }				t_env;
 
+typedef struct s_redir
+{
+	int			redir_in_fd;
+	int			redir_out_fd;
+	int			dup_fd_in;
+	int			dup_fd_out;
+}				t_redir;
+
 typedef struct s_info
 {
 	char			builtins[7];

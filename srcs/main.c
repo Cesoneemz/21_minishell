@@ -42,6 +42,7 @@ int	main(int argc, char **argv, char **envp)
 	t_info		*info;
 	char		*str;
 	t_tokens	*tokens;
+    int         index = 0;
 
 	(void)argc;
 	(void)argv;

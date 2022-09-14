@@ -37,7 +37,7 @@ int	ft_count_cmd(t_tokens *tokens)
 			if (temp->next->type == PIPE)
 				return (-1);
 		}
-		if (temp->next != NULL)
+		if (temp->next == NULL)
 			break ;
 		temp = temp->next;
 	}
