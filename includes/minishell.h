@@ -52,18 +52,6 @@ typedef struct s_tokens
 	struct s_tokens	*next;
 }				t_tokens;
 
-typedef struct s_cmd
-{
-	char	*cmd;
-	char	**args;
-}				t_cmd;
-
-typedef struct s_env
-{
-	char	*key;
-	char	*value;
-}				t_env;
-
 typedef struct s_redir
 {
 	int			redir_in_fd;
@@ -72,10 +60,21 @@ typedef struct s_redir
 	int			dup_fd_out;
 }				t_redir;
 
+typedef struct s_cmd
+{
+	char	*cmd;
+	char	**args;
+	t_redir	*redir;
+}				t_cmd;
+
+typedef struct s_env
+{
+	char	*key;
+	char	*value;
+}				t_env;
+
 typedef struct s_info
 {
-	char			builtins[7];
-	char			reserved_word[7];
 	t_cmd			*cmd_list;
 	int				cmd_count;
 	t_list			*env;
@@ -116,5 +115,6 @@ char		*ft_remove_spaces(char *str);
 void		ft_print_error(char *message);
 int			ft_check_in_quotes(char *str, int pos, char quote, char other);
 void		ft_free_tokens(t_tokens *tokens);
+void		ft_free_info(t_info *info);
 
 #endif

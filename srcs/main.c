@@ -48,6 +48,9 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	info = ft_init_info();
 	info->env = ft_init_env(envp);
+	ft_free_info(info);
+	free(info);
+	return (0);
 	signal(SIGINT, ft_signal_handler);
 	signal(SIGQUIT, ft_signal_handler);
 	while (!info->exit_t)
@@ -55,14 +58,18 @@ int	main(int argc, char **argv, char **envp)
 		tokens = ft_new_token();
 		str = ft_readline("minishell$>");
 		if (str == NULL || ft_strncmp(str, "exit", 5) == 0)
+		{
 			info->exit_t = 1;
+		}
 		if (ft_lexer(str, tokens) == -1)
 		{
 			ft_print_error("Invalid syntax");
 			continue ;
 		}
 		ft_parse_command(info, tokens);
+		ft_free_info(info);
 	}
+	ft_free_info(info);
 	free(info);
 	return (0);
 }

@@ -9,8 +9,6 @@ int	ft_count_args(t_tokens *tokens)
 	temp = tokens;
 	while (temp)
 	{
-		if (temp->type == PIPE || temp->type == TRUNC || temp->type == INPUT || temp->type == APPEND || temp->type == HEREDOC)
-			break ;
 		if (temp->type == SEP)
 		{
 			temp = temp->next;
