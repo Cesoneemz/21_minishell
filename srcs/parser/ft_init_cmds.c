@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_init_cmds.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/15 05:06:13 by wlanette          #+#    #+#             */
+/*   Updated: 2022/09/15 05:06:39 by wlanette         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	ft_init_cmd(t_info *info, t_tokens *tokens)
@@ -46,7 +58,8 @@ char	**ft_parse_args(t_tokens **tokens, t_info *info)
 	{
 		if ((*tokens)->type != SEP)
 		{
-			args[index] = ft_strdup(ft_parse_cmd((*tokens)->value, (*tokens)->type, info));
+			args[index] = ft_strdup(ft_parse_cmd((*tokens)->value, \
+			(*tokens)->type, info));
 			index++;
 		}
 		(*tokens) = (*tokens)->next;
@@ -61,9 +74,8 @@ int	ft_create_cmd(t_info *info, t_tokens **tokens, int index)
 {
 	while ((*tokens)->type == SEP)
 		(*tokens) = (*tokens)->next;
-	info->cmd_list[index].cmd = ft_parse_cmd(ft_strdup((*tokens)->value), (*tokens)->type, info);
+	info->cmd_list[index].cmd = ft_parse_cmd(\
+	ft_strdup((*tokens)->value), (*tokens)->type, info);
 	(*tokens) = (*tokens)->next;
 	info->cmd_list[index].args = ft_parse_args(tokens, info);
 }
-
-

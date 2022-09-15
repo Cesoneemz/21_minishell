@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_free_tokens.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/15 05:03:37 by wlanette          #+#    #+#             */
+/*   Updated: 2022/09/15 05:03:37 by wlanette         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	ft_free_tokens(t_tokens *tokens)
@@ -19,19 +31,26 @@ void	ft_free_tokens(t_tokens *tokens)
 	}
 }
 
-void	ft_free_env(void *content)
+void	ft_free_env(t_env **env)
 {
 	t_env	*temp;
 
-	temp = (t_env *)content;
-	free(content);
+	while (*env != NULL)
+	{
+		temp = (*env)->next;
+		free((*env)->key);
+		free((*env)->value);
+		free(*env);
+		*env = temp;
+	}
+	*env = NULL;
 }
 
 void	ft_free_info(t_info *info)
 {
 	int		index;
 	int		jndex;
-	t_list	*temp;
+	t_env	*temp;
 
 	index = info->cmd_count;
 	while (index--)
@@ -46,5 +65,5 @@ void	ft_free_info(t_info *info)
 	}
 	free(info->cmd_list);
 	temp = info->env;
-	ft_lstiter(info->env, &ft_free_env);
+	ft_free_env(&info->env);
 }

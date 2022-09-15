@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/06/29 13:13:59 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/15 05:03:21 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,33 +69,43 @@ typedef struct s_cmd
 
 typedef struct s_env
 {
-	char	*key;
-	char	*value;
+	char			*key;
+	char			*value;
+	struct s_env	*next;
 }				t_env;
 
 typedef struct s_info
 {
 	t_cmd			*cmd_list;
 	int				cmd_count;
-	t_list			*env;
+	t_env			*env;
 	char			exit_t;
 }					t_info;
 
 /* INITIALIZATION */
 
 t_info		*ft_init_info(void);
-t_list		*ft_init_env(char **envp);
+t_env		*ft_init_env(char **envp);
 
 /* ENV */
 
-char		*ft_get_env(t_list *env, char *key);
+char		*ft_get_env(t_env *env, char *key);
+void		ft_lstadd_back_env(t_env **lst, t_env *new);
+t_env		*ft_lstnew_env(char *key, char *value);
+t_env		*ft_init_env_node(void);
 
 /* LEXER */
 
-int			ft_lexer(char *str, t_tokens *tokens);
+int			ft_lexer(char *str, t_tokens **tokens);
 t_tokens	*ft_new_token(void);
 int			ft_check_quotes(char *str);
 int			ft_get_len_of_token(char *str, int index, t_tokens *tokens);
+int			ft_finally_lex_analyze(t_tokens *tokens);
+void		ft_lexer_loop(char *str, t_tokens **tokens);
+int			ft_tokenize_sep(char *str, int index, t_tokens *tokens);
+int			ft_tokenize_quotes(char *str, int index, t_tokens *tokens);
+int			ft_tokenize_str(char *str, int index, t_tokens *tokens);
+void		ft_get_type_of_token(t_tokens *tokens);
 
 /* PARSER */
 

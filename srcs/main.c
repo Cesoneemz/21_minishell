@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
-/*   Updated: 2022/06/29 12:29:21 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/15 04:56:04 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,11 @@ int	main(int argc, char **argv, char **envp)
 	t_info		*info;
 	char		*str;
 	t_tokens	*tokens;
-    int         index = 0;
 
 	(void)argc;
 	(void)argv;
 	info = ft_init_info();
 	info->env = ft_init_env(envp);
-	ft_free_info(info);
-	free(info);
-	return (0);
 	signal(SIGINT, ft_signal_handler);
 	signal(SIGQUIT, ft_signal_handler);
 	while (!info->exit_t)
@@ -58,10 +54,8 @@ int	main(int argc, char **argv, char **envp)
 		tokens = ft_new_token();
 		str = ft_readline("minishell$>");
 		if (str == NULL || ft_strncmp(str, "exit", 5) == 0)
-		{
 			info->exit_t = 1;
-		}
-		if (ft_lexer(str, tokens) == -1)
+		if (ft_lexer(str, &tokens) == -1)
 		{
 			ft_print_error("Invalid syntax");
 			continue ;
@@ -69,7 +63,5 @@ int	main(int argc, char **argv, char **envp)
 		ft_parse_command(info, tokens);
 		ft_free_info(info);
 	}
-	ft_free_info(info);
-	free(info);
 	return (0);
 }
