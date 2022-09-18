@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/15 05:03:21 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/18 02:37:44 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 typedef enum s_token_types
 {
 	WORD,
+	BUILTIN,
 	SEP,
 	TRUNC,
 	INPUT,
@@ -60,11 +61,18 @@ typedef struct s_redir
 	int			dup_fd_out;
 }				t_redir;
 
+typedef struct s_cmd_line
+{
+	char				*arg;
+	t_token_types		type;
+}					t_cmd_line;
+
 typedef struct s_cmd
 {
-	char	*cmd;
-	char	**args;
-	t_redir	*redir;
+	char		*cmd;
+	char		**args;
+	t_cmd_line	*line;
+	t_redir		*redir;
 }				t_cmd;
 
 typedef struct s_env
@@ -77,7 +85,9 @@ typedef struct s_env
 typedef struct s_info
 {
 	t_cmd			*cmd_list;
+	char			**cmd_line;
 	int				cmd_count;
+	int				cmd_with_args_count;
 	t_env			*env;
 	char			exit_t;
 }					t_info;
@@ -109,9 +119,9 @@ void		ft_get_type_of_token(t_tokens *tokens);
 
 /* PARSER */
 
-int			ft_parse_command(t_info *info, t_tokens *tokens);
+int			ft_parse_command(t_info **info, t_tokens *tokens);
 int			ft_count_cmd(t_tokens *tokens);
-int			ft_init_cmd(t_info *info, t_tokens *tokens);
+int			ft_init_cmd(t_info **info, t_tokens *tokens);
 int			ft_create_cmd(t_info *info, t_tokens **tokens, int index);
 char		*ft_quotes_treatment(char *cmd, t_token_types type, t_info *info);
 char		*ft_dollar_treatment(char *cmd, t_info *info, int index);
@@ -126,5 +136,6 @@ void		ft_print_error(char *message);
 int			ft_check_in_quotes(char *str, int pos, char quote, char other);
 void		ft_free_tokens(t_tokens *tokens);
 void		ft_free_info(t_info *info);
+int			ft_is_builtin(char *str);
 
 #endif

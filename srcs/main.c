@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/15 04:56:04 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/18 01:29:19 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int argc, char **argv, char **envp)
 			ft_print_error("Invalid syntax");
 			continue ;
 		}
-		ft_parse_command(info, tokens);
+		ft_parse_command(&info, tokens);
 		ft_free_info(info);
 	}
 	return (0);

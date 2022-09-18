@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 04:56:29 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/15 18:18:08 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/18 02:31:05 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_finally_lex_analyze(t_tokens *tokens)
 	{
 		if (temp->type == PIPE)
 		{
-			if (prev == NULL || temp->next == NULL)
+			if (prev == NULL)
 				return (-1);
 		}
 		if (temp->type == APPEND || temp->type == HEREDOC || \
@@ -63,4 +63,22 @@ int	ft_check_quotes(char *str)
 	if (!ft_parse_quote(str, '\"') || (!ft_parse_quote(str, '\'')))
 		return (0);
 	return (1);
+}
+
+int	ft_is_builtin(char *str)
+{
+	if (ft_strncmp(str, "echo", 5) == 0)
+		return (1);
+	if (ft_strncmp(str, "cd", 3) == 0)
+		return (1);
+	if (ft_strncmp(str, "pwd", 4) == 0)
+		return (1);
+	if (ft_strncmp(str, "export", 7) == 0)
+		return (1);
+	if (ft_strncmp(str, "unset", 6) == 0)
+		return (1);
+	if (ft_strncmp(str, "env", 4) == 0)
+		return (1);
+	if (ft_strncmp(str, "exit", 5) == 0)
+		return (1);
 }
