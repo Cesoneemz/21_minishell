@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/18 18:11:36 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/18 18:57:47 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,11 @@ int	main(int argc, char **argv, char **envp)
 		str = ft_readline("minishell$>");
 		if (str == NULL || ft_strncmp(str, "exit", 5) == 0)
 		{
-			info->exit_t = 1;
-			ft_free_all(&info, &tokens);
+			rl_clear_history();
+			free(info);
+			free(tokens);
+			free(str);
+			break ;
 		}
 		if (ft_lexer(str, &tokens) == -1)
 		{

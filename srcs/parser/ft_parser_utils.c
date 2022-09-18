@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 15:20:32 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/18 18:16:08 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/18 18:28:40 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	ft_count_args(t_tokens *tokens)
 	int			index;
 
 	temp = tokens;
-	index++;
+	index = 0;
 	while (temp)
 	{
 		if (temp->type == WORD || temp->type == BUILTIN)
@@ -72,7 +72,7 @@ int	ft_get_exec_line(t_info **info)
 			}
 			temp = temp->next;
 		}
-		(*info)->cmd_list[index].exec_line[len + 1] = NULL;
+		(*info)->cmd_list[index].exec_line[len] = NULL;
 		index++;
 	}
 }

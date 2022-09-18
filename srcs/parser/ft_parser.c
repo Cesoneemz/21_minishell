@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:05:58 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/18 18:01:56 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/18 18:22:13 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int	ft_edit_type(t_info **info)
 	int			is_heredoc;
 
 	tokens_temp = (*info)->token_head;
+	is_heredoc = 0;
 	while (tokens_temp)
 	{
 		if (tokens_temp->type == HEREDOC)
@@ -40,6 +41,7 @@ static int	ft_edit_file_type(t_info **info)
 	int				is_file;
 
 	tokens_temp = (*info)->token_head;
+	is_file = 0;
 	while (tokens_temp)
 	{
 		if (ft_is_redirect(tokens_temp->type) && is_file == 1)
