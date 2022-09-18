@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 04:56:29 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/18 02:31:05 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/18 18:19:11 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,5 @@ int	ft_is_builtin(char *str)
 		return (1);
 	if (ft_strncmp(str, "exit", 5) == 0)
 		return (1);
+	return (0);
 }

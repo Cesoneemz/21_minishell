@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/18 02:37:44 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/18 18:07:00 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@ typedef enum s_token_types
 	PIPE,
 	HEREDOC,
 	EXP_FIELD,
-	FIELD
+	FIELD,
+	FILE_IN,
+	FILE_OUT,
+	FILE_OUT_APPEND,
+	HEREDOC_ENDLINE
 }			t_token_types;
 
 typedef struct s_tokens
@@ -69,9 +73,8 @@ typedef struct s_cmd_line
 
 typedef struct s_cmd
 {
-	char		*cmd;
-	char		**args;
-	t_cmd_line	*line;
+	t_tokens	*sep_tokens;
+	char		**exec_line;
 	t_redir		*redir;
 }				t_cmd;
 
@@ -85,7 +88,7 @@ typedef struct s_env
 typedef struct s_info
 {
 	t_cmd			*cmd_list;
-	char			**cmd_line;
+	t_tokens		*token_head;
 	int				cmd_count;
 	int				cmd_with_args_count;
 	t_env			*env;
@@ -125,8 +128,9 @@ int			ft_init_cmd(t_info **info, t_tokens *tokens);
 int			ft_create_cmd(t_info *info, t_tokens **tokens, int index);
 char		*ft_quotes_treatment(char *cmd, t_token_types type, t_info *info);
 char		*ft_dollar_treatment(char *cmd, t_info *info, int index);
-int			ft_count_args(t_tokens *tokens);
-
+int			ft_is_redirect(t_token_types type);
+t_token_types	ft_get_new_type(t_token_types type);
+int			ft_get_exec_line(t_info **info);
 
 /* UTILS */
 
@@ -134,8 +138,8 @@ int			ft_is_space(char c);
 char		*ft_remove_spaces(char *str);
 void		ft_print_error(char *message);
 int			ft_check_in_quotes(char *str, int pos, char quote, char other);
-void		ft_free_tokens(t_tokens *tokens);
-void		ft_free_info(t_info *info);
+void		ft_free_tokens(t_tokens **tokens);
+void		ft_free_cmd(t_info **info);
 int			ft_is_builtin(char *str);
 
 #endif
