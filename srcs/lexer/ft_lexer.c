@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 04:56:53 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/17 23:46:15 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/25 15:31:07 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ int	ft_lexer(char *str, t_tokens **tokens)
 	t_tokens	*head;
 
 	if (!ft_check_quotes(str))
+	{
+		ft_print_error("Invalid syntax: unclose quotes\n");
 		return (-1);
+	}
 	index = 0;
 	head = *tokens;
 	ft_lexer_loop(str, tokens);

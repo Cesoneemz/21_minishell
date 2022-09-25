@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 04:56:29 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/18 18:19:11 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/25 15:33:12 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,18 @@ static int	ft_parse_quote(char *str, char c)
 	return (1);
 }
 
+static int	ft_redirect_check(t_token_types type, t_tokens *next)
+{
+	if (ft_is_redirect(type))
+	{
+		if (next == NULL)
+		{
+			ft_print_error("Invalid syntax: parse error near \'\\n\'\n");
+			return (-1);
+		}
+	}
+}
+
 int	ft_finally_lex_analyze(t_tokens *tokens)
 {
 	t_tokens	*temp;
@@ -44,14 +56,13 @@ int	ft_finally_lex_analyze(t_tokens *tokens)
 		if (temp->type == PIPE)
 		{
 			if (prev == NULL)
+			{
+				ft_print_error("Invalid syntax: parse error near \'|\'\n");
 				return (-1);
+			}
 		}
-		if (temp->type == APPEND || temp->type == HEREDOC || \
-		temp->type == TRUNC || temp->type == INPUT)
-		{
-			if (temp->next == NULL)
-				return (-1);
-		}
+		if (ft_redirect_check(temp->type, temp->next))
+			return (-1);
 		prev = temp;
 		temp = temp->next;
 	}

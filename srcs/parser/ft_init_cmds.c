@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:06:13 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/18 18:01:53 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/25 15:12:14 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,11 @@ int	ft_parse_args(t_tokens **tokens, t_info *info, t_tokens **new)
 	char		*arg;
 
 	temp = (*tokens);
-	(*new)->value = ft_strdup(ft_parse_cmd(temp->value, \
-	temp->type, info));
+	arg = ft_parse_cmd(temp->value, temp->type, info);
+	if (arg)
+		(*new)->value = ft_strdup(arg);
+	else
+		(*new)->value = ft_strdup("\n");
 	(*new)->type = temp->type;
 	return (1);
 }

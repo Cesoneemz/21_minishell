@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:07:05 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/18 02:25:14 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/25 16:08:52 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ t_env	*ft_init_env(char **envp)
 		if (!split_content)
 			return (NULL);
 		env->key = ft_strdup(split_content[0]);
-		env->value = ft_strdup(split_content[1]);
+		if (split_content[1])
+			env->value = ft_strdup(split_content[1]);
 		ft_free_split(split_content);
 		if (envp[index + 1] == NULL)
 			break ;

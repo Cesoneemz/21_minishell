@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:04:32 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/15 05:05:23 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/25 15:18:27 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ int	ft_count_cmd(t_tokens *tokens)
 		if (temp->type == PIPE)
 		{
 			counter++;
-			if (temp->next->type == PIPE)
+			if (temp->next && temp->next->type == PIPE)
 				return (-1);
 		}
 		if (temp->next == NULL)
 			break ;
 		temp = temp->next;
 	}
-	if (temp->type == PIPE || temp->type == TRUNC || \
-	temp->type == INPUT || temp->type == APPEND || temp->type == HEREDOC)
+	if (temp->type == TRUNC || temp->type == INPUT || \
+	temp->type == APPEND || temp->type == HEREDOC)
 		return (-1);
 	return (counter);
 }

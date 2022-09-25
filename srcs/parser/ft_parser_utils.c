@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 15:20:32 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/18 18:28:40 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/25 15:40:41 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,25 @@ static int	ft_count_args(t_tokens *tokens)
 	return (index);
 }
 
+static void	ft_init_exec_line(t_info **info, int index)
+{
+	int	len;
+
+	len = ft_count_args((*info)->cmd_list[index].sep_tokens);
+	(*info)->cmd_list[index].exec_line = \
+	(char **)malloc(sizeof(char *) * (len + 1));
+}
+
 int	ft_get_exec_line(t_info **info)
 {
 	int			index;
 	int			jndex;
-	int			len;
 	t_tokens	*temp;
 
 	index = 0;
 	while (index < (*info)->cmd_count)
 	{
-		len = ft_count_args((*info)->cmd_list[index].sep_tokens);
-		(*info)->cmd_list[index].exec_line = \
-		(char **)malloc(sizeof(char *) * (len + 1));
+		ft_init_exec_line(info, index);
 		temp = (*info)->cmd_list[index].sep_tokens;
 		jndex = 0;
 		while (temp)
@@ -72,7 +78,7 @@ int	ft_get_exec_line(t_info **info)
 			}
 			temp = temp->next;
 		}
-		(*info)->cmd_list[index].exec_line[len] = NULL;
+		(*info)->cmd_list[index].exec_line[jndex] = NULL;
 		index++;
 	}
 }
