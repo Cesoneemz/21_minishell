@@ -6,13 +6,63 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:05:58 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/15 05:06:01 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/18 18:22:13 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_parse_command(t_info *info, t_tokens *tokens)
+static int	ft_edit_type(t_info **info)
+{
+	t_tokens	*tokens_temp;
+	int			is_heredoc;
+
+	tokens_temp = (*info)->token_head;
+	is_heredoc = 0;
+	while (tokens_temp)
+	{
+		if (tokens_temp->type == HEREDOC)
+			is_heredoc = 1;
+		else if (is_heredoc == 1 && tokens_temp->value \
+		&& tokens_temp->type != SEP)
+		{
+			tokens_temp->type = HEREDOC_ENDLINE;
+			is_heredoc = 0;
+		}
+		tokens_temp = tokens_temp->next;
+	}
+	return (1);
+}
+
+static int	ft_edit_file_type(t_info **info)
+{
+	t_tokens		*tokens_temp;
+	t_token_types	type;
+	int				is_file;
+
+	tokens_temp = (*info)->token_head;
+	is_file = 0;
+	while (tokens_temp)
+	{
+		if (ft_is_redirect(tokens_temp->type) && is_file == 1)
+			return (0);
+		if (is_file != 1 && ft_is_redirect(tokens_temp->type) \
+		&& tokens_temp->value)
+		{
+			type = tokens_temp->type;
+			is_file = 1;
+		}
+		else if (is_file == 1 && tokens_temp->type != SEP)
+		{
+			tokens_temp->type = ft_get_new_type(type);
+			is_file = 0;
+		}
+		tokens_temp = tokens_temp->next;
+	}
+	return (1);
+}
+
+int	ft_parse_command(t_info **info, t_tokens *tokens)
 {
 	int			index;
 	int			jndex;
@@ -20,7 +70,9 @@ int	ft_parse_command(t_info *info, t_tokens *tokens)
 	t_tokens	*temp;
 
 	if (!ft_init_cmd(info, tokens))
-		return (-1);
+		return (0);
+	if (ft_edit_type(info) == 0 || ft_edit_file_type(info) == 0)
+		return (0);
 	index = 0;
 	temp = tokens;
 	while (tokens != NULL)
@@ -31,9 +83,9 @@ int	ft_parse_command(t_info *info, t_tokens *tokens)
 			tokens = tokens->next;
 		}
 		else
-			ft_create_cmd(info, &tokens, index);
+			ft_create_cmd((*info), &tokens, index);
 	}
 	tokens = temp;
-	ft_free_tokens(tokens);
+	ft_get_exec_line(info);
 	return (1);
 }

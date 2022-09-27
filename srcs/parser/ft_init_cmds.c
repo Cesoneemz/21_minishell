@@ -6,22 +6,22 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:06:13 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/15 05:06:39 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/25 15:12:14 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_init_cmd(t_info *info, t_tokens *tokens)
+int	ft_init_cmd(t_info **info, t_tokens *tokens)
 {
 	t_tokens	*temp;
 	int			index;
 
-	info->cmd_count = ft_count_cmd(tokens);
-	if (info->cmd_count == -1)
+	(*info)->cmd_count = ft_count_cmd(tokens);
+	if ((*info)->cmd_count == -1)
 		return (-1);
-	info->cmd_list = (t_cmd *)malloc(info->cmd_count * sizeof(t_cmd));
-	if (!info->cmd_list)
+	(*info)->cmd_list = (t_cmd *)malloc((*info)->cmd_count * sizeof(t_cmd));
+	if (!(*info)->cmd_list)
 		return (-1);
 	return (1);
 }
@@ -42,40 +42,40 @@ char	*ft_parse_cmd(char *cmd, t_token_types type, t_info *info)
 	return (cmd);
 }
 
-char	**ft_parse_args(t_tokens **tokens, t_info *info)
+int	ft_parse_args(t_tokens **tokens, t_info *info, t_tokens **new)
 {
-	int		args_count;
-	char	**args;
-	int		index;
+	int			args_count;
+	t_tokens	*temp;
+	char		*arg;
 
-	args_count = ft_count_args(*tokens);
-	args = (char **)malloc((args_count + 1) * sizeof(char *));
-	if (!args)
-		return (NULL);
-	ft_memset(args, '\0', (args_count + 1) * sizeof(char *));
-	index = 0;
-	while (index < args_count)
-	{
-		if ((*tokens)->type != SEP)
-		{
-			args[index] = ft_strdup(ft_parse_cmd((*tokens)->value, \
-			(*tokens)->type, info));
-			index++;
-		}
-		(*tokens) = (*tokens)->next;
-	}
-	args[index] = NULL;
-	while (*tokens != NULL && (*tokens)->type == SEP)
-		(*tokens) = (*tokens)->next;
-	return (args);
+	temp = (*tokens);
+	arg = ft_parse_cmd(temp->value, temp->type, info);
+	if (arg)
+		(*new)->value = ft_strdup(arg);
+	else
+		(*new)->value = ft_strdup("\n");
+	(*new)->type = temp->type;
+	return (1);
 }
 
 int	ft_create_cmd(t_info *info, t_tokens **tokens, int index)
 {
-	while ((*tokens)->type == SEP)
+	t_tokens	*head;
+
+	info->cmd_list[index].sep_tokens = ft_new_token();
+	head = info->cmd_list[index].sep_tokens;
+	while (*(tokens) && ((*tokens)->type) != PIPE)
+	{
+		while ((*tokens)->type == SEP && (*tokens))
+			(*tokens) = (*tokens)->next;
+		ft_parse_args(tokens, info, &info->cmd_list[index].sep_tokens);
+		if ((*tokens)->next && (*tokens)->next->type != PIPE)
+		{
+			info->cmd_list[index].sep_tokens->next = ft_new_token();
+			info->cmd_list[index].sep_tokens = \
+			info->cmd_list[index].sep_tokens->next;
+		}
 		(*tokens) = (*tokens)->next;
-	info->cmd_list[index].cmd = ft_parse_cmd(\
-	ft_strdup((*tokens)->value), (*tokens)->type, info);
-	(*tokens) = (*tokens)->next;
-	info->cmd_list[index].args = ft_parse_args(tokens, info);
+	}
+	info->cmd_list[index].sep_tokens = head;
 }

@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 04:56:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/15 05:02:26 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/25 14:39:36 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int	ft_tokenize_str(char *str, int index, t_tokens *tokens)
 
 void	ft_get_type_of_token(t_tokens *tokens)
 {
+	if (ft_is_builtin(tokens->value))
+		tokens->type = BUILTIN;
 	if (ft_strncmp(tokens->value, ">", 1) == 0)
 		tokens->type = TRUNC;
 	if (ft_strncmp(tokens->value, "<", 1) == 0)
