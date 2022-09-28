@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:06:13 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/25 15:12:14 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/28 15:41:14 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,22 @@ int	ft_parse_args(t_tokens **tokens, t_info *info, t_tokens **new)
 	return (1);
 }
 
-int	ft_create_cmd(t_info *info, t_tokens **tokens, int index)
+void	ft_create_cmd(t_info *info, t_tokens **tokens, int index)
 {
 	t_tokens	*head;
 
 	info->cmd_list[index].sep_tokens = ft_new_token();
 	head = info->cmd_list[index].sep_tokens;
-	while (*(tokens) && ((*tokens)->type) != PIPE)
+	while (*(tokens))
 	{
 		while ((*tokens)->type == SEP && (*tokens))
 			(*tokens) = (*tokens)->next;
+		if ((*tokens)->type == PIPE)
+		{
+			if (info->cmd_list[index].sep_tokens->value == NULL)
+				free(info->cmd_list[index].sep_tokens);
+			break ;
+		}
 		ft_parse_args(tokens, info, &info->cmd_list[index].sep_tokens);
 		if ((*tokens)->next && (*tokens)->next->type != PIPE)
 		{

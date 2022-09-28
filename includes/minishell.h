@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/25 16:07:51 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/28 18:05:00 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void			ft_get_type_of_token(t_tokens *tokens);
 int				ft_parse_command(t_info **info, t_tokens *tokens);
 int				ft_count_cmd(t_tokens *tokens);
 int				ft_init_cmd(t_info **info, t_tokens *tokens);
-int				ft_create_cmd(t_info *info, t_tokens **tokens, int index);
+void			ft_create_cmd(t_info *info, t_tokens **tokens, int index);
 char			*ft_quotes_treatment(char *cmd, t_token_types type, \
 									t_info *info);
 char			*ft_dollar_treatment(char *cmd, t_info *info, int index);
