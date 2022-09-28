@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/28 23:12:17 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/09/29 00:45:30 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	//rl_catch_signals = 0;
+	most_recent_code = 0;
 	info = ft_init_info();
 	info->env = ft_init_env(envp);
 	signal(SIGINT, ft_signal_handler);
@@ -86,6 +87,11 @@ int	main(int argc, char **argv, char **envp)
 			ft_free_exit(&tokens, &info, str);
 			break ;
 		}
+		else if (strncmp(str, "$?", 2) == 0)
+		{
+			printf("-minishell: %d: command not found \n", most_recent_code);
+			continue ;
+		}	
 		if (ft_main_loop(&info, &tokens, str) == -2)
 			continue ;
 	//	print_tmp_tokens(info);
