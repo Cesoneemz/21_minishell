@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/28 18:05:00 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/29 01:26:47 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ char			*ft_get_env(t_env *env, char *key);
 void			ft_lstadd_back_env(t_env **lst, t_env *new);
 t_env			*ft_lstnew_env(char *key, char *value);
 t_env			*ft_init_env_node(void);
+void			ft_set_env(t_env **env, char *key, char *value);
+void			ft_init_env_misc(t_env **env);
 
 /* LEXER */
 

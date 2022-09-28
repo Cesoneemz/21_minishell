@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/28 15:47:34 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/09/29 01:26:18 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	main(int argc, char **argv, char **envp)
 	rl_catch_signals = 0;
 	info = ft_init_info();
 	info->env = ft_init_env(envp);
+	ft_init_env_misc(&info->env);
 	signal(SIGINT, ft_signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 	while (!info->exit_t)
