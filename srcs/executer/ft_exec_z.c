@@ -6,11 +6,11 @@
 /*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 21:41:02 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/09/27 17:29:49 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/09/28 22:05:27 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "executer.h"
 
 int	ft_exec_z(char *cmd_path, char **newargv, char **envp)
 {

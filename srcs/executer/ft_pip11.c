@@ -6,11 +6,11 @@
 /*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:25:21 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/09/27 21:14:04 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/09/28 22:05:38 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "executer.h"
 
 int param_count(char ***par)
 {
@@ -134,7 +134,7 @@ pid_t	exec_in_out1(int fd_in[2], int fd_out[2], char *param1, char **envp)
 	return (pid);
 }
 
-int	exec_recurs(int count, char **arg4, char **envp, int fd[2])
+int	exec_in_recurse1(int count, char **arg4, char **envp, int fd[2])
 {
 	int		fd2[2];
 	int		maxcount;
@@ -170,7 +170,7 @@ int	exec_recurs(int count, char **arg4, char **envp, int fd[2])
 			close (fd[0]);
 			close (fd[1]);
 		}
-		exec_recurs(--count, arg4, envp, fd2);
+		exec_in_recurse1(--count, arg4, envp, fd2);
 	}
 	else if (count == 1)
 	{

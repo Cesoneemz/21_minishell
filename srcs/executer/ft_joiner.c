@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_joiner.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:25:35 by Wmiyu             #+#    #+#             */
-/*   Updated: 2022/09/14 19:27:53 by Wmiyu            ###   ########.fr       */
+/*   Updated: 2022/09/28 22:05:35 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "executer.h"
 
 static char	*ft_strcpy(const char *src)
 {

@@ -6,11 +6,11 @@
 /*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:11:23 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/09/27 18:25:21 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/09/28 22:05:13 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "executer.h"
 
 int	check_builtins(char *cmd)
 {

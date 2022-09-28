@@ -6,11 +6,11 @@
 /*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 01:11:25 by Wmiyu             #+#    #+#             */
-/*   Updated: 2022/09/25 22:16:22 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/09/28 22:05:42 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "executer.h"
 
 static void	ft_strxlcpy(const char *str1, char *dst, int x, int l)
 {
