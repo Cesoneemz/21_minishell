@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_make_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:32:00 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/09/28 23:02:19 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/09/30 11:11:44 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ char	**make_cmd_list(t_info *info)
 	char		**cmd_list;
 	char		*tmp;
 
-	cmd_list = (char **)malloc(sizeof(char *) * (info->cmd_count + 1));
-	cmd_list[info->cmd_count] = NULL;
+	cmd_list = ft_calloc(info->cmd_count + 1, sizeof(char *));
 	i = 0;
 	tmp = NULL;
 	while (i < info->cmd_count)
@@ -53,9 +52,8 @@ char	**make_cmd_list(t_info *info)
 			else
 			{
 				tmp = cmd_list[i];
-				cmd_list[i] =  \
+				cmd_list[i] = \
 				ft_strjoin(ft_strjoin(cmd_list[i], " "), tmp_tokens->value);
-				free (tmp);
 			}
 			tmp_tokens = tmp_tokens->next;
 		}
