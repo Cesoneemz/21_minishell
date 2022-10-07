@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:05:58 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/18 18:22:13 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/03 18:29:14 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ static int	ft_edit_file_type(t_info **info)
 int	ft_parse_command(t_info **info, t_tokens *tokens)
 {
 	int			index;
-	int			jndex;
-	int			args_count;
+	//int			jndex;
+	//int			args_count;
 	t_tokens	*temp;
 
 	if (!ft_init_cmd(info, tokens))

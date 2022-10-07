@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:06:13 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/28 15:41:14 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/07 16:05:32 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_init_cmd(t_info **info, t_tokens *tokens)
 {
-	t_tokens	*temp;
-	int			index;
+//	t_tokens	*temp;
+//	int			index;
 
 	(*info)->cmd_count = ft_count_cmd(tokens);
 	if ((*info)->cmd_count == -1)
@@ -33,7 +33,7 @@ char	*ft_parse_cmd(char *cmd, t_token_types type, t_info *info)
 	index = 0;
 	if (type == EXP_FIELD)
 		return (ft_quotes_treatment(cmd, type, info));
-	while (cmd[index] != '\0' && type != FIELD)
+	while (cmd && cmd[index] != '\0' && type != FIELD)
 	{
 		if (cmd[index] == '$')
 			return (ft_dollar_treatment(cmd, info, index));
@@ -44,11 +44,14 @@ char	*ft_parse_cmd(char *cmd, t_token_types type, t_info *info)
 
 int	ft_parse_args(t_tokens **tokens, t_info *info, t_tokens **new)
 {
-	int			args_count;
+//	int			args_count;
 	t_tokens	*temp;
 	char		*arg;
 
 	temp = (*tokens);
+	arg = NULL;
+	if (!*tokens)
+		return (0);
 	arg = ft_parse_cmd(temp->value, temp->type, info);
 	if (arg)
 		(*new)->value = ft_strdup(arg);
@@ -64,11 +67,11 @@ void	ft_create_cmd(t_info *info, t_tokens **tokens, int index)
 
 	info->cmd_list[index].sep_tokens = ft_new_token();
 	head = info->cmd_list[index].sep_tokens;
-	while (*(tokens))
+	while (tokens && *(tokens))
 	{
-		while ((*tokens)->type == SEP && (*tokens))
+		while ((*tokens) && (*tokens)->type == SEP)
 			(*tokens) = (*tokens)->next;
-		if ((*tokens)->type == PIPE)
+		if ((*tokens) && (*tokens)->type == PIPE)
 		{
 			if (info->cmd_list[index].sep_tokens->value == NULL)
 				free(info->cmd_list[index].sep_tokens);

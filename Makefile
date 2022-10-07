@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+         #
+#    By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/06 11:31:44 by wlanette          #+#    #+#              #
-#    Updated: 2022/09/29 00:52:06 by wlanette         ###   ########.fr        #
+#    Updated: 2022/10/04 18:09:47 by wmiyu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,21 @@ SRCS		= ./srcs/main.c ./srcs/ft_init.c ./srcs/lexer/ft_lexer.c \
 				./srcs/lexer/ft_init_tokens.c ./srcs/utils/ft_is_space.c ./srcs/utils/ft_free_tokens.c \
 				./srcs/env/ft_env.c ./srcs/parser/ft_count_cmds.c ./srcs/parser/ft_init_cmds.c \
 				./srcs/parser/ft_parser.c ./srcs/parser/ft_treatment.c ./srcs/env/ft_env_list.c \
-				./srcs/parser/ft_parser_utils.c ./srcs/utils/ft_free_in_loop.c ./srcs/env/ft_env_set.c
+				./srcs/env/ft_env_set.c \
+				./srcs/parser/ft_parser_utils.c ./srcs/utils/ft_free_in_loop.c \
+				./srcs/executer/ft_builtins.c ./srcs/executer/ft_exec_z.c \
+				./srcs/executer/ft_execute.c ./srcs/executer/ft_joiner.c \
+				./srcs/executer/ft_pip11.c ./srcs/executer/ft_split.c ./srcs/executer/ft_strjoin.c \
+				./srcs/executer/ft_make_cmd.c ./srcs/executer/ft_cd.c \
+				./srcs/executer/ft_echo.c ./srcs/executer/ft_built_env.c \
+				./srcs/executer/ft_make_env.c
 OBJS		= $(SRCS:.c=.o)
 
 INCS		= ./includes/
 INCS_HEADER	= ./includes/minishell.h
 
 CC			= cc
-CFLAGS		= -I$(INCS) -g
+CFLAGS		= -I$(INCS) -g -Wall -Werror -Wextra 
 RM			= rm -rf
 
 LIBFT		= ./includes/libft/libft.a
@@ -31,7 +38,7 @@ LIBFT		= ./includes/libft/libft.a
 all:		$(NAME) $(LIBFT)
 
 $(NAME):	$(OBJS) $(INCS_HEADER) $(LIBFT)
-			$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include -o $(NAME)
+			$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include -o $(NAME)
 
 $(LIBFT):	
 			@make bonus -C ./includes/libft/

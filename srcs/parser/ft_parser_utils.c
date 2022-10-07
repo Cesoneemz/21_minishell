@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 15:20:32 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/28 18:12:25 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/03 18:29:35 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,5 @@ int	ft_get_exec_line(t_info **info)
 		(*info)->cmd_list[index].exec_line[jndex] = NULL;
 		index++;
 	}
+	return (0);
 }

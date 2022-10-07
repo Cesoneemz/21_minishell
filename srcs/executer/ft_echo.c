@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_in_loop.c                                  :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/25 15:51:03 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/03 17:19:37 by wmiyu            ###   ########.fr       */
+/*   Created: 2022/10/03 23:20:57 by wmiyu             #+#    #+#             */
+/*   Updated: 2022/10/03 23:21:45 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "executer.h"
 
-void	ft_free_exit(t_tokens **tokens, t_info **info, char *str)
+int	ft_echo(char **arglist)
 {
-	//rl_clear_history();
-	ft_free_env(&(*info)->env);
-	free(*info);
-	free(*tokens);
-	free(str);
+	int	i;
+	int	n_opt;
+
+	i = 0;
+	n_opt = 0;
+	if (arglist[1] && strncmp("-n", arglist[1], 2) == 0)
+	{
+		i++;
+		n_opt = 1;
+	}
+	while (arglist[++i])
+	{
+		write(STDOUT_FILENO, arglist[i], ft_strlen(arglist[i]));
+		write(STDOUT_FILENO, " ", 1);
+	}
+	if (!n_opt)
+		write(STDOUT_FILENO, "\n", 1);
+	return (0);
 }

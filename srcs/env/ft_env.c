@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:07:05 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/29 01:27:10 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/05 16:08:46 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_get_env(t_env *env, char *key)
 {
-	t_env	*value;
+//	t_env	*value;
 	t_env	*temp;
 
 	if (!env || !key)
@@ -51,9 +51,11 @@ void	ft_init_env_misc(t_env **env)
 	char	*shell;
 
 	shell = ft_get_env((*env), "SHLVL");
-	shlvl = ft_atoi(shell);
+	shlvl = 1;
+	if (shell)
+		shlvl = ft_atoi(shell);
 	ft_set_env(env, "SHLVL", ft_itoa(++shlvl));
-	ft_set_env(env, "PWD", (char *)getcwd(NULL, 0));
+	//ft_set_env(env, "PWD", (char *)getcwd(NULL, 0));
 }
 
 t_env	*ft_init_env(char **envp)

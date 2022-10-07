@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:03:37 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/18 18:32:54 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/03 18:25:45 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_free_tokens(t_tokens **tokens)
 
 void	ft_free_cmd(t_info **info)
 {
-	t_tokens	*temp;
+//	t_tokens	*temp;
 	int			index;
 	int			jndex;
 

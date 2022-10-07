@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/29 01:26:18 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/07 16:49:21 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "executer.h"
 
 static char	*ft_readline(char *prompt)
 {
@@ -28,7 +29,7 @@ static void	ft_signal_handler(int signal)
 	{
 		printf("\n");
 		rl_on_new_line();
-		rl_replace_line("", 0);
+		//rl_replace_line("", 0);
 		rl_redisplay();
 	}
 	else if (signal == SIGQUIT)
@@ -56,33 +57,53 @@ int	ft_main_loop(t_info **info, t_tokens **tokens, char *str)
 	}
 	(*info)->token_head = (*tokens);
 	ft_parse_command(info, (*tokens));
+	return (0);
 }
+
+char	**make_cmd_list(t_info *info);
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_info		*info;
 	char		*str;
 	t_tokens	*tokens;
+	char		**cmd_list;
+	int			most_recent_code;
 
 	(void)argc;
 	(void)argv;
-	rl_catch_signals = 0;
+	//rl_catch_signals = 0;
+	most_recent_code = 0;
 	info = ft_init_info();
 	info->env = ft_init_env(envp);
-	ft_init_env_misc(&info->env);
 	signal(SIGINT, ft_signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 	while (!info->exit_t)
 	{
 		tokens = ft_new_token();
-		str = ft_readline("minishell$>");
-		if (str == NULL || ft_strncmp(str, "exit", 5) == 0)
+		str = ft_readline(" (_*_) MiniShell v.0.15e $> ");
+		if (strncmp(str, "$?", 2) == 0)
 		{
-			ft_free_exit(&tokens, &info, str);
-			break ;
-		}
+			printf("-minishell: %d: command not found \n", most_recent_code);
+			continue ;
+		}	
 		if (ft_main_loop(&info, &tokens, str) == -2)
 			continue ;
+	//	print_tmp_tokens(info);
+		cmd_list = make_cmd_list(info);
+		if (info->cmd_count == 1 &&  check_builtins(cmd_list[0]))
+		{
+			most_recent_code = ft_run_builtin(cmd_list, info);
+		}
+		else
+			most_recent_code = exec_in_recurse1(info->cmd_count, cmd_list, make_env_list(info->env), NULL);
+/*=-=-=-=-=-==-=======---=-=-=-=-=-=-=-=-=-=-=-=-=-
+		if (most_recent_code == 153)
+			most_recent_code = ft_cd_parent(cmd_list);
+		else if (most_recent_code == 154)
+			most_recent_code = ft_built_env(cmd_list, envp);
+=-=-=-=-=-==-=======---=-=-=-=-=-=-=-=-=-=-=-=-=-*/
+		ft_freesplit(&cmd_list);
 		ft_free_all(&info, &tokens, str);
 	}
 	return (0);
