@@ -65,8 +65,6 @@ static int	ft_edit_file_type(t_info **info)
 int	ft_parse_command(t_info **info, t_tokens *tokens)
 {
 	int			index;
-	//int			jndex;
-	//int			args_count;
 	t_tokens	*temp;
 
 	if (!ft_init_cmd(info, tokens))
@@ -83,7 +81,10 @@ int	ft_parse_command(t_info **info, t_tokens *tokens)
 			tokens = tokens->next;
 		}
 		else
-			ft_create_cmd((*info), &tokens, index);
+		{
+			if (ft_create_cmd((*info), &tokens, index)  == -1)
+				return (-1);
+		}
 	}
 	tokens = temp;
 	ft_get_exec_line(info);

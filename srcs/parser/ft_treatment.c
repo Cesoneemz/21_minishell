@@ -37,6 +37,8 @@ char	*ft_dollar_treatment(char *cmd, t_info *info, int index)
 	while (!ft_is_end_of_str(cmd[index]))
 		env_len++;
 	env_key = ft_substr(cmd, 1, env_len - 1);
+	if (ft_strncmp(env_key, "?", 1) == 0)
+		return (ft_itoa(info->exit_code));
 	value = ft_get_env(info->env, env_key);
 	if (!value)
 	{

@@ -31,7 +31,7 @@ void	ft_lexer_loop(char *str, t_tokens **tokens)
 		}
 		if (str[index] == '\"' || str[index] == '\'')
 		{
-			index += ft_tokenize_quotes(str, index + 1, (*tokens));
+			index += ft_tokenize_quotes(str, index + 1, (*tokens), str[index]);
 			continue ;
 		}
 		index += ft_tokenize_str(str, index, (*tokens));

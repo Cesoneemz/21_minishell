@@ -92,7 +92,7 @@ typedef struct s_info
 	int				cmd_count;
 	int				cmd_with_args_count;
 	t_env			*env;
-	char			exit_t;
+	char			exit_code;
 }					t_info;
 
 /* INITIALIZATION */
@@ -118,7 +118,7 @@ int				ft_get_len_of_token(char *str, int index, t_tokens *tokens);
 int				ft_finally_lex_analyze(t_tokens *tokens);
 void			ft_lexer_loop(char *str, t_tokens **tokens);
 int				ft_tokenize_sep(char *str, int index, t_tokens *tokens);
-int				ft_tokenize_quotes(char *str, int index, t_tokens *tokens);
+int				ft_tokenize_quotes(char *str, int index, t_tokens *tokens, char quote);
 int				ft_tokenize_str(char *str, int index, t_tokens *tokens);
 void			ft_get_type_of_token(t_tokens *tokens);
 
@@ -127,7 +127,7 @@ void			ft_get_type_of_token(t_tokens *tokens);
 int				ft_parse_command(t_info **info, t_tokens *tokens);
 int				ft_count_cmd(t_tokens *tokens);
 int				ft_init_cmd(t_info **info, t_tokens *tokens);
-void			ft_create_cmd(t_info *info, t_tokens **tokens, int index);
+int				ft_create_cmd(t_info *info, t_tokens **tokens, int index);
 char			*ft_quotes_treatment(char *cmd, t_token_types type, \
 									t_info *info);
 char			*ft_dollar_treatment(char *cmd, t_info *info, int index);

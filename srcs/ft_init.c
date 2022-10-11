@@ -21,6 +21,6 @@ t_info	*ft_init_info(void)
 		return (NULL);
 	info->cmd_list = NULL;
 	info->cmd_count = 0;
-	info->exit_t = 0;
+	info->exit_code = 0;
 	return (info);
 }

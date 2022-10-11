@@ -45,12 +45,12 @@ int	ft_tokenize_sep(char *str, int index, t_tokens *tokens)
 	return (tokens->len);
 }
 
-int	ft_tokenize_quotes(char *str, int index, t_tokens *tokens)
+int	ft_tokenize_quotes(char *str, int index, t_tokens *tokens, char quote)
 {
 	int	temp;
 
 	temp = index;
-	while (str[index] != '\"' && str[index] != '\'')
+	while (str[index] != quote)
 	{
 		tokens->len++;
 		index++;

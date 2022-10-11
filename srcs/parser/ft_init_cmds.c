@@ -44,7 +44,6 @@ char	*ft_parse_cmd(char *cmd, t_token_types type, t_info *info)
 
 int	ft_parse_args(t_tokens **tokens, t_info *info, t_tokens **new)
 {
-//	int			args_count;
 	t_tokens	*temp;
 	char		*arg;
 
@@ -61,7 +60,7 @@ int	ft_parse_args(t_tokens **tokens, t_info *info, t_tokens **new)
 	return (1);
 }
 
-void	ft_create_cmd(t_info *info, t_tokens **tokens, int index)
+int	ft_create_cmd(t_info *info, t_tokens **tokens, int index)
 {
 	t_tokens	*head;
 
@@ -71,6 +70,8 @@ void	ft_create_cmd(t_info *info, t_tokens **tokens, int index)
 	{
 		while ((*tokens) && (*tokens)->type == SEP)
 			(*tokens) = (*tokens)->next;
+		if (!(*tokens))
+			return (-1);
 		if ((*tokens) && (*tokens)->type == PIPE)
 		{
 			if (info->cmd_list[index].sep_tokens->value == NULL)
@@ -87,4 +88,5 @@ void	ft_create_cmd(t_info *info, t_tokens **tokens, int index)
 		(*tokens) = (*tokens)->next;
 	}
 	info->cmd_list[index].sep_tokens = head;
+	return (0);
 }

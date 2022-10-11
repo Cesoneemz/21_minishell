@@ -14,7 +14,6 @@
 
 char	*ft_get_env(t_env *env, char *key)
 {
-//	t_env	*value;
 	t_env	*temp;
 
 	if (!env || !key)
