@@ -25,16 +25,17 @@ static char	*ft_readline(char *prompt)
 
 static void	ft_signal_handler(int signal)
 {
-	if (signal == 2)
+	if (signal == SIGINT)
 	{
 		printf("\n");
 		rl_on_new_line();
-		//rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 	else if (signal == SIGQUIT)
 	{
 		ft_print_error("Exit (core dumped)");
+		write(1, "\b\b  \b\b", 7);
 		exit (1);
 	}
 }
@@ -73,7 +74,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	//rl_catch_signals = 0;
+	rl_catch_signals = 0;
 	most_recent_code = 0;
 	info = ft_init_info();
 	info->env = ft_init_env(envp);
@@ -83,21 +84,16 @@ int	main(int argc, char **argv, char **envp)
 	{
 		tokens = ft_new_token();
 		str = ft_readline(" (_*_) MiniShell v.0.15e $> ");
+		if (!str)
+			break ;
 		if (ft_strlen(str) <= 0)
 			continue ;
-		if (ft_strncmp(str, "$?", 2) == 0)
-		{
-			printf("-minishell: %d: command not found \n", most_recent_code);
-			continue ;
-		}	
 		if (ft_main_loop(&info, &tokens, str) == -2)
 			continue ;
 	//	print_tmp_tokens(info);
 		cmd_list = make_cmd_list(info);
 		if (info->cmd_count == 1 &&  check_builtins(cmd_list[0]))
-		{
 			most_recent_code = ft_run_builtin(cmd_list, info);
-		}
 		else
 			most_recent_code = exec_in_recurse1(info->cmd_count, cmd_list, make_env_list(info->env), NULL);
 		info->exit_code = most_recent_code;

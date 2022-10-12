@@ -37,11 +37,9 @@ char	**make_cmd_list(t_info *info)
 	int			i;
 	t_tokens	*tmp_tokens;
 	char		**cmd_list;
-	char		*tmp;
 
 	cmd_list = ft_calloc(info->cmd_count + 1, sizeof(char *));
 	i = 0;
-	tmp = NULL;
 	while (i < info->cmd_count)
 	{
 		tmp_tokens = info->cmd_list[i].sep_tokens;
@@ -51,7 +49,6 @@ char	**make_cmd_list(t_info *info)
 				cmd_list[i] = ft_strjoin(tmp_tokens->value, "");
 			else
 			{
-				tmp = cmd_list[i];
 				cmd_list[i] = \
 				ft_strjoin(ft_strjoin(cmd_list[i], "\t"), tmp_tokens->value);
 			}

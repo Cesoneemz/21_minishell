@@ -54,7 +54,7 @@ void	ft_init_env_misc(t_env **env)
 	if (shell)
 		shlvl = ft_atoi(shell);
 	ft_set_env(env, "SHLVL", ft_itoa(++shlvl));
-	//ft_set_env(env, "PWD", (char *)getcwd(NULL, 0));
+	ft_set_env(env, "PWD", (char *)getcwd(NULL, 0));
 }
 
 t_env	*ft_init_env(char **envp)

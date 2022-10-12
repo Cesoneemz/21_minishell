@@ -29,16 +29,17 @@ OBJS		= $(SRCS:.c=.o)
 INCS		= ./includes/
 INCS_HEADER	= ./includes/minishell.h
 
-CC			= cc
-CFLAGS		= -I$(INCS) -g -Wall -Wextra 
+CC			= clang
+CFLAGS		= -I$(INCS) -g -Wall -Wextra
 RM			= rm -rf
 
 LIBFT		= ./includes/libft/libft.a
+READLINE    = -I/opt/homebrew/opt/readline/include -L/opt/homebrew/opt/readline/lib -lreadline
 
 all:		$(NAME) $(LIBFT)
 
 $(NAME):	$(OBJS) $(INCS_HEADER) $(LIBFT)
-			$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include -o $(NAME)
+			$(CC) $(READLINE) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 $(LIBFT):	
 			@make bonus -C ./includes/libft/
