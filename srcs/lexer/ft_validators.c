@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 04:56:29 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/28 15:25:41 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/13 01:28:45 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,8 @@ int	ft_finally_lex_analyze(t_tokens *tokens)
 	prev = NULL;
 	while (temp)
 	{
-		if (temp->type == PIPE)
-		{
-			if (prev == NULL)
-			{
-				ft_print_error("Invalid syntax: parse error near \'|\'\n");
-				return (-1);
-			}
-			temp = temp->next;
-			while (temp->type == SEP)
-				temp = temp->next;
-			if (temp->type == PIPE)
-			{
-				ft_print_error("Invalid syntax: parse error near \'|\'\n");
-				return (-1);
-			}
-		}
+		if (ft_check_pipes(temp, prev) == -1)
+			return (-1);
 		if (ft_redirect_check(temp->type, temp->next))
 			return (-1);
 		prev = temp;

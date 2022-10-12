@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/29 01:26:47 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/13 01:28:17 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ int				ft_tokenize_sep(char *str, int index, t_tokens *tokens);
 int				ft_tokenize_quotes(char *str, int index, t_tokens *tokens, char quote);
 int				ft_tokenize_str(char *str, int index, t_tokens *tokens);
 void			ft_get_type_of_token(t_tokens *tokens);
+int				ft_check_pipes(t_tokens *temp, t_tokens *prev);
 
 /* PARSER */
 
