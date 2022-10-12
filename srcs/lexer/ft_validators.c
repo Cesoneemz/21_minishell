@@ -61,6 +61,14 @@ int	ft_finally_lex_analyze(t_tokens *tokens)
 				ft_print_error("Invalid syntax: parse error near \'|\'\n");
 				return (-1);
 			}
+			temp = temp->next;
+			while (temp->type == SEP)
+				temp = temp->next;
+			if (temp->type == PIPE)
+			{
+				ft_print_error("Invalid syntax: parse error near \'|\'\n");
+				return (-1);
+			}
 		}
 		if (ft_redirect_check(temp->type, temp->next))
 			return (-1);

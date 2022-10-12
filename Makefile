@@ -30,7 +30,7 @@ INCS		= ./includes/
 INCS_HEADER	= ./includes/minishell.h
 
 CC			= clang
-CFLAGS		= -I$(INCS) -g -Wall -Wextra
+CFLAGS		= -I$(INCS) -g -Wall -Wextra -I/opt/homebrew/opt/readline/include -L/opt/homebrew/opt/readline/lib -lreadline 
 RM			= rm -rf
 
 LIBFT		= ./includes/libft/libft.a
@@ -39,7 +39,8 @@ READLINE    = -I/opt/homebrew/opt/readline/include -L/opt/homebrew/opt/readline/
 all:		$(NAME) $(LIBFT)
 
 $(NAME):	$(OBJS) $(INCS_HEADER) $(LIBFT)
-			$(CC) $(READLINE) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+			$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+			
 
 $(LIBFT):	
 			@make bonus -C ./includes/libft/

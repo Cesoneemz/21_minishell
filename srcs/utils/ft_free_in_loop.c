@@ -14,7 +14,7 @@
 
 void	ft_free_exit(t_tokens **tokens, t_info **info, char *str)
 {
-	//rl_clear_history();
+	rl_clear_history();
 	ft_free_env(&(*info)->env);
 	free(*info);
 	free(*tokens);

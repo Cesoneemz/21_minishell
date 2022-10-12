@@ -67,7 +67,7 @@ int	ft_parse_command(t_info **info, t_tokens *tokens)
 	int			index;
 	t_tokens	*temp;
 
-	if (!ft_init_cmd(info, tokens))
+	if (ft_init_cmd(info, tokens) == -1)
 		return (0);
 	if (ft_edit_type(info) == 0 || ft_edit_file_type(info) == 0)
 		return (0);
