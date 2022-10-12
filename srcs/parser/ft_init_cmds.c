@@ -14,9 +14,6 @@
 
 int	ft_init_cmd(t_info **info, t_tokens *tokens)
 {
-//	t_tokens	*temp;
-//	int			index;
-
 	(*info)->cmd_count = ft_count_cmd(tokens);
 	if ((*info)->cmd_count == -1)
 		return (-1);
@@ -29,14 +26,16 @@ int	ft_init_cmd(t_info **info, t_tokens *tokens)
 char	*ft_parse_cmd(char *cmd, t_token_types type, t_info *info)
 {
 	int			index;
+	char		*expanded;
 
 	index = 0;
 	if (type == EXP_FIELD)
 		return (ft_quotes_treatment(cmd, type, info));
+	expanded = ft_calloc(1, 1);
 	while (cmd && cmd[index] != '\0' && type != FIELD)
 	{
 		if (cmd[index] == '$')
-			return (ft_dollar_treatment(cmd, info, index));
+			expanded = ft_strjoin(expanded, (ft_dollar_treatment(cmd, info, index)));
 		index++;
 	}
 	return (cmd);
