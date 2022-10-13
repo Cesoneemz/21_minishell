@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:06:13 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/13 19:25:19 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/13 19:33:59 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ char	*ft_parse_cmd(char *cmd, t_token_types type, t_info *info)
 	{
 		expanded = ft_strjoin(expanded, \
 		ft_parse_cmd_part_2(&index, &info, cmd, type));
-		index++;
 	}
 	if (ft_strlen(expanded) <= 0)
 	{
