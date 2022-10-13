@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:06:13 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/13 02:17:33 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/13 16:33:04 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,28 +60,33 @@ int	ft_parse_args(t_tokens **tokens, t_info *info, t_tokens **new)
 	return (1);
 }
 
+void	ft_create_a_new_sep_token(t_tokens **new)
+{
+	(*new)->next = ft_new_token();
+	(*new) = (*new)->next;
+}
+
 int	ft_create_cmd(t_info *info, t_tokens **tokens, int index)
 {
 	t_tokens	*head;
+	int			i;
 
 	info->cmd_list[index].sep_tokens = ft_new_token();
 	head = info->cmd_list[index].sep_tokens;
+	i = 0;
 	while (tokens && *(tokens))
 	{
 		while ((*tokens) && (*tokens)->type == SEP)
 			(*tokens) = (*tokens)->next;
 		if (!(*tokens))
 			return (-1);
-		if ((*tokens) && (*tokens)->type != PIPE)
-		{
-			info->cmd_list[index].sep_tokens->next = ft_new_token();
-			info->cmd_list[index].sep_tokens = \
-			info->cmd_list[index].sep_tokens->next;
-		}
+		if ((*tokens) && (*tokens)->type != PIPE && i != 0)
+			ft_create_a_new_sep_token(&info->cmd_list[index].sep_tokens);
 		if ((*tokens) && (*tokens)->type == PIPE)
 			break ;
 		ft_parse_args(tokens, info, &info->cmd_list[index].sep_tokens);
 		(*tokens) = (*tokens)->next;
+		i++;
 	}
 	info->cmd_list[index].sep_tokens = head;
 	return (0);
