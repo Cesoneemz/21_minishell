@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:05:58 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/03 18:29:14 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/13 17:18:38 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	ft_parse_command(t_info **info, t_tokens *tokens)
 		}
 		else
 		{
-			if (ft_create_cmd((*info), &tokens, index)  == -1)
+			if (ft_create_cmd((*info), &tokens, index) == -1)
 				return (-1);
 		}
 	}

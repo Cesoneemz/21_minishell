@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:06:13 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/13 17:11:46 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:19:31 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,9 @@ char	*ft_parse_cmd(char *cmd, t_token_types type, t_info *info)
 			if (expanded == NULL)
 				expanded = "";
 		}
-		if (cmd[index] == '\'' && type == WORD)
-			expanded = ft_strjoin(expanded, ft_word_treatment(cmd, &index, '\''));
-		if (cmd[index] == '\"' && type == WORD)
-			expanded = ft_strjoin(expanded, ft_word_treatment(cmd, &index, '\"'));
+		if ((cmd[index] == '\'' || cmd[index] == '\"') && type == WORD)
+			expanded = ft_strjoin(expanded, \
+			ft_word_treatment(cmd, &index, cmd[index]));
 		index++;
 	}
 	if (expanded == NULL)

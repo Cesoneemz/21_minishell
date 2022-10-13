@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 04:56:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/13 16:50:09 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:16:49 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_get_len_of_token(char *str, int index, t_tokens *tokens)
 			break ;
 		if (str[index] == ' ')
 			break ;
-		if (str[index] == '|')
+		if (str[index] == '|' || str[index] == ';')
 			break ;
 		tokens->len++;
 		index++;
@@ -81,7 +81,7 @@ int	ft_tokenize_str(char *str, int index, t_tokens *tokens)
 		tokens->value = ft_substr(str, temp, 1);
 		return (1);
 	}
-	if (str[index] == '|')
+	if (str[index] == '|' || str[index] == ';')
 	{
 		tokens->value = ft_substr(str, temp, 1);
 		return (1);
