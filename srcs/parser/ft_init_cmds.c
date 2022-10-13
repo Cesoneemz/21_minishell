@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:06:13 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/13 17:19:31 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/13 19:25:19 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,15 @@ char	*ft_parse_cmd(char *cmd, t_token_types type, t_info *info)
 	expanded = ft_calloc(1, 1);
 	while (cmd && cmd[index] != '\0' && type != FIELD)
 	{
-		if (cmd[index] == '$')
-		{
-			expanded = ft_strjoin(expanded, \
-			(ft_dollar_treatment(cmd, info, &index)));
-			if (expanded == NULL)
-				expanded = "";
-		}
-		if ((cmd[index] == '\'' || cmd[index] == '\"') && type == WORD)
-			expanded = ft_strjoin(expanded, \
-			ft_word_treatment(cmd, &index, cmd[index]));
+		expanded = ft_strjoin(expanded, \
+		ft_parse_cmd_part_2(&index, &info, cmd, type));
 		index++;
 	}
-	if (expanded == NULL)
+	if (ft_strlen(expanded) <= 0)
+	{
+		free(expanded);
 		return (cmd);
+	}
 	return (expanded);
 }
 
