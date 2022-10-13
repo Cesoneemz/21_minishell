@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:04:52 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/18 00:54:24 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:08:23 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,23 @@ char	*ft_add_char_to_str(char *str, char c)
 	free(tmp);
 	free(s_str);
 	return (result);
+}
+
+char	*ft_word_treatment(char *cmd, int *index, char c)
+{
+	char	*expanded_word;
+	int		counter;
+
+	counter = 0;
+	expanded_word = ft_calloc(1, 1);
+	while (cmd[counter])
+	{
+		if (cmd[counter] != c)
+			expanded_word = ft_add_char_to_str(expanded_word, cmd[counter]);
+		(*index)++;
+		counter++;
+	}
+	return (expanded_word);
 }
 
 char	*ft_quotes_treatment(char *cmd, t_token_types type, t_info *info)

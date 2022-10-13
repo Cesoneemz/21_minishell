@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/13 01:28:17 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:04:54 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ int				ft_create_cmd(t_info *info, t_tokens **tokens, int index);
 char			*ft_quotes_treatment(char *cmd, t_token_types type, \
 									t_info *info);
 char			*ft_dollar_treatment(char *cmd, t_info *info, int *index);
+char			*ft_word_treatment(char *cmd, int *index, char c);
 int				ft_is_redirect(t_token_types type);
 t_token_types	ft_get_new_type(t_token_types type);
 int				ft_get_exec_line(t_info **info);
