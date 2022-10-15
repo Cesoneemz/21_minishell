@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/05 14:59:13 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/15 21:08:52 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,22 @@ char		*ft_strjoin(char const *s1, char const *s2);
 char		**ft_split(char const *s, char c);
 void		ft_freesplit(char ***ptr);
 int			ft_split_count(char const *s, char c);
-int			execute(char **newargv, char **envp);
-int			execute2(char *newcmd, char **newargv, char **envp);
-int			exec_in_recurse1(int count, char **arg4, char **envp, int fd[2]);
-char		**join_argv_arr(char *cmd, char **argv);
-int			check_builtins(char *cmd);
-int			ft_run_builtin(char **cmd_list, t_info *info);
 int			ft_echo(char **arglist);
 int			ft_built_env(char **arglist, t_env *env);
 int			ft_exec_z(char *cmd_path, char **newargv, char **envp);
-void		print_env_tokens(t_env *env);
 char		**make_env_list(t_env *env);
 int			ft_export_env(char **arglist, t_env *env);
 t_env		*ft_lstlast_env(t_env *lst);
 int			ft_unset_env(char **arglist, t_env **env);
 int			ft_cd_parent2(char **arglist, t_env *env);
+char		*find_cmd_in_path(char *cmd, char **envp);
+char		**make_cmd_list2(t_info *info);
+int			ft_exec_semi(int tmp_fd, char **argv, char **envp);
+int			param_count(char ***par);
+void		param_shift(char ***par, int offset);
+int			file_in_redir(char *filename, char *redirect);
+int			file_opn_redir(char *filename, char *redirect);
+int			check_builtins2(char *cmd);
+int			ft_run_builtin2(char **arglist, t_info *info);
+int			ft_putstr_fd2(char *str, char *arg);
 #endif

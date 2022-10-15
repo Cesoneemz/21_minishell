@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+         #
+#    By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/06 11:31:44 by wlanette          #+#    #+#              #
-#    Updated: 2022/10/13 01:26:48 by wlanette         ###   ########.fr        #
+#    Updated: 2022/10/15 19:11:14 by wmiyu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,17 +20,17 @@ SRCS		= ./srcs/main.c ./srcs/ft_init.c ./srcs/lexer/ft_lexer.c \
 				./srcs/parser/ft_parser_utils.c ./srcs/utils/ft_free_in_loop.c \
 				./srcs/executer/ft_builtins.c ./srcs/executer/ft_exec_z.c \
 				./srcs/executer/ft_execute.c ./srcs/executer/ft_joiner.c \
-				./srcs/executer/ft_pip11.c ./srcs/executer/ft_split.c ./srcs/executer/ft_strjoin.c \
+				./srcs/executer/ft_file_redir.c ./srcs/executer/ft_split.c ./srcs/executer/ft_strjoin.c \
 				./srcs/executer/ft_make_cmd.c ./srcs/executer/ft_cd.c \
 				./srcs/executer/ft_echo.c ./srcs/executer/ft_built_env.c \
-				./srcs/executer/ft_make_env.c
+				./srcs/executer/ft_make_env.c ./srcs/executer/ft_exec_semi.c  
 OBJS		= $(SRCS:.c=.o)
 
 INCS		= ./includes/
 INCS_HEADER	= ./includes/minishell.h
 
 CC			= clang
-CFLAGS		= -I$(INCS) -g -Wall -Wextra -I/opt/homebrew/opt/readline/include -L/opt/homebrew/opt/readline/lib -lreadline 
+CFLAGS		= -I$(INCS) -g -Wall -Wextra -I/usr/local/opt/readline/include -L/usr/local/opt/readline/lib -lreadline 
 RM			= rm -rf
 
 LIBFT		= ./includes/libft/libft.a

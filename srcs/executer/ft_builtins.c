@@ -6,34 +6,30 @@
 /*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:11:23 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/05 14:59:45 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/15 21:16:05 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "executer.h"
 
-int	check_builtins(char *cmd)
+int	check_builtins2(char *cmd)
 {
 	char	**builtins;
-	char	**cmds;
 	int		i;
 
-	builtins = ft_split("echo,kuku,cd,pwd,export,unset,env,exit", ',');
-	cmds = ft_split(cmd, '\t');
+	builtins = ft_split("echo,cd,pwd,export,unset,env,exit", ',');
 	i = -1;
 	while (builtins[++i])
 	{
-		if (strncmp(cmds[0], builtins[i], ft_strlen(cmds[0])) == 0)
+		if (strncmp(cmd, builtins[i], ft_strlen(cmd)) == 0)
 		{
-			//printf("  BUILTIN FOUND: [%s] \n", cmds[0]);
+//			printf("  BUILTIN FOUND: [%s] \n", cmd);
 			ft_freesplit(&builtins);
-			ft_freesplit(&cmds);
 			return (1);
 		}
 	}
 	ft_freesplit(&builtins);
-	ft_freesplit(&cmds);
 	return (0);
 }
 
@@ -65,44 +61,65 @@ int	ft_run_builtin(char **cmd_list, t_info *info)
 	char	**arglist;
 
 	arglist = ft_split(cmd_list[0], '\t');
-
 	if (strncmp("echo", arglist[0], ft_strlen(arglist[0])) == 0)
-	{
 		return (ft_echo(arglist));
-	}
 	else if (strncmp("cd", arglist[0], 2) == 0)
-	{
 		return (ft_cd_parent2(arglist, info->env));
-	}
 	else if (strncmp("pwd", arglist[0], 3) == 0)
-	{
 		return (ft_pwd(arglist));
-	}
 	else if (strncmp("env", arglist[0], 3) == 0)
-	{
 		return (ft_built_env(arglist, info->env));
-	}
 	else if (strncmp("export", arglist[0], 3) == 0)
-	{
 		return (ft_export_env(arglist, info->env));
-	}
 	else if (strncmp("unset", arglist[0], 3) == 0)
-	{
 		return (ft_unset_env(arglist, &info->env));
-	}
 	else if (strncmp("exit", arglist[0], 4) == 0)
-	{
 		return (ft_exit(arglist));
-	}
 	return (55);
 }
 
-/* Your shell must implement the following builtins:
-◦ echo		511 with option -n
-◦ cd 		512 with only a relative or absolute path 
-◦ pwd 		513 with no options
-◦ export 	514 with no options
-◦ unset 	515 with no options
-◦ env 		516 with no options or arguments
-◦ exit 		510 with no options 
+int	ft_run_builtin2(char **arglist, t_info *info)
+{
+	arglist = &arglist[1];
+	if (strncmp("echo", arglist[0], ft_strlen(arglist[0])) == 0)
+		return (ft_echo(arglist));
+	else if (strncmp("cd", arglist[0], 2) == 0)
+		return (ft_cd_parent2(arglist, info->env));
+	else if (strncmp("pwd", arglist[0], 3) == 0)
+		return (ft_pwd(arglist));
+	else if (strncmp("env", arglist[0], 3) == 0)
+		return (ft_built_env(arglist, info->env));
+	else if (strncmp("export", arglist[0], 3) == 0)
+		return (ft_export_env(arglist, info->env));
+	else if (strncmp("unset", arglist[0], 3) == 0)
+		return (ft_unset_env(arglist, &info->env));
+	else if (strncmp("exit", arglist[0], 4) == 0)
+		return (ft_exit(arglist));
+	return (55);
+}
+
+/*
+int	check_builtins(char *cmd)
+{
+	char	**builtins;
+	char	**cmds;
+	int		i;
+
+	builtins = ft_split("echo,cd,pwd,export,unset,env,exit", ',');
+	cmds = ft_split(cmd, '\t');
+	i = -1;
+	while (builtins[++i])
+	{
+		if (strncmp(cmds[0], builtins[i], ft_strlen(cmds[0])) == 0)
+		{
+			printf("  BUILTIN FOUND: [%s] \n", cmds[0]);
+			ft_freesplit(&builtins);
+			ft_freesplit(&cmds);
+			return (1);
+		}
+	}
+	ft_freesplit(&builtins);
+	ft_freesplit(&cmds);
+	return (0);
+}
 */

@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 20:39:07 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/05 16:06:00 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/15 19:25:22 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	ft_cd_prev2(t_env *env)
 
 	oldpwd = ft_get_env(env, "OLDPWD");
 	cwd = getcwd(NULL, 0);
-	//printf("\t   cd - OLDPWD: (%s) \t PWD: (%s)\n", oldpwd, cwd);
 	if (oldpwd == NULL || chdir(oldpwd) != 0)
 	{
 		write(1, "-minishell: cd: OLDPWD not set\n", 31);
@@ -47,7 +46,6 @@ int	ft_cd_prev2(t_env *env)
 	ft_set_oldpwd("PWD", cwd, env);
 	write(1, cwd, ft_strlen(cwd));
 	write(1, "\n", 1);
-	//printf("\t   OLDPWD: (%s) \t PWD: (%s)\n", ft_get_env(env, "OLDPWD"), ft_get_env(env, "PWD"));
 	return (0);
 }
 
@@ -72,9 +70,7 @@ int	ft_cd_parent2(char **arglist, t_env *env)
 		return (1);
 	}
 	cwd = getcwd(NULL, 0);
-	//printf("\t   set OLDPWD: (%s) \t PWD: (%s)\n", oldpwd, cwd);
 	ft_set_oldpwd("OLDPWD", ft_get_env(env, "PWD"), env);
 	ft_set_oldpwd("PWD", cwd, env);
-	//printf("\t   OLDPWD: (%s) \t PWD: (%s)\n", ft_get_env(env, "OLDPWD"), ft_get_env(env, "PWD"));
 	return (0);
 }

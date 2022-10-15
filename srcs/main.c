@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/07 16:49:21 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/15 21:34:43 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,6 @@ static void	ft_signal_handler(int signal)
 	}
 }
 
-void	ft_free_all(t_info **info, t_tokens **tokens, char *str)
-{
-	ft_free_tokens(tokens);
-	ft_free_cmd(info);
-	free(str);
-}
-
 int	ft_main_loop(t_info **info, t_tokens **tokens, char *str)
 {
 	if (ft_lexer(str, tokens) == -1)
@@ -62,49 +55,49 @@ int	ft_main_loop(t_info **info, t_tokens **tokens, char *str)
 	return (0);
 }
 
-char	**make_cmd_list(t_info *info);
-
-int	main(int argc, char **argv, char **envp)
+int	main_1st_loop(t_info *info)
 {
-	t_info		*info;
-	char		*str;
 	t_tokens	*tokens;
+	char		*str;
 	char		**cmd_list;
-	int			most_recent_code;
 
-	(void)argc;
-	(void)argv;
-	rl_catch_signals = 0;
-	most_recent_code = 0;
-	info = ft_init_info();
-	info->env = ft_init_env(envp);
-	signal(SIGINT, ft_signal_handler);
-	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		tokens = ft_new_token();
-		str = ft_readline(" (_*_) MiniShell v.0.15e $> ");
+		str = ft_readline(" (_*_) MiniShell v.0.20e $> ");
 		if (!str)
 			break ;
 		if (ft_strlen(str) <= 0)
 			continue ;
 		if (ft_main_loop(&info, &tokens, str) == -2)
 			continue ;
-	//	print_tmp_tokens(info);
-		cmd_list = make_cmd_list(info);
-		if (info->cmd_count == 1 &&  check_builtins(cmd_list[0]))
-			most_recent_code = ft_run_builtin(cmd_list, info);
+		cmd_list = make_cmd_list2(info);
+		if (info->cmd_count == 1 && check_builtins2(cmd_list[1]))
+			info->exit_code = ft_run_builtin2(cmd_list, info);
 		else
-			most_recent_code = exec_in_recurse1(info->cmd_count, cmd_list, make_env_list(info->env), NULL);
-		info->exit_code = most_recent_code;
-/*=-=-=-=-=-==-=======---=-=-=-=-=-=-=-=-=-=-=-=-=-
-		if (most_recent_code == 153)
-			most_recent_code = ft_cd_parent(cmd_list);
-		else if (most_recent_code == 154)
-			most_recent_code = ft_built_env(cmd_list, envp);
-=-=-=-=-=-==-=======---=-=-=-=-=-=-=-=-=-=-=-=-=-*/
+			info->exit_code = ft_exec_semi(dup(STDIN_FILENO), \
+			cmd_list, make_env_list(info->env));
 		ft_freesplit(&cmd_list);
 		ft_free_all(&info, &tokens, str);
 	}
 	return (0);
 }
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_info		*info;
+
+	(void)argc;
+	(void)argv;
+	//rl_catch_signals = 0;
+	info = ft_init_info();
+	info->env = ft_init_env(envp);
+	signal(SIGINT, ft_signal_handler);
+	signal(SIGQUIT, SIG_IGN);
+	return (main_1st_loop(info));
+}
+/*
+		//print_tmp_tokens(info);
+		//printf("count: %d\n\n", count_tmp_tokens2(info));
+		//printf("\t _info->exit_code: %d\n", info->exit_code);
+*/

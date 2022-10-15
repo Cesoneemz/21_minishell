@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 01:11:25 by Wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/03 20:25:18 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/15 19:20:31 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,6 @@ void	ft_freesplit(char ***ptr)
 	if (ptr && *ptr)
 		free (*ptr);
 }
-/*
-void	ft_freesplit(char **ed)
-{
-	while (*ed)
-	{
-		free(*ed++);
-	}
-	free (ed);
-}*/
 
 static void	ft_fillme(size_t i, const char *s, char c, char **ed)
 {

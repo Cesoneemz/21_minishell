@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/13 19:21:55 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/15 21:32:42 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ int				ft_get_len_of_token(char *str, int index, t_tokens *tokens);
 int				ft_finally_lex_analyze(t_tokens *tokens);
 void			ft_lexer_loop(char *str, t_tokens **tokens);
 int				ft_tokenize_sep(char *str, int index, t_tokens *tokens);
-int				ft_tokenize_quotes(char *str, int index, t_tokens *tokens, char quote);
+int				ft_tokenize_quotes(char *str, int index, t_tokens *tokens, \
+									char quote);
 int				ft_tokenize_str(char *str, int index, t_tokens *tokens);
 void			ft_get_type_of_token(t_tokens *tokens);
 int				ft_check_pipes(t_tokens *temp, t_tokens *prev);
@@ -129,7 +130,8 @@ int				ft_parse_command(t_info **info, t_tokens *tokens);
 int				ft_count_cmd(t_tokens *tokens);
 int				ft_init_cmd(t_info **info, t_tokens *tokens);
 int				ft_create_cmd(t_info *info, t_tokens **tokens, int index);
-char			*ft_parse_cmd_part_2(int *index, t_info **info, char *cmd, t_token_types type);
+char			*ft_parse_cmd_part_2(int *index, t_info **info, char *cmd, \
+									t_token_types type);
 char			*ft_quotes_treatment(char *cmd, t_token_types type, \
 									t_info *info);
 char			*ft_dollar_treatment(char *cmd, t_info *info, int *index);
@@ -149,5 +151,6 @@ void			ft_free_cmd(t_info **info);
 void			ft_free_env(t_env **env);
 int				ft_is_builtin(char *str);
 void			ft_free_exit(t_tokens **tokens, t_info **info, char *str);
+void			ft_free_all(t_info **info, t_tokens **tokens, char *str);
 
 #endif
