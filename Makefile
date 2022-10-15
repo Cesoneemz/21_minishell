@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+         #
+#    By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/06 11:31:44 by wlanette          #+#    #+#              #
-#    Updated: 2022/10/15 19:11:14 by wmiyu            ###   ########.fr        #
+#    Updated: 2022/10/15 21:43:46 by wlanette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ INCS		= ./includes/
 INCS_HEADER	= ./includes/minishell.h
 
 CC			= clang
-CFLAGS		= -I$(INCS) -g -Wall -Wextra -I/usr/local/opt/readline/include -L/usr/local/opt/readline/lib -lreadline 
+CFLAGS		= -I$(INCS) -g -Wall -Wextra -I/opt/homebrew/opt/readline/include -L/opt/homebrew/opt/readline/lib -lreadline 
 RM			= rm -rf
 
 LIBFT		= ./includes/libft/libft.a

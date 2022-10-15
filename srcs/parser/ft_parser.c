@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:05:58 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/13 19:30:22 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/15 22:03:19 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,26 @@ char	*ft_parse_cmd_part_2(int *index, t_info **info, char *cmd, \
 t_token_types type)
 {
 	char	*expanded;
+	char	*var;
 
 	expanded = ft_calloc(1, 1);
-	if (cmd[*index] == '$')
+	while (cmd[*index])
 	{
-		expanded = ft_strjoin(expanded, \
-		(ft_dollar_treatment(cmd, *info, index)));
-		if (expanded == NULL)
-			expanded = "";
+		if (cmd[*index] == '$')
+		{
+			var = ft_dollar_treatment(cmd, *info, index);
+			if (var == NULL)
+				expanded = ft_strjoin(expanded, " ");
+			else
+				expanded = ft_strjoin(expanded, var);
+		}
+		if ((cmd[*index] == '\'' || cmd[*index] == '\"') && type == WORD)
+			expanded = ft_strjoin(expanded, \
+			ft_word_treatment(cmd, index, cmd[*index]));
+		(*index)++;
 	}
-	if ((cmd[*index] == '\'' || cmd[*index] == '\"') && type == WORD)
-		expanded = ft_strjoin(expanded, \
-		ft_word_treatment(cmd, index, cmd[*index]));
 	if (ft_strlen(expanded) <= 0)
-	{
-		*index += ft_strlen(cmd);
-		free(expanded);
-		return (cmd);
-	}
+		expanded = ft_strjoin(expanded, cmd);
 	return (expanded);
 }
 
