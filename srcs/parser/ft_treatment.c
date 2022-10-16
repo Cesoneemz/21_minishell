@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:04:52 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/16 15:05:36 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/16 18:17:59 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static int	ft_is_end_of_str(char c)
 		return (0);
 	if (c == '\0')
 		return (0);
+	if (c == '$')
+		return (0);
 	return (1);
 }
 
@@ -33,15 +35,16 @@ char	*ft_dollar_treatment(char *cmd, t_info *info, int *index)
 	int		temp;
 
 	env_len = 0;
-	temp = *index;
-	while (ft_is_end_of_str(cmd[*index]))
-	{
+	temp = (*index);
+	env_key = ft_check_dollar_exceptions(cmd, index, info);
+	if (env_key != NULL)
+		return (env_key);
+	while (ft_is_end_of_str(cmd[++(*index)]))
 		env_len++;
-		(*index)++;
-	}
+	if (cmd[(*index)] == '$' && (!ft_isascii(cmd[(*index) + 1]) \
+	|| cmd[(*index) + 1] == '\0'))
+		(*index)--;
 	env_key = ft_substr(cmd, temp + 1, env_len);
-	if (ft_strncmp(env_key, "?", 1) == 0)
-		return (ft_itoa(info->exit_code));
 	value = ft_get_env(info->env, env_key);
 	if (!value)
 	{

@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:04:32 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/25 15:18:27 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/16 18:17:44 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,14 @@ int	ft_count_cmd(t_tokens *tokens)
 	temp->type == APPEND || temp->type == HEREDOC)
 		return (-1);
 	return (counter);
+}
+
+char	*ft_check_dollar_exceptions(char *cmd, int *index, t_info *info)
+{
+	if (cmd[(*index) + 1] == '?')
+		return (ft_itoa(info->exit_code));
+	if (cmd[(*index)] == '$' && \
+	(!ft_isascii(cmd[(*index) + 1]) || cmd[(*index) + 1] == '\0'))
+		return (ft_strdup("$"));
+	return (NULL);
 }

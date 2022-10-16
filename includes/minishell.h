@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/15 21:32:42 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/16 18:17:13 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,8 @@ char			*ft_word_treatment(char *cmd, int *index, char c);
 int				ft_is_redirect(t_token_types type);
 t_token_types	ft_get_new_type(t_token_types type);
 int				ft_get_exec_line(t_info **info);
+char			*ft_add_char_to_str(char *str, char c);
+char			*ft_check_dollar_exceptions(char *cmd, int *index, t_info *info);
 
 /* UTILS */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/16 15:39:42 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/16 17:35:31 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_main_loop(t_info **info, t_tokens **tokens, char *str)
 	return (0);
 }
 
-int	main_1st_loop(t_info *info)
+int	main_1st_loop(t_info *info, int argc, char **argv)
 {
 	t_tokens	*tokens;
 	char		*str;
@@ -80,6 +80,11 @@ int	main_1st_loop(t_info *info)
 		ft_freesplit(&env_list);
 		ft_freesplit(&cmd_list);
 		ft_free_all(&info, &tokens, str);
+		if (argc == 2)
+		{
+			free(str);
+			exit(0);
+		}
 	}
 	return (0);
 }
@@ -95,7 +100,7 @@ int	main(int argc, char **argv, char **envp)
 	info->env = ft_init_env(envp);
 	signal(SIGINT, ft_signal_handler);
 	signal(SIGQUIT, SIG_IGN);
-	return (main_1st_loop(info));
+	return (main_1st_loop(info, argc, argv));
 }
 /*
 		//print_tmp_tokens(info);
