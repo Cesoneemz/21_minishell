@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:33:07 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/15 21:21:00 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/16 17:29:25 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,13 @@ int	ft_exec_semi(int tmp_fd, char **argv, char **envp)
 		i = 0;
 		while (argv[i] && strcmp(argv[i], ";") && strcmp(argv[i], "|"))
 			i++;
+		if (strcmp(argv[i-2], "<<") == 0)
+		{
+			if (i < 2)
+				return (ft_putstr_fd2("error: <<: bad arguments", NULL));
+			tmp_fd = ft_heredoc_mode(argv[i - 1]);
+			argv[i - 2] = NULL;
+		}
 		if (i != 0 && (argv[i] == NULL || strcmp(argv[i], ";") == 0 ))
 		{
 			t_f_i[0] = tmp_fd;

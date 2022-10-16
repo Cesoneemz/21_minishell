@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/15 21:08:52 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/16 16:52:07 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@ int			file_opn_redir(char *filename, char *redirect);
 int			check_builtins2(char *cmd);
 int			ft_run_builtin2(char **arglist, t_info *info);
 int			ft_putstr_fd2(char *str, char *arg);
+int			ft_heredoc_mode(char *delim);
 #endif

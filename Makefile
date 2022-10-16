@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+         #
+#    By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/06 11:31:44 by wlanette          #+#    #+#              #
-#    Updated: 2022/10/15 21:43:46 by wlanette         ###   ########.fr        #
+#    Updated: 2022/10/16 16:55:12 by wmiyu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCS		= ./srcs/main.c ./srcs/ft_init.c ./srcs/lexer/ft_lexer.c \
 				./srcs/executer/ft_file_redir.c ./srcs/executer/ft_split.c ./srcs/executer/ft_strjoin.c \
 				./srcs/executer/ft_make_cmd.c ./srcs/executer/ft_cd.c \
 				./srcs/executer/ft_echo.c ./srcs/executer/ft_built_env.c \
-				./srcs/executer/ft_make_env.c ./srcs/executer/ft_exec_semi.c  
+				./srcs/executer/ft_make_env.c ./srcs/executer/ft_exec_semi.c  \
+				./srcs/executer/ft_here_doc.c
 OBJS		= $(SRCS:.c=.o)
 
 INCS		= ./includes/
