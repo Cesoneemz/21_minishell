@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:04:52 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/13 17:08:23 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/16 15:05:36 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_dollar_treatment(char *cmd, t_info *info, int *index)
 		env_len++;
 		(*index)++;
 	}
-	env_key = ft_substr(cmd, temp + 1, env_len - 1);
+	env_key = ft_substr(cmd, temp + 1, env_len);
 	if (ft_strncmp(env_key, "?", 1) == 0)
 		return (ft_itoa(info->exit_code));
 	value = ft_get_env(info->env, env_key);

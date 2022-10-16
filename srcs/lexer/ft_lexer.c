@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 04:56:53 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/25 15:31:07 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/16 14:56:27 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_lexer_loop(char *str, t_tokens **tokens)
 			(*tokens)->next = ft_new_token();
 			(*tokens) = (*tokens)->next;
 		}
-		if (str[index] == ' ')
+		if (ft_is_space(str[index]))
 		{
 			index += ft_tokenize_sep(str, index, (*tokens));
 			continue ;
