@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/16 15:39:42 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/16 17:32:16 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	main_1st_loop(t_info *info)
 	while (1)
 	{
 		tokens = ft_new_token();
-		str = ft_readline(" (_*_) MiniShell v.0.22e $> ");
+		str = ft_readline(" (_*_) MiniShell v.0.23e $> ");
 		if (!str)
 			break ;
 		if (ft_strlen(str) <= 0 || ft_main_loop(&info, &tokens, str) == -2)
