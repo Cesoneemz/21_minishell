@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/16 15:00:10 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/16 15:39:42 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	ft_signal_handler(int signal)
 	{
 		printf("\n");
 		rl_on_new_line();
-		rl_replace_line("", 0);
+		//rl_replace_line("", 0);
 		rl_redisplay();
 	}
 	else if (signal == SIGQUIT)
@@ -60,23 +60,24 @@ int	main_1st_loop(t_info *info)
 	t_tokens	*tokens;
 	char		*str;
 	char		**cmd_list;
+	char		**env_list;
 
 	while (1)
 	{
 		tokens = ft_new_token();
-		str = ft_readline(" (_*_) MiniShell v.0.20e $> ");
+		str = ft_readline(" (_*_) MiniShell v.0.22e $> ");
 		if (!str)
 			break ;
-		if (ft_strlen(str) <= 0)
-			continue ;
-		if (ft_main_loop(&info, &tokens, str) == -2)
+		if (ft_strlen(str) <= 0 || ft_main_loop(&info, &tokens, str) == -2)
 			continue ;
 		cmd_list = make_cmd_list2(info);
+		env_list = make_env_list(info->env);
+		//print_tmp_tokens(info);
 		if (info->cmd_count == 1 && check_builtins2(cmd_list[1]))
 			info->exit_code = ft_run_builtin2(cmd_list, info);
 		else
-			info->exit_code = ft_exec_semi(dup(STDIN_FILENO), \
-			cmd_list, make_env_list(info->env));
+			info->exit_code = ft_exec_semi(dup(0), cmd_list, env_list);
+		ft_freesplit(&env_list);
 		ft_freesplit(&cmd_list);
 		ft_free_all(&info, &tokens, str);
 	}
