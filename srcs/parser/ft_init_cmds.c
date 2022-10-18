@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:06:13 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/13 19:33:59 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:42:19 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	ft_create_cmd(t_info *info, t_tokens **tokens, int index)
 		while ((*tokens) && (*tokens)->type == SEP)
 			(*tokens) = (*tokens)->next;
 		if (!(*tokens))
-			return (-1);
+			break ;
 		if ((*tokens) && (*tokens)->type != PIPE && i != 0)
 			ft_create_a_new_sep_token(&info->cmd_list[index].sep_tokens);
 		if ((*tokens) && (*tokens)->type == PIPE)
