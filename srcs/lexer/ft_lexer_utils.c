@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 04:56:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/16 15:01:29 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:30:25 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	ft_get_len_of_token(char *str, int index, t_tokens *tokens)
 		if (ft_is_space(str[index]))
 			break ;
 		if (str[index] == '|' || str[index] == ';')
+			break ;
+		if (str[index] == '\'' || str[index] == '\"')
 			break ;
 		tokens->len++;
 		index++;
