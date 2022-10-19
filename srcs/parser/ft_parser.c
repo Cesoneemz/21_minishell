@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:05:58 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/17 12:30:51 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/19 20:47:48 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,27 @@ t_token_types type)
 {
 	char	*expanded;
 	char	*var;
+	char	*temp;
 
 	expanded = ft_calloc(1, 1);
 	while (cmd[*index])
 	{
+		temp = expanded;
 		if (cmd[*index] == '$')
 		{
 			var = ft_dollar_treatment(cmd, *info, index);
 			if (var == NULL && ft_strlen(expanded) <= 0)
-				expanded = ft_strjoin(expanded, "\n");
+				expanded = ft_strjoin(temp, "\n");
 			else
-				expanded = ft_strjoin(expanded, var);
+				expanded = ft_strjoin(temp, var);
 		}
 		if ((cmd[*index] == '\'' || cmd[*index] == '\"') && type == WORD)
-			expanded = ft_strjoin(expanded, \
+			expanded = ft_strjoin(temp, \
 			ft_word_treatment(cmd, index, cmd[*index]));
 		if (ft_isascii(cmd[*index]))
-			expanded = ft_add_char_to_str(expanded, cmd[*index]);
+			expanded = ft_add_char_to_str(temp, cmd[*index]);
 		(*index)++;
+		free(temp);
 	}
 	if (ft_strlen(expanded) <= 0)
 		expanded = ft_strjoin(expanded, cmd);
