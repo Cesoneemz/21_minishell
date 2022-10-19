@@ -5,13 +5,13 @@
 #                                                     +:+ +:+         +:+      #
 #    By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/10/19 18:30:46 by tschmitt          #+#    #+#              #
-#    Updated: 2022/10/19 19:38:38 by wlanette         ###   ########.fr        #
+#    Created: 2022/07/05 18:30:46 by wlanette          #+#    #+#              #
+#    Updated: 2022/10/19 20:41:32 by wlanette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CC_FLAGS = -Wall -Werror -Wextra -g
+CC_FLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 INCLUDE_FLAGS = -I./includes/ -I $(LIBFT_PATH)
 L_FLAGS = -lreadline
 #READLINE = -L /Users/$(USER)/.brew/opt/readline/lib
