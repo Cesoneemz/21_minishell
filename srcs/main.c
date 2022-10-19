@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/16 17:35:31 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:07:08 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_main_loop(t_info **info, t_tokens **tokens, char *str)
 	return (0);
 }
 
-int	main_1st_loop(t_info *info, int argc, char **argv)
+int	main_1st_loop(t_info *info)
 {
 	t_tokens	*tokens;
 	char		*str;
@@ -65,14 +65,14 @@ int	main_1st_loop(t_info *info, int argc, char **argv)
 	while (1)
 	{
 		tokens = ft_new_token();
-		str = ft_readline(" (_*_) MiniShell v.0.22e $> ");
+		str = ft_readline(" (_*_) MiniShell v.0.26 $> ");
 		if (!str)
 			break ;
 		if (ft_strlen(str) <= 0 || ft_main_loop(&info, &tokens, str) == -2)
 			continue ;
 		cmd_list = make_cmd_list2(info);
 		env_list = make_env_list(info->env);
-		//print_tmp_tokens(info);
+		print_tmp_tokens(info);
 		if (info->cmd_count == 1 && check_builtins2(cmd_list[1]))
 			info->exit_code = ft_run_builtin2(cmd_list, info);
 		else
@@ -80,11 +80,6 @@ int	main_1st_loop(t_info *info, int argc, char **argv)
 		ft_freesplit(&env_list);
 		ft_freesplit(&cmd_list);
 		ft_free_all(&info, &tokens, str);
-		if (argc == 2)
-		{
-			free(str);
-			exit(0);
-		}
 	}
 	return (0);
 }
@@ -100,7 +95,7 @@ int	main(int argc, char **argv, char **envp)
 	info->env = ft_init_env(envp);
 	signal(SIGINT, ft_signal_handler);
 	signal(SIGQUIT, SIG_IGN);
-	return (main_1st_loop(info, argc, argv));
+	return (main_1st_loop(info));
 }
 /*
 		//print_tmp_tokens(info);

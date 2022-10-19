@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/15 21:08:52 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/18 16:09:32 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void		ft_freesplit(char ***ptr);
 int			ft_split_count(char const *s, char c);
 int			ft_echo(char **arglist);
 int			ft_built_env(char **arglist, t_env *env);
+int			ft_write_env(char **arglist, char	**env_list);
 int			ft_exec_z(char *cmd_path, char **newargv, char **envp);
 char		**make_env_list(t_env *env);
 int			ft_export_env(char **arglist, t_env *env);
@@ -37,6 +38,10 @@ void		param_shift(char ***par, int offset);
 int			file_in_redir(char *filename, char *redirect);
 int			file_opn_redir(char *filename, char *redirect);
 int			check_builtins2(char *cmd);
+int			check_builtins3(char *cmd);
 int			ft_run_builtin2(char **arglist, t_info *info);
+int			ft_run_builtin3(char **arglist, char **envp);
 int			ft_putstr_fd2(char *str, char *arg);
+int			ft_heredoc_mode(char *delim);
+void		print_tmp_tokens(t_info *info);
 #endif

@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 20:39:07 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/15 19:28:21 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/19 17:14:13 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,36 @@ int	ft_built_env(char **arglist, t_env *env)
 	return (0);
 }
 
+int	ft_write_env(char **arglist, char	**env_list)
+{
+	(void) arglist;
+	while (*env_list)
+	{
+		write(1, *env_list, ft_strlen(*env_list));
+		write(1, "\n", 1);
+		env_list++;
+	}
+	return (0);
+}
+
 int	ft_export_env(char **arglist, t_env *env)
 {
 	char	**keyval;
 	t_env	*new_env;
 	t_env	*last;
 
+	if (!arglist[1])
+		return (1);
 	keyval = ft_split(arglist[1], '=');
 	if (ft_get_env(env, keyval[0]) != NULL)
 		ft_set_env(&env, keyval[0], keyval[1]);
-	else
+	else if (keyval && keyval[1])
 	{
 		new_env = ft_lstnew_env(keyval[0], keyval[1]);
 		last = ft_lstlast_env(env);
 		last->next = new_env;
 	}
+	//ft_freesplit(&keyval);
 	return (0);
 }
 

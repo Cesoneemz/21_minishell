@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:33:07 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/15 21:21:00 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/19 17:07:47 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	ft_execute3(char **argv, int i, int fd_in, char **envp)
 		if (file_opn_redir(argv[t_cnt - 1], argv[t_cnt - 2]) > 0)
 			argv[t_cnt - 2] = NULL;
 	}
+	if (check_builtins3(argv[0]))
+		return (ft_run_builtin3(&argv[0], envp));
 	cmd_path = find_cmd_in_path(argv[0], envp);
 	if (cmd_path != NULL)
 		return (execve(cmd_path, argv, envp));
@@ -73,6 +75,8 @@ int	ft_pipe_semi(int tmp_fd, char **argv, char **envp, int i)
 		close(fd[1]);
 		if (ft_execute3(argv, i, tmp_fd, envp))
 			exit (127);
+		else
+			exit(0);
 	}
 	else
 	{
@@ -92,8 +96,13 @@ int	ft_fork_semi(int t_f_i[2], char **argv, char **envp, int *most_recent_code)
 	tmp_fd = t_f_i[0];
 	i = t_f_i[1];
 	wpid = fork();
-	if (wpid == 0 && ft_execute3(argv, i, tmp_fd, envp))
-		exit (127);
+	if (wpid == 0 )
+	{
+		if (ft_execute3(argv, i, tmp_fd, envp))
+			exit (127);
+		else
+			exit (0);
+	}
 	else
 	{
 		close(tmp_fd);
@@ -117,6 +126,13 @@ int	ft_exec_semi(int tmp_fd, char **argv, char **envp)
 		i = 0;
 		while (argv[i] && strcmp(argv[i], ";") && strcmp(argv[i], "|"))
 			i++;
+		if (i >= 3 && strcmp(argv[i - 2], "<<") == 0)
+		{
+			if (i < 2)
+				return (ft_putstr_fd2("error: <<: bad arguments", NULL));
+			tmp_fd = ft_heredoc_mode(argv[i - 1]);
+			argv[i - 2] = NULL;
+		}
 		if (i != 0 && (argv[i] == NULL || strcmp(argv[i], ";") == 0 ))
 		{
 			t_f_i[0] = tmp_fd;
