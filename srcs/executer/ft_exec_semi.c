@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_semi.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:33:07 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/19 17:07:47 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/19 19:40:03 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,8 @@ int	ft_execute3(char **argv, int i, int fd_in, char **envp)
 
 void	ft_waitpid_semi(pid_t wpid, int *most_recent_code, char *cmd)
 {
-	int			f_status;
 	int			status;
 
-	f_status = 0;
 	status = 0;
 	(void) cmd;
 	waitpid(wpid, &status, 0);

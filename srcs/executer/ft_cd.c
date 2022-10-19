@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 20:39:07 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/15 19:25:22 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/19 19:39:41 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ int	ft_cd_parent2(char **arglist, t_env *env)
 {
 	char	*cwd;
 	char	*path;
-	int		i;
 
-	i = 0;
 	if (!arglist || !arglist[1])
 		return (0);
 	if (arglist[1][0] == '-')

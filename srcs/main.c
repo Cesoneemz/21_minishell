@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/19 17:07:08 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/19 19:34:55 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	ft_signal_handler(int signal)
 	{
 		printf("\n");
 		rl_on_new_line();
-		//rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 	else if (signal == SIGQUIT)
@@ -90,15 +90,10 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	//rl_catch_signals = 0;
+	rl_catch_signals = 0;
 	info = ft_init_info();
 	info->env = ft_init_env(envp);
 	signal(SIGINT, ft_signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 	return (main_1st_loop(info));
 }
-/*
-		//print_tmp_tokens(info);
-		//printf("count: %d\n\n", count_tmp_tokens2(info));
-		//printf("\t _info->exit_code: %d\n", info->exit_code);
-*/

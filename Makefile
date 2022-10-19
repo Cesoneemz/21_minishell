@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+         #
+#    By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/19 18:30:46 by tschmitt          #+#    #+#              #
-#    Updated: 2022/10/19 17:02:25 by wmiyu            ###   ########.fr        #
+#    Updated: 2022/10/19 19:38:38 by wlanette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ INCLUDE_FLAGS = -I./includes/ -I $(LIBFT_PATH)
 L_FLAGS = -lreadline
 #READLINE = -L /Users/$(USER)/.brew/opt/readline/lib
 #READLINE_INC = -I /Users/$(USER)/.brew/opt/readline/include
-READLINE = -L/usr/local/opt/readline/lib
-READLINE_INC = -I/usr/local/opt/readline/include
+READLINE = -L/opt/homebrew/opt/readline/lib
+READLINE_INC = -I/opt/homebrew/opt/readline/include
 
 RM = rm -f
 
