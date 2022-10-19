@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:06:13 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/19 20:28:22 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/19 20:43:26 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	*ft_parse_cmd(char *cmd, t_token_types type, t_info *info)
 {
 	int			index;
 	char		*expanded;
+	char		*temp;
 
 	index = 0;
 	if (type == EXP_FIELD)
@@ -34,8 +35,10 @@ char	*ft_parse_cmd(char *cmd, t_token_types type, t_info *info)
 	expanded = ft_calloc(1, 1);
 	while (cmd && cmd[index] != '\0' && type != FIELD)
 	{
-		expanded = ft_strjoin(expanded, \
+		temp = expanded;
+		expanded = ft_strjoin(temp, \
 		ft_parse_cmd_part_2(&index, &info, cmd, type));
+		free(temp);
 	}
 	if (ft_strlen(expanded) <= 0)
 	{
