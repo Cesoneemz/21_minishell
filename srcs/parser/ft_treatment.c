@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:04:52 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/19 20:49:42 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/21 02:13:09 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,16 @@ char	*ft_add_char_to_str(char *str, char c)
 	char	*result;
 	char	*tmp;
 
+	if (!str)
+		return (NULL);
 	result = (char *)malloc(sizeof(char) * 2);
 	if (!result)
 		return (NULL);
 	s_str = str;
-	if (!s_str)
-	{
-		s_str = (char *)malloc(sizeof(char));
-		if (!s_str)
-			return (NULL);
-		s_str[0] = '\0';
-	}
 	result[0] = c;
 	result[1] = '\0';
 	tmp = result;
-	result = ft_strjoin(s_str, tmp);
+	result = ft_strjoin(s_str, result);
 	free(tmp);
 	free(s_str);
 	return (result);
@@ -85,13 +80,18 @@ char	*ft_word_treatment(char *cmd, int *index, char c)
 {
 	char	*expanded_word;
 	int		counter;
+	char	*tmp;
 
 	counter = 0;
-	expanded_word = ft_calloc(1, 1);
+	expanded_word = ft_calloc(1, sizeof(char));
 	while (cmd[counter])
 	{
 		if (cmd[counter] != c)
+		{
+			tmp = expanded_word;
 			expanded_word = ft_add_char_to_str(expanded_word, cmd[counter]);
+			free(tmp);
+		}
 		(*index)++;
 		counter++;
 	}
@@ -102,11 +102,13 @@ char	*ft_quotes_treatment(char *cmd, t_token_types type, t_info *info)
 {
 	int		index;
 	char	*value;
+	char	*temp;
 
 	index = 0;
-	value = ft_calloc(1, 1);
+	value = ft_calloc(1, sizeof(char));
 	while (cmd[index] != '\0')
 	{
+		temp = value;
 		if (cmd[index] == '$' && type == EXP_FIELD)
 		{
 			value = ft_strjoin(value, ft_dollar_treatment(cmd, info, &index));
@@ -115,7 +117,9 @@ char	*ft_quotes_treatment(char *cmd, t_token_types type, t_info *info)
 		else
 			value = ft_add_char_to_str(value, cmd[index]);
 		index++;
+		free(temp);
 	}
+	free(temp);
 	if (value == NULL)
 		return (cmd);
 	return (value);
