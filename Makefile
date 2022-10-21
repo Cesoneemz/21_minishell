@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+         #
+#    By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/05 18:30:46 by wlanette          #+#    #+#              #
-#    Updated: 2022/10/21 01:49:39 by wlanette         ###   ########.fr        #
+#    Updated: 2022/10/21 16:48:41 by wmiyu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CC_FLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+CC_FLAGS = -Wall -Werror -Wextra #-fsanitize=address -g
 INCLUDE_FLAGS = -I./includes/ -I $(LIBFT_PATH)
 L_FLAGS = -lreadline
 #READLINE = -L /Users/$(USER)/.brew/opt/readline/lib
@@ -40,7 +40,7 @@ SRC =	$(SRC_PATH)main.c $(SRC_PATH)ft_init.c $(SRC_PATH)lexer/ft_lexer.c \
 		$(SRC_PATH)executer/ft_builtins.c $(SRC_PATH)executer/ft_exec_z.c \
 		$(SRC_PATH)executer/ft_execute.c $(SRC_PATH)executer/ft_joiner.c \
 		$(SRC_PATH)executer/ft_file_redir.c $(SRC_PATH)executer/ft_split.c $(SRC_PATH)executer/ft_strjoin.c \
-		$(SRC_PATH)executer/ft_make_cmd.c $(SRC_PATH)executer/ft_cd.c \
+		$(SRC_PATH)executer/ft_make_cmd.c $(SRC_PATH)executer/ft_cd.c $(SRC_PATH)executer/ft_pwd.c \
 		$(SRC_PATH)executer/ft_echo.c $(SRC_PATH)executer/ft_built_env.c \
 		$(SRC_PATH)executer/ft_make_env.c $(SRC_PATH)executer/ft_exec_semi.c  \
 		$(SRC_PATH)executer/ft_here_doc.c

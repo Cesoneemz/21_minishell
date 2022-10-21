@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_semi.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:33:07 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/19 19:40:03 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/21 16:55:36 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,7 @@ int	ft_execute3(char **argv, int i, int fd_in, char **envp)
 		close(fd_in);
 	}
 	t_cnt = param_count(&argv);
-	if (t_cnt >= 3 && (argv[t_cnt - 2][0] == '>' || \
-	(argv[t_cnt - 2][0] == '>' && argv[t_cnt - 2][1] == '>' )))
-	{
-		if (file_opn_redir(argv[t_cnt - 1], argv[t_cnt - 2]) > 0)
-			argv[t_cnt - 2] = NULL;
-	}
+	ft_try_open_redir(t_cnt, argv);
 	if (check_builtins3(argv[0]))
 		return (ft_run_builtin3(&argv[0], envp));
 	cmd_path = find_cmd_in_path(argv[0], envp);
@@ -94,7 +89,7 @@ int	ft_fork_semi(int t_f_i[2], char **argv, char **envp, int *most_recent_code)
 	tmp_fd = t_f_i[0];
 	i = t_f_i[1];
 	wpid = fork();
-	if (wpid == 0 )
+	if (wpid == 0)
 	{
 		if (ft_execute3(argv, i, tmp_fd, envp))
 			exit (127);
@@ -124,14 +119,9 @@ int	ft_exec_semi(int tmp_fd, char **argv, char **envp)
 		i = 0;
 		while (argv[i] && strcmp(argv[i], ";") && strcmp(argv[i], "|"))
 			i++;
-		if (i >= 3 && strcmp(argv[i - 2], "<<") == 0)
-		{
-			if (i < 2)
-				return (ft_putstr_fd2("error: <<: bad arguments", NULL));
-			tmp_fd = ft_heredoc_mode(argv[i - 1]);
-			argv[i - 2] = NULL;
-		}
-		if (i != 0 && (argv[i] == NULL || strcmp(argv[i], ";") == 0 ))
+		if (ft_try_heredoc(i, argv, &tmp_fd) != 0)
+			return (1);
+		if (i != 0 && (argv[i] == NULL || strcmp(argv[i], ";") == 0))
 		{
 			t_f_i[0] = tmp_fd;
 			t_f_i[1] = i;
@@ -142,16 +132,3 @@ int	ft_exec_semi(int tmp_fd, char **argv, char **envp)
 	}
 	return (most_recent_code);
 }
-/*wpid = fork();
-if (wpid == 0 && ft_execute3(argv, i, tmp_fd, envp))
-	exit (127);
-else
-{
-	close(tmp_fd);
-	ft_waitpid_semi(wpid, &most_recent_code, argv[0]);
-	tmp_fd = dup(STDIN_FILENO);
-	
-}
-//printf("\t wpid: [%d] cmd: (%s) \t LAST_status: %d\n", \
-wpid, cmd, *most_recent_code);
-*/

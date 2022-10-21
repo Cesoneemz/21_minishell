@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_file_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:25:21 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/15 21:11:01 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/21 16:55:43 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	file_in_redir(char *filename, char *redirect)
 	int	file;
 
 	(void)redirect;
-	//printf(" FOUND < REDIRECT: %s %s\n", redirect, filename);
 	file = -1;
 	file = open(filename, O_RDONLY, 0777);
 	if (file == -1)
@@ -66,7 +65,6 @@ int	file_opn_redir(char *filename, char *redirect)
 	int	file;
 	int	file_mode;
 
-	//printf(" FOUND > REDIRECT: %s %s\n", redirect, filename);
 	file = -1;
 	if (redirect[0] == '>' && redirect[1] == '>' )
 		file_mode = O_WRONLY | O_CREAT | O_APPEND;
@@ -82,3 +80,18 @@ int	file_opn_redir(char *filename, char *redirect)
 	close(file);
 	return (file);
 }
+
+void	ft_try_open_redir(int t_cnt, char **argv)
+{
+	if (t_cnt >= 3 && (argv[t_cnt - 2][0] == '>' || \
+	(argv[t_cnt - 2][0] == '>' && argv[t_cnt - 2][1] == '>' )))
+	{
+		if (file_opn_redir(argv[t_cnt - 1], argv[t_cnt - 2]) > 0)
+			argv[t_cnt - 2] = NULL;
+	}
+}
+
+/*
+	//printf(" FOUND < REDIRECT: %s %s\n", redirect, filename);
+	//printf(" FOUND > REDIRECT: %s %s\n", redirect, filename);
+*/

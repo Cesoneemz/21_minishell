@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/18 16:09:32 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/21 16:55:59 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char		**ft_split(char const *s, char c);
 void		ft_freesplit(char ***ptr);
 int			ft_split_count(char const *s, char c);
 int			ft_echo(char **arglist);
+int			ft_pwd(char **arglist);
 int			ft_built_env(char **arglist, t_env *env);
 int			ft_write_env(char **arglist, char	**env_list);
 int			ft_exec_z(char *cmd_path, char **newargv, char **envp);
@@ -42,6 +43,8 @@ int			check_builtins3(char *cmd);
 int			ft_run_builtin2(char **arglist, t_info *info);
 int			ft_run_builtin3(char **arglist, char **envp);
 int			ft_putstr_fd2(char *str, char *arg);
+int			ft_try_heredoc(int i, char **argv, int *tmp_fd);
+void		ft_try_open_redir(int t_cnt, char **argv);
 int			ft_heredoc_mode(char *delim);
 void		print_tmp_tokens(t_info *info);
 #endif

@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_in_loop.c                                  :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/25 15:51:03 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/21 15:49:24 by wmiyu            ###   ########.fr       */
+/*   Created: 2022/09/23 16:11:23 by wmiyu             #+#    #+#             */
+/*   Updated: 2022/10/21 15:28:12 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "executer.h"
 
-void	ft_free_exit(t_tokens **tokens, t_info **info, char *str)
+int	ft_pwd(char **arglist)
 {
-	rl_clear_history();
-	ft_free_env(&(*info)->env);
-	free(*info);
-	free(*tokens);
-	free(str);
-}
+	char	cwd[1024];
 
-void	ft_free_all(t_info **info, t_tokens **tokens, char *str)
-{
-	ft_free_tokens(tokens);
-	ft_free_cmd(info);
-	free(str);
+	(void)arglist;
+	cwd[0] = '\0';
+	if (getcwd(cwd, 1024))
+	{
+		write(STDOUT_FILENO, cwd, ft_strlen(cwd));
+		write(STDOUT_FILENO, "\n", 1);
+		return (0);
+	}
+	else
+		return (-53);
 }

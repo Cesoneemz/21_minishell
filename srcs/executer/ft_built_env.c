@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_built_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 20:39:07 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/19 17:14:13 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/21 15:47:03 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	ft_export_env(char **arglist, t_env *env)
 		last = ft_lstlast_env(env);
 		last->next = new_env;
 	}
-	//ft_freesplit(&keyval);
 	return (0);
 }
 
