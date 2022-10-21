@@ -6,7 +6,7 @@
 #    By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/05 18:30:46 by wlanette          #+#    #+#              #
-#    Updated: 2022/10/21 16:48:41 by wmiyu            ###   ########.fr        #
+#    Updated: 2022/10/21 18:58:43 by wmiyu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ SRC =	$(SRC_PATH)main.c $(SRC_PATH)ft_init.c $(SRC_PATH)lexer/ft_lexer.c \
 		$(SRC_PATH)executer/ft_make_cmd.c $(SRC_PATH)executer/ft_cd.c $(SRC_PATH)executer/ft_pwd.c \
 		$(SRC_PATH)executer/ft_echo.c $(SRC_PATH)executer/ft_built_env.c \
 		$(SRC_PATH)executer/ft_make_env.c $(SRC_PATH)executer/ft_exec_semi.c  \
-		$(SRC_PATH)executer/ft_here_doc.c
+		$(SRC_PATH)executer/ft_here_doc.c $(SRC_PATH)executer/ft_gnl.c
 				
 #OBJ = $(SRCS:.c=.o)
 OBJ = $(patsubst $(SRC_PATH)%.c, $(OBJ_PATH)%.o, $(SRC))
