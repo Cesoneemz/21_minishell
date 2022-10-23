@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:28:38 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/21 16:53:59 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/23 13:48:43 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_heredoc_mode(char *delim)
 		write (STDOUT_FILENO, ">", 1);
 		while (ft_get_next_line(&line, STDIN_FILENO))
 		{
-			if (strncmp(line, delim, strlen(delim)) == 0)
+			if (ft_strncmp(line, delim, strlen(delim)) == 0)
 				exit (0);
 			write(fd[1], line, strlen(line));
 			write (STDOUT_FILENO, ">", 1);
@@ -69,7 +69,7 @@ int	ft_heredoc_mode(char *delim)
 
 int	ft_try_heredoc(int i, char **argv, int *tmp_fd)
 {
-	if (i >= 3 && strcmp(argv[i - 2], "<<") == 0)
+	if (i >= 3 && ft_strncmp(argv[i - 2], "<<", 2) == 0)
 	{
 		if (i < 2)
 			return (ft_putstr_fd2("error: <<: bad arguments", NULL));

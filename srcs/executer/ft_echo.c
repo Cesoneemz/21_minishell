@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 23:20:57 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/18 17:27:59 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/23 13:46:34 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_echo(char **arglist)
 	n_opt = 0;
 	if (!arglist[1])
 		write(STDOUT_FILENO, "(empty)", 7);
-	else if (arglist[1] && strncmp("-n", arglist[1], 2) == 0)
+	else if (arglist[1] && ft_strncmp("-n", arglist[1], 2) == 0)
 	{
 		i++;
 		n_opt = 1;

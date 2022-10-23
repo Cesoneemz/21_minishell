@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 14:55:18 by WMiyu             #+#    #+#             */
-/*   Updated: 2022/10/15 20:54:50 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/23 13:48:33 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*find_cmd_in_path(char *cmd, char **envp)
 	if (access(cmd, F_OK) == 0)
 		return (cmd);
 	while (envp[++i])
-		if (strncmp("PATH=", envp[i], 5) == 0)
+		if (ft_strncmp("PATH=", envp[i], 5) == 0)
 			splitpath = ft_split(envp[i] + 5, ':');
 	if (splitpath)
 	{

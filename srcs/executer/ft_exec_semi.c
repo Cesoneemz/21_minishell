@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:33:07 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/21 16:55:36 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/23 13:43:54 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,17 +117,18 @@ int	ft_exec_semi(int tmp_fd, char **argv, char **envp)
 	{
 		argv = &argv[i + 1];
 		i = 0;
-		while (argv[i] && strcmp(argv[i], ";") && strcmp(argv[i], "|"))
+		while (argv[i] && ft_strncmp(argv[i], ";", 1) \
+			&& ft_strncmp(argv[i], "|", 1))
 			i++;
 		if (ft_try_heredoc(i, argv, &tmp_fd) != 0)
 			return (1);
-		if (i != 0 && (argv[i] == NULL || strcmp(argv[i], ";") == 0))
+		if (i != 0 && (argv[i] == NULL || ft_strncmp(argv[i], ";", 1) == 0))
 		{
 			t_f_i[0] = tmp_fd;
 			t_f_i[1] = i;
 			tmp_fd = ft_fork_semi(t_f_i, argv, envp, &most_recent_code);
 		}
-		else if (i != 0 && strcmp(argv[i], "|") == 0)
+		else if (i != 0 && ft_strncmp(argv[i], "|", 1) == 0)
 			tmp_fd = ft_pipe_semi(tmp_fd, argv, envp, i);
 	}
 	return (most_recent_code);
