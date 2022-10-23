@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/21 18:56:03 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/23 14:29:30 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "minishell.h"
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 21
+#  define BUFFER_SIZE 1024
 # endif
 
 /* EXECUTER */

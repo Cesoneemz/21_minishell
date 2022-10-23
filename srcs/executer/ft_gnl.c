@@ -6,104 +6,119 @@
 /*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 00:28:15 by Wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/21 18:55:52 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/23 14:36:17 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
-char	*get_line(char *reminder)
+char	*ft_strnew(size_t size)
 {
-	char	*line;
-	int		i;
+	char	*buffer;
 
-	i = 0;
-	if (!reminder[i])
-		return (0);
-	while (reminder[i] && reminder[i] != '\n')
-		i++;
-	line = (char *) malloc (i + 2);
-	if (!line)
-		return (NULL);
-	i = 0;
-	while (reminder[i] && reminder[i] != '\n')
-	{
-		line[i] = reminder[i];
-		i++;
-	}
-	if (reminder[i] == '\n')
-	{
-		line[i] = '\n';
-		i++;
-	}
-	line[i] = '\0';
-	return (line);
-}
-
-char	*reset_reminder(char *reminder)
-{
-	char	*minusline;
-	int		i;
-	int		len2;
-
-	i = 0;
-	while (reminder[i] && reminder[i] != '\n')
-		i++;
-	if (!reminder[i])
-	{
-		free(reminder);
-		return (0);
-	}
-	len2 = ft_strlen(reminder) - i;
-	minusline = (char *) malloc (len2 + 1);
-	if (!minusline)
-		return (NULL);
-	minusline[len2] = '\0';
-	while (--len2 >= 0)
-		minusline[len2] = reminder[i + 1 + len2];
-	free(reminder);
-	return (minusline);
-}
-
-int	check_for_eol(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str && str[i])
-	{
-		if (str[i] == '\n')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-char	*get_next_line(int fd)
-{
-	static char	*reminder;
-	char		*buffer;
-	int			bytes_read;
-
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
-		return (NULL);
-	buffer = (char *)malloc(BUFFER_SIZE + 1);
+	buffer = (char *)malloc((size + 1) * sizeof(char));
 	if (!buffer)
 		return (NULL);
-	bytes_read = 1;
-	while (check_for_eol(reminder) && bytes_read)
+	buffer[size] = '\0';
+	while (size--)
+		buffer[size] = '\0';
+	return (buffer);
+}
+
+static char	*ft_get_line(char *read_file)
+{
+	int		index;
+	char	*buffer;
+
+	index = 0;
+	if (!read_file || read_file[index] == '\0')
+		return (NULL);
+	while (read_file[index] && read_file[index] != '\n')
+		index++;
+	buffer = (char *)malloc((index + 2) * sizeof(char));
+	if (!buffer)
+		return (NULL);
+	index = 0;
+	while (read_file[index] && read_file[index] != '\n')
 	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read == -1)
+		buffer[index] = read_file[index];
+		index++;
+	}
+	if (read_file[index] == '\n')
+	{
+		buffer[index] = read_file[index];
+		index++;
+	}
+	buffer[index] = '\0';
+	return (buffer);
+}
+
+static char	*ft_read_file_remaind(char *read_file)
+{
+	int		index;
+	int		jndex;
+	char	*buffer;
+
+	index = 0;
+	while (read_file[index] && read_file[index] != '\n')
+		index++;
+	if (!read_file[index])
+	{
+		free(read_file);
+		return (NULL);
+	}
+	buffer = (char *)malloc((ft_strlen(read_file) - index + 1) * sizeof(char));
+	if (!buffer)
+		return (NULL);
+	index++;
+	jndex = 0;
+	while (read_file[index])
+		buffer[jndex++] = read_file[index++];
+	buffer[jndex] = '\0';
+	free(read_file);
+	return (buffer);
+}
+
+static char	*ft_read_from_file(char fd, char *read_file)
+{
+	char	*buffer;
+	int		byte;
+	char	*temp;
+
+	byte = 1;
+	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buffer)
+		return (NULL);
+	while (!ft_strchr(read_file, '\n') && byte != 0)
+	{
+		byte = read(fd, buffer, BUFFER_SIZE);
+		if (byte == -1)
 		{
 			free(buffer);
 			return (NULL);
 		}
-		buffer[bytes_read] = '\0';
-		reminder = ft_strjoin(reminder, buffer);
+		buffer[byte] = '\0';
+		if (!read_file)
+			read_file = ft_strnew(0);
+		temp = read_file;
+		read_file = ft_strjoin(read_file, buffer);
+		free(temp);
 	}
 	free(buffer);
-	buffer = get_line(reminder);
-	reminder = reset_reminder(reminder);
-	return (buffer);
+	return (read_file);
+}
+
+char	*get_next_line(int fd)
+{
+	char				*line;
+	static char			*read_file[1024];
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	read_file[fd] = ft_read_from_file(fd, read_file[fd]);
+	if (!read_file[fd])
+		return (NULL);
+	line = ft_get_line(read_file[fd]);
+	read_file[fd] = ft_read_file_remaind(read_file[fd]);
+	return (line);
 }

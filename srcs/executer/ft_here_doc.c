@@ -6,37 +6,22 @@
 /*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:28:38 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/23 13:48:43 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/23 14:38:30 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "executer.h"
 
-int	ft_get_next_line(char **line, int fd)
+int	ft_gnl(char **line, int fd)
 {
-	int		i;
-	char	*buffer;
-	char	c;
-	int		rd;
+	int	len;
 
-	i = 0;
-	c = '\0';
-	rd = 0;
-	buffer = malloc(100000);
-	if (!buffer)
-		return (-1);
-	rd = read(fd, &c, 1);
-	while (rd > 0 && c != '\n')
-	{
-		buffer[i++] = c;
-		rd = read(fd, &c, 1);
-	}
-	buffer[i] = '\n';
-	buffer[++i] = '\0';
-	*line = buffer;
-	free(buffer);
-	return (rd);
+	len = 0;
+	*line = get_next_line(fd);
+	if (line)
+		len = ft_strlen(*line);
+	return (len);
 }
 
 int	ft_heredoc_mode(char *delim)
@@ -50,11 +35,11 @@ int	ft_heredoc_mode(char *delim)
 	{
 		close(fd[0]);
 		write (STDOUT_FILENO, ">", 1);
-		while (ft_get_next_line(&line, STDIN_FILENO))
+		while (ft_gnl(&line, STDIN_FILENO))
 		{
-			if (ft_strncmp(line, delim, strlen(delim)) == 0)
+			if (ft_strncmp(line, delim, ft_strlen(delim)) == 0)
 				exit (0);
-			write(fd[1], line, strlen(line));
+			write(fd[1], line, ft_strlen(line));
 			write (STDOUT_FILENO, ">", 1);
 		}
 	}
