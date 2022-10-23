@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:05:58 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/21 20:37:22 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/23 15:01:45 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_token_types type)
 	char	*var;
 
 	expanded = ft_calloc(1, sizeof(char));
-	while (cmd[*index])
+	while (cmd[(*index)] != 0 && cmd[(*index)] != '\0')
 	{
 		if (cmd[*index] == '$')
 		{
@@ -28,6 +28,7 @@ t_token_types type)
 				expanded = ft_strjoin(expanded, "\n");
 			else
 				expanded = ft_strjoin(expanded, var);
+			continue ;
 		}
 		if ((cmd[*index] == '\'' || cmd[*index] == '\"') && type == WORD)
 			expanded = ft_strjoin(expanded, \

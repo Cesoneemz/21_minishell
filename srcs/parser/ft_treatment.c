@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:04:52 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/23 13:36:36 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/23 14:38:18 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ char	*ft_dollar_treatment(char *cmd, t_info *info, int *index)
 		return (env_key);
 	while (ft_is_end_of_str(cmd[++(*index)]))
 		env_len++;
-	if (cmd[(*index)] == '$' && (!ft_isascii(cmd[(*index) + 1]) \
-	|| cmd[(*index) + 1] == '\0'))
+	if ((cmd[(*index)] == '$' && (!ft_isascii(cmd[(*index) + 1]))) \
+	|| (cmd[(*index)] == '\0' || cmd[(*index)] == 0))
 		(*index)--;
 	env_key = ft_substr(cmd, temp + 1, env_len);
 	value = ft_get_env(info->env, env_key);
@@ -112,12 +112,12 @@ char	*ft_quotes_treatment(char *cmd, t_token_types type, t_info *info)
 		if (cmd[index] == '$' && type == EXP_FIELD)
 		{
 			value = ft_strjoin(value, ft_dollar_treatment(cmd, info, &index));
+			free(temp);
 			continue ;
 		}
 		else
 			value = ft_add_char_to_str(value, cmd[index]);
 		index++;
-		free(temp);
 	}
 	if (value == NULL)
 		return (cmd);

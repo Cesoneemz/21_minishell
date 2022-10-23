@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:04:32 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/18 18:36:30 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/23 15:01:27 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,6 @@ char	*ft_check_dollar_exceptions(char *cmd, int *index, t_info *info)
 	}
 	if (cmd[(*index)] == '$' && \
 	(!ft_isascii(cmd[(*index) + 1]) || cmd[(*index) + 1] == '\0'))
-	{
-		(*index)++;
 		return (ft_strdup("$"));
-	}
 	return (NULL);
 }
