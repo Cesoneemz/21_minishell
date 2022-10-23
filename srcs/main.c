@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/21 16:14:53 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/23 15:25:46 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	ft_signal_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
-		printf("\n");
+		write(STDOUT_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -65,14 +65,13 @@ int	main_1st_loop(t_info *info)
 	while (1)
 	{
 		tokens = ft_new_token();
-		str = ft_readline(" (_*_) MiniShell v.0.27 $> ");
+		str = ft_readline(" (_*_) MiniShell v.1.0 $> ");
 		if (!str)
 			break ;
 		if (ft_strlen(str) <= 0 || ft_main_loop(&info, &tokens, str) == -2)
 			continue ;
 		cmd_list = make_cmd_list2(info);
 		env_list = make_env_list(info->env);
-		print_tmp_tokens(info);
 		if (info->cmd_count == 1 && check_builtins2(cmd_list[1]))
 			info->exit_code = ft_run_builtin2(cmd_list, info);
 		else

@@ -3,29 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_make_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:32:00 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/04 21:19:57 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/23 15:22:10 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "executer.h"
-
-void	print_env_tokens(t_env *env)
-{
-	t_env	*tmp_env;
-
-	tmp_env = env;
-	printf("\t+-=-=-=-=-=-=-=-=s\n");
-	while (tmp_env)
-	{
-		printf("\t %s = %s\n", tmp_env->key, tmp_env->value);
-		tmp_env = tmp_env->next;
-	}
-	printf("\t+-=-=-=-=-=-=-=-=s\n");
-}
 
 int	env_list_count(t_env *tmp_env)
 {
@@ -65,3 +51,18 @@ char	**make_env_list(t_env *env)
 	}
 	return (env_list);
 }
+/*
+void	print_env_tokens(t_env *env)
+{
+	t_env	*tmp_env;
+
+	tmp_env = env;
+	printf("\t+-=-=-=-=-=-=-=-=s\n");
+	while (tmp_env)
+	{
+		printf("\t %s = %s\n", tmp_env->key, tmp_env->value);
+		tmp_env = tmp_env->next;
+	}
+	printf("\t+-=-=-=-=-=-=-=-=s\n");
+}
+*/

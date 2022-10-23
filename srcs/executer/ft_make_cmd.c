@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_make_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:32:00 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/15 19:22:07 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/23 15:21:54 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_tmp_tokens(t_info *info)
-{
-	int			i;
-	t_tokens	*tmp_tokens;
-
-	i = 0;
-	printf("-=-=-=-=-=-=-=-=s\n");
-	while (i < info->cmd_count)
-	{
-		tmp_tokens = info->cmd_list[i].sep_tokens;
-		while (tmp_tokens)
-		{
-			printf("[:%u] %s \t \n", tmp_tokens->type, tmp_tokens->value);
-			tmp_tokens = tmp_tokens->next;
-		}
-		i++;
-		if (i < info->cmd_count)
-			printf("-=-=-=-= | -=-=-=-=s\n");
-	}
-}
 
 char	**make_cmd_list(t_info *info)
 {
@@ -110,3 +89,24 @@ char	**make_cmd_list2(t_info *info)
 	}
 	return (cmd_argv);
 }
+/*void	print_tmp_tokens(t_info *info)
+{
+	int			i;
+	t_tokens	*tmp_tokens;
+
+	i = 0;
+	printf("-=-=-=-=-=-=-=-=s\n");
+	while (i < info->cmd_count)
+	{
+		tmp_tokens = info->cmd_list[i].sep_tokens;
+		while (tmp_tokens)
+		{
+			printf("[:%u] %s \t \n", tmp_tokens->type, tmp_tokens->value);
+			tmp_tokens = tmp_tokens->next;
+		}
+		i++;
+		if (i < info->cmd_count)
+			printf("-=-=-=-= | -=-=-=-=s\n");
+	}
+}
+*/

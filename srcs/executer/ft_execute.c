@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 14:55:18 by WMiyu             #+#    #+#             */
-/*   Updated: 2022/10/23 13:48:33 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/23 15:20:39 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*find_cmd_in_path(char *cmd, char **envp)
 	}
 	return (cmdpath);
 }
-
+/*
 int	execute(char **newargv, char **envp)
 {
 	char	*cmd_path;
@@ -84,3 +84,4 @@ int	execute(char **newargv, char **envp)
 	}
 	return (-777);
 }
+*/
