@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+         #
+#    By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/05 18:30:46 by wlanette          #+#    #+#              #
-#    Updated: 2022/10/21 18:58:43 by wmiyu            ###   ########.fr        #
+#    Updated: 2022/10/23 13:33:32 by wlanette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CC_FLAGS = -Wall -Werror -Wextra #-fsanitize=address -g
+CC_FLAGS = -Wall -Werror -Wextra -fsanitize=address -g
 INCLUDE_FLAGS = -I./includes/ -I $(LIBFT_PATH)
 L_FLAGS = -lreadline
 #READLINE = -L /Users/$(USER)/.brew/opt/readline/lib
