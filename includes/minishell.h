@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/21 18:16:45 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/23 19:13:00 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_info
 
 t_info			*ft_init_info(void);
 t_env			*ft_init_env(char **envp);
+int				ft_check_str_is_empty(char *str);
 
 /* ENV */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/23 15:25:46 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/23 19:13:57 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int	main_1st_loop(t_info *info)
 		str = ft_readline(" (_*_) MiniShell v.1.0 $> ");
 		if (!str)
 			break ;
-		if (ft_strlen(str) <= 0 || ft_main_loop(&info, &tokens, str) == -2)
+		if (ft_strlen(str) <= 0 || !ft_check_str_is_empty(str) \
+		|| ft_main_loop(&info, &tokens, str) == -2)
 			continue ;
 		cmd_list = make_cmd_list2(info);
 		env_list = make_env_list(info->env);
