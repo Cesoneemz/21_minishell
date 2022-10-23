@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:04:52 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/23 14:38:18 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/23 16:06:12 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ char	*ft_dollar_treatment(char *cmd, t_info *info, int *index)
 		return (env_key);
 	while (ft_is_end_of_str(cmd[++(*index)]))
 		env_len++;
-	if ((cmd[(*index)] == '$' && (!ft_isascii(cmd[(*index) + 1]))) \
-	|| (cmd[(*index)] == '\0' || cmd[(*index)] == 0))
+	if ((cmd[(*index)] == '$' && (!ft_isascii(cmd[(*index) + 1]))))
 		(*index)--;
 	env_key = ft_substr(cmd, temp + 1, env_len);
 	value = ft_get_env(info->env, env_key);
@@ -80,21 +79,18 @@ char	*ft_word_treatment(char *cmd, int *index, char c)
 {
 	char	*expanded_word;
 	int		counter;
-	char	*tmp;
 
 	counter = 0;
 	expanded_word = ft_calloc(1, sizeof(char));
-	while (cmd[counter])
+	while (cmd[*index])
 	{
-		if (cmd[counter] != c)
-		{
-			tmp = expanded_word;
-			expanded_word = ft_add_char_to_str(expanded_word, cmd[counter]);
-			free(tmp);
-		}
+		if (cmd[*index] != c)
+			expanded_word = ft_add_char_to_str(expanded_word, cmd[*index]);
 		(*index)++;
 		counter++;
 	}
+	if (cmd[*index] == '\0' || cmd[*index] == 0)
+		(*index)--;
 	return (expanded_word);
 }
 
