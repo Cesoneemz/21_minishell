@@ -6,11 +6,20 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:05:58 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/23 16:06:23 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/23 16:16:40 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	ft_is_quote(char c)
+{
+	if (c == '\'' || c == '\"')
+	{
+		return (1);
+	}
+	return (0);
+}
 
 char	*ft_parse_cmd_part_2(int *index, t_info **info, char *cmd, \
 t_token_types type)
@@ -33,8 +42,7 @@ t_token_types type)
 		if ((cmd[*index] == '\'' || cmd[*index] == '\"') && type == WORD)
 			expanded = ft_strjoin(expanded, \
 			ft_word_treatment(cmd, index, cmd[*index]));
-		if (ft_isascii(cmd[*index]) && \
-		cmd[*index] != '\"' && cmd[*index] != '\'')
+		if (ft_isascii(cmd[*index]) && ft_is_quote(cmd[*index]))
 			expanded = ft_add_char_to_str(expanded, cmd[*index]);
 		(*index)++;
 	}
