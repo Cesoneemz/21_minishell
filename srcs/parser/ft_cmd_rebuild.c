@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:25:02 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/24 21:50:13 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/24 22:33:15 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ t_tokens	*ft_rebuild_cmd(char **cmd_list, char **save, int jndex, int zndex)
 	if (cmd_list)
 		ft_join_arrays(&new_list, cmd_list);
 	if (save)
+	{
+		ft_create_new_node(&new_list);
 		ft_join_arrays(&new_list, save);
+	}
 	ft_free_all_lists(cmd_list, save);
 	new_list = head;
 	return (new_list);
