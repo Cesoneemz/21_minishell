@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 15:20:32 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/24 17:08:36 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/24 21:27:23 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ int	ft_get_exec_line(t_info **info, char ***cmd_list, char ***save)
 	t_tokens	*temp;
 
 	index = 0;
-	zndex = 0;
-	jndex = 0;
 	while (index < (*info)->cmd_count)
 	{
 		ft_init_exec_line(info, index, save, cmd_list);
 		temp = (*info)->cmd_list[index].sep_tokens;
+		jndex = 0;
+		zndex = 0;
 		while (temp)
 		{
 			if (temp->type == WORD || temp->type == BUILTIN)
