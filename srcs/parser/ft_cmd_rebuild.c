@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:25:02 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/25 00:39:35 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/25 01:23:09 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,13 @@ void	ft_rebuild_cmd(char **array, t_tokens **new_list)
 	t_tokens	*new;
 
 	new = NULL;
-	if (array)
+	if (array && *array)
 	{
 		new = ft_new_token();
 		ft_join_arrays(&new, array);
 	}
+	else
+		return ;
 	ft_free_all_lists(array);
 	ft_add_back(new_list, new);
 }
