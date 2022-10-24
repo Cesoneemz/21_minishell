@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/24 17:08:49 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/25 00:39:03 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,9 @@ int				ft_get_exec_line(t_info **info, char ***cmd_list, char ***save);
 char			*ft_add_char_to_str(char *str, char c);
 char			*ft_check_dollar_exceptions(char *cmd, \
 int *index, t_info *info);
-t_tokens		*ft_rebuild_cmd(char **cmd_list, char **save, \
-int jndex, int zndex);
-void			ft_free_all_lists(char **cmd_list, char **save);
+void			ft_rebuild_cmd(char **array, t_tokens **new_list);
+int				ft_is_head(t_token_types type);
+int				ft_get_redirection_count(t_tokens *temp);
 
 /* UTILS */
 

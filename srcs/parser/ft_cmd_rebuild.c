@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:25:02 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/24 22:33:15 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/25 00:39:35 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	ft_create_new_node(t_tokens **list)
 	(*list) = (*list)->next;
 }
 
-void	ft_free_all_lists(char **cmd_list, char **save)
+void	ft_free_all_lists(char **cmd_list)
 {
 	int			index;
 
@@ -26,42 +26,54 @@ void	ft_free_all_lists(char **cmd_list, char **save)
 	while (cmd_list[index++])
 		free(cmd_list[index]);
 	free(cmd_list);
-	index = 0;
-	while (save[index++])
-		free(save[index]);
-	free(save);
+}
+
+void	ft_add_back(t_tokens **lst, t_tokens *new)
+{
+	t_tokens	*head;
+
+	if (lst)
+	{
+		if (*lst)
+		{
+			head = *lst;
+			while ((*lst)->next)
+				(*lst) = (*lst)->next;
+			(*lst)->next = new;
+			*lst = head;
+		}
+		else
+			*lst = new;
+	}
 }
 
 static void	ft_join_arrays(t_tokens **list, char **array)
 {
-	int	index;
+	int			index;
+	t_tokens	*head;
 
 	index = 0;
-	while (array[index])
+	head = *list;
+	while (array[index] && array[index] != 0)
 	{
-		(*list)->value = ft_strdup(array[index++]);
+		(*list)->value = ft_strdup(array[index]);
+		index++;
 		if (array[index])
 			ft_create_new_node(list);
 	}
+	*list = head;
 }
 
-t_tokens	*ft_rebuild_cmd(char **cmd_list, char **save, int jndex, int zndex)
+void	ft_rebuild_cmd(char **array, t_tokens **new_list)
 {
-	t_tokens	*new_list;
-	t_tokens	*head;
+	t_tokens	*new;
 
-	save[zndex] = NULL;
-	cmd_list[jndex] = NULL;
-	new_list = ft_new_token();
-	head = new_list;
-	if (cmd_list)
-		ft_join_arrays(&new_list, cmd_list);
-	if (save)
+	new = NULL;
+	if (array)
 	{
-		ft_create_new_node(&new_list);
-		ft_join_arrays(&new_list, save);
+		new = ft_new_token();
+		ft_join_arrays(&new, array);
 	}
-	ft_free_all_lists(cmd_list, save);
-	new_list = head;
-	return (new_list);
+	ft_free_all_lists(array);
+	ft_add_back(new_list, new);
 }
