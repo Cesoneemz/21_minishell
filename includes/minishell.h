@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/23 19:13:00 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/24 17:08:49 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,10 +140,13 @@ char			*ft_dollar_treatment(char *cmd, t_info *info, int *index);
 char			*ft_word_treatment(char *cmd, int *index, char c);
 int				ft_is_redirect(t_token_types type);
 t_token_types	ft_get_new_type(t_token_types type);
-int				ft_get_exec_line(t_info **info);
+int				ft_get_exec_line(t_info **info, char ***cmd_list, char ***save);
 char			*ft_add_char_to_str(char *str, char c);
 char			*ft_check_dollar_exceptions(char *cmd, \
 int *index, t_info *info);
+t_tokens		*ft_rebuild_cmd(char **cmd_list, char **save, \
+int jndex, int zndex);
+void			ft_free_all_lists(char **cmd_list, char **save);
 
 /* UTILS */
 
@@ -156,6 +159,6 @@ void			ft_free_cmd(t_info **info);
 void			ft_free_env(t_env **env);
 int				ft_is_builtin(char *str);
 void			ft_free_exit(t_tokens **tokens, t_info **info, char *str);
-void			ft_free_all(t_info **info, t_tokens **tokens, char *str);
+void			ft_free_all(t_tokens **tokens, char *str);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_in_loop.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:51:03 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/21 15:49:24 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/24 16:46:06 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ void	ft_free_exit(t_tokens **tokens, t_info **info, char *str)
 	free(str);
 }
 
-void	ft_free_all(t_info **info, t_tokens **tokens, char *str)
+void	ft_free_all(t_tokens **tokens, char *str)
 {
 	ft_free_tokens(tokens);
-	ft_free_cmd(info);
 	free(str);
 }

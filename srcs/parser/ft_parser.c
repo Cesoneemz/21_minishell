@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:05:58 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/23 18:49:32 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:57:53 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,5 @@ int	ft_parse_command(t_info **info, t_tokens *tokens)
 		}
 	}
 	tokens = temp;
-	ft_get_exec_line(info);
 	return (1);
 }

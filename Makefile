@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+         #
+#    By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/05 18:30:46 by wlanette          #+#    #+#              #
-#    Updated: 2022/10/23 13:52:42 by wmiyu            ###   ########.fr        #
+#    Updated: 2022/10/24 16:31:40 by wlanette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRC =	$(SRC_PATH)main.c $(SRC_PATH)ft_init.c $(SRC_PATH)lexer/ft_lexer.c \
 		$(SRC_PATH)env/ft_env.c $(SRC_PATH)parser/ft_count_cmds.c $(SRC_PATH)parser/ft_init_cmds.c \
 		$(SRC_PATH)parser/ft_parser.c $(SRC_PATH)parser/ft_treatment.c $(SRC_PATH)env/ft_env_list.c \
 		$(SRC_PATH)env/ft_env_set.c $(SRC_PATH)lexer/ft_validators_2.c\
-		$(SRC_PATH)parser/ft_parser_utils.c $(SRC_PATH)utils/ft_free_in_loop.c \
+		$(SRC_PATH)parser/ft_parser_utils.c $(SRC_PATH)utils/ft_free_in_loop.c $(SRC_PATH)parser/ft_cmd_rebuild.c\
 		$(SRC_PATH)executer/ft_builtins.c $(SRC_PATH)executer/ft_exec_z.c \
 		$(SRC_PATH)executer/ft_execute.c $(SRC_PATH)executer/ft_joiner.c \
 		$(SRC_PATH)executer/ft_file_redir.c $(SRC_PATH)executer/ft_split.c $(SRC_PATH)executer/ft_strjoin.c \

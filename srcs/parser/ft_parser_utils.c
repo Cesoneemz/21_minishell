@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 15:20:32 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/03 18:29:35 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/24 17:08:36 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_token_types	ft_get_new_type(t_token_types type)
 	return (WORD);
 }
 
-static int	ft_count_args(t_tokens *tokens)
+static int	ft_count_args(t_tokens *tokens, int *args_len)
 {
 	t_tokens	*temp;
 	int			index;
@@ -42,43 +42,49 @@ static int	ft_count_args(t_tokens *tokens)
 	{
 		if (temp->type == WORD || temp->type == BUILTIN)
 			index++;
+		else
+			(*args_len)++;
 		temp = temp->next;
 	}
 	return (index);
 }
 
-static void	ft_init_exec_line(t_info **info, int index)
+static void	ft_init_exec_line(t_info **info, int index, \
+char ***save, char ***cmd_list)
 {
 	int	len;
+	int	args_len;
 
-	len = ft_count_args((*info)->cmd_list[index].sep_tokens);
-	(*info)->cmd_list[index].exec_line = \
-	(char **)malloc(sizeof(char *) * (len + 1));
+	args_len = 0;
+	len = ft_count_args((*info)->cmd_list[index].sep_tokens, &args_len);
+	*save = (char **)malloc(sizeof(char *) * (args_len + 1));
+	*cmd_list = (char **)malloc(sizeof(char *) * (len + 1));
 }
 
-int	ft_get_exec_line(t_info **info)
+int	ft_get_exec_line(t_info **info, char ***cmd_list, char ***save)
 {
 	int			index;
 	int			jndex;
+	int			zndex;
 	t_tokens	*temp;
 
 	index = 0;
+	zndex = 0;
+	jndex = 0;
 	while (index < (*info)->cmd_count)
 	{
-		ft_init_exec_line(info, index);
+		ft_init_exec_line(info, index, save, cmd_list);
 		temp = (*info)->cmd_list[index].sep_tokens;
-		jndex = 0;
 		while (temp)
 		{
 			if (temp->type == WORD || temp->type == BUILTIN)
-			{
-				(*info)->cmd_list[index].exec_line[jndex] = \
-				ft_strdup(temp->value);
-				jndex++;
-			}
+				(*cmd_list)[jndex++] = ft_strdup(temp->value);
+			else
+				(*save)[zndex++] = ft_strdup(temp->value);
 			temp = temp->next;
 		}
-		(*info)->cmd_list[index].exec_line[jndex] = NULL;
+		(*info)->cmd_list[index].sep_tokens = \
+		ft_rebuild_cmd((*cmd_list), (*save), jndex, zndex);
 		index++;
 	}
 	return (0);

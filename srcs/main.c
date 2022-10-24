@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/23 19:13:57 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/24 17:00:00 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ static void	ft_signal_handler(int signal)
 
 int	ft_main_loop(t_info **info, t_tokens **tokens, char *str)
 {
+	char	**cmd_list;
+	char	**save;
+
 	if (ft_lexer(str, tokens) == -1)
 	{
 		if (tokens)
@@ -52,6 +55,7 @@ int	ft_main_loop(t_info **info, t_tokens **tokens, char *str)
 	(*info)->token_head = (*tokens);
 	if (ft_parse_command(info, (*tokens)) == -1)
 		return (-2);
+	ft_get_exec_line(info, &cmd_list, &save);
 	return (0);
 }
 
@@ -79,7 +83,7 @@ int	main_1st_loop(t_info *info)
 			info->exit_code = ft_exec_semi(dup(0), cmd_list, env_list);
 		ft_freesplit(&env_list);
 		ft_freesplit(&cmd_list);
-		ft_free_all(&info, &tokens, str);
+		ft_free_all(&tokens, str);
 	}
 	return (0);
 }
