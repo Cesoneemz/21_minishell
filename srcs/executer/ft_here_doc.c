@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_here_doc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:28:38 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/23 14:38:30 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/25 01:32:36 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ int	ft_heredoc_mode(char *delim)
 	if (fork() == 0)
 	{
 		close(fd[0]);
-		write (STDOUT_FILENO, ">", 1);
+		write (STDOUT_FILENO, "> ", 2);
 		while (ft_gnl(&line, STDIN_FILENO))
 		{
 			if (ft_strncmp(line, delim, ft_strlen(delim)) == 0)
 				exit (0);
 			write(fd[1], line, ft_strlen(line));
-			write (STDOUT_FILENO, ">", 1);
+			write (STDOUT_FILENO, "> ", 2);
 		}
 	}
 	else
@@ -54,6 +54,18 @@ int	ft_heredoc_mode(char *delim)
 
 int	ft_try_heredoc(int i, char **argv, int *tmp_fd)
 {
+	if (i >= 3 && ft_strncmp(argv[0], "<<", 2) == 0)
+	{
+		if (i < 2)
+			return (ft_putstr_fd2("error: <<: bad arguments", NULL));
+		*tmp_fd = ft_heredoc_mode(argv[1]);
+		param_shift(&argv, 2);
+	}
+	return (0);
+}
+
+/*int	ft_try_heredoc(int i, char **argv, int *tmp_fd)
+{
 	if (i >= 3 && ft_strncmp(argv[i - 2], "<<", 2) == 0)
 	{
 		if (i < 2)
@@ -63,3 +75,4 @@ int	ft_try_heredoc(int i, char **argv, int *tmp_fd)
 	}
 	return (0);
 }
+*/

@@ -6,7 +6,7 @@
 #    By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/05 18:30:46 by wlanette          #+#    #+#              #
-#    Updated: 2022/10/25 00:11:53 by wlanette         ###   ########.fr        #
+#    Updated: 2022/10/25 12:34:01 by wlanette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC_PATH = ./srcs/
 OBJ_PATH = ./obj/
 LIBFT_PATH = ./includes/libft/
 
-SRC =	$(SRC_PATH)main.c $(SRC_PATH)ft_init.c $(SRC_PATH)lexer/ft_lexer.c \
+SRC =	$(SRC_PATH)main.c $(SRC_PATH)ft_init.c $(SRC_PATH)lexer/ft_lexer.c $(SRC_PATH)executer/ft_here_doc.c \
 		$(SRC_PATH)utils/ft_print_error.c $(SRC_PATH)lexer/ft_validators.c $(SRC_PATH)lexer/ft_lexer_utils.c\
 		$(SRC_PATH)lexer/ft_init_tokens.c $(SRC_PATH)utils/ft_is_space.c $(SRC_PATH)utils/ft_free_tokens.c \
 		$(SRC_PATH)env/ft_env.c $(SRC_PATH)parser/ft_count_cmds.c $(SRC_PATH)parser/ft_init_cmds.c \
