@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/25 00:49:07 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:20:24 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,6 @@ static char	*ft_readline(char *prompt)
 	if (ft_strlen(res) > 0)
 		add_history(res);
 	return (res);
-}
-
-static void	ft_signal_handler(int signal)
-{
-	if (signal == SIGINT)
-	{
-		write(STDOUT_FILENO, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	else if (signal == SIGQUIT)
-	{
-		ft_print_error("Exit (core dumped)");
-		write(1, "\b\b  \b\b", 7);
-		exit (1);
-	}
 }
 
 int	ft_main_loop(t_info **info, t_tokens **tokens, char *str)
@@ -97,7 +80,6 @@ int	main(int argc, char **argv, char **envp)
 	rl_catch_signals = 0;
 	info = ft_init_info();
 	info->env = ft_init_env(envp);
-	signal(SIGINT, ft_signal_handler);
-	signal(SIGQUIT, SIG_IGN);
+	ft_handle_global_signals();
 	return (main_1st_loop(info));
 }

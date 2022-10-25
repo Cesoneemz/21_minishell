@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_here_doc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:28:38 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/25 01:32:36 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/25 18:14:19 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	ft_heredoc_mode(char *delim)
 		perror("pipe error");
 	if (fork() == 0)
 	{
+		ft_handle_fork_signals();
 		close(fd[0]);
 		write (STDOUT_FILENO, "> ", 2);
 		while (ft_gnl(&line, STDIN_FILENO))

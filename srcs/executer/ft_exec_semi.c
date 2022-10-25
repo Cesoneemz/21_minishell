@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_semi.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:33:07 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/23 13:43:54 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/25 18:14:12 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	ft_pipe_semi(int tmp_fd, char **argv, char **envp, int i)
 	pipe(fd);
 	if (fork() == 0)
 	{
+		ft_handle_fork_signals();
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
@@ -91,6 +92,8 @@ int	ft_fork_semi(int t_f_i[2], char **argv, char **envp, int *most_recent_code)
 	wpid = fork();
 	if (wpid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (ft_execute3(argv, i, tmp_fd, envp))
 			exit (127);
 		else
