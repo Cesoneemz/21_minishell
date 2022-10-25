@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 15:20:32 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/25 00:48:02 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/25 19:53:15 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	**ft_parse_loop(t_tokens *temp, char ***cmd_list, char ***save)
 	{
 		if (ft_is_head(temp->type))
 			redirect[xndex++] = ft_strdup(temp->value);
-		else if (temp->type == WORD || temp->type == BUILTIN)
+		else if (ft_is_field(temp->type))
 			(*cmd_list)[jndex++] = ft_strdup(temp->value);
 		else
 			(*save)[zndex++] = ft_strdup(temp->value);
@@ -90,6 +90,7 @@ int	ft_get_exec_line(t_info **info, char ***cmd_list, char ***save)
 	char		**redirect;
 	t_tokens	*new_list;
 	t_tokens	*temp;
+	t_tokens	*free_me;
 
 	index = 0;
 	while (index < (*info)->cmd_count)
@@ -101,7 +102,10 @@ int	ft_get_exec_line(t_info **info, char ***cmd_list, char ***save)
 		ft_rebuild_cmd(redirect, &new_list);
 		ft_rebuild_cmd((*cmd_list), &new_list);
 		ft_rebuild_cmd((*save), &new_list);
+		free_me = (*info)->cmd_list[index].sep_tokens;
 		(*info)->cmd_list[index].sep_tokens = new_list;
+		free(free_me);
+		free_me = NULL;
 		index++;
 	}
 	return (0);
