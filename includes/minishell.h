@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/25 19:52:56 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/26 00:01:13 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ void			ft_rebuild_cmd(char **array, t_tokens **new_list);
 int				ft_is_head(t_token_types type);
 int				ft_get_redirection_count(t_tokens *temp);
 int				ft_is_field(t_token_types type);
+void			ft_free_all_lists(char **cmd_list);
 
 /* SIGNALS */
 
@@ -165,6 +166,6 @@ void			ft_free_cmd(t_info **info);
 void			ft_free_env(t_env **env);
 int				ft_is_builtin(char *str);
 void			ft_free_exit(t_tokens **tokens, t_info **info, char *str);
-void			ft_free_all(t_tokens **tokens, char *str);
+void			ft_free_all(t_tokens **tokens, t_info **info, char *str);
 
 #endif

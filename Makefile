@@ -6,12 +6,12 @@
 #    By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/05 18:30:46 by wlanette          #+#    #+#              #
-#    Updated: 2022/10/25 20:05:00 by wlanette         ###   ########.fr        #
+#    Updated: 2022/10/26 00:19:51 by wlanette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = clang
-CC_FLAGS = -Wall -Werror -Wextra -g #-fsanitize=address -g
+CC_FLAGS = -Wall -Werror -Wextra -gdwarf-4 -fsanitize=address 
 INCLUDE_FLAGS = -I./includes/ -I $(LIBFT_PATH)
 L_FLAGS = -lreadline
 #READLINE = -L /Users/$(USER)/.brew/opt/readline/lib

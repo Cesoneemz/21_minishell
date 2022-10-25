@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:28:38 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/25 18:14:19 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/26 01:32:37 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	ft_heredoc_mode(char *delim)
 				exit (0);
 			write(fd[1], line, ft_strlen(line));
 			write (STDOUT_FILENO, "> ", 2);
+			free(line);
 		}
 	}
 	else
