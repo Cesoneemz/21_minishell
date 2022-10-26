@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:28:38 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/26 01:32:37 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/26 10:14:25 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,31 @@ int	ft_gnl(char **line, int fd)
 	return (len);
 }
 
+void	ft_heredoc_mode_loop(int fd[2], char *delim)
+{
+	char	*line;
+
+	ft_handle_fork_signals();
+	close(fd[0]);
+	write (STDOUT_FILENO, "> ", 2);
+	while (ft_gnl(&line, STDIN_FILENO))
+	{
+		if (ft_strncmp(line, delim, ft_strlen(delim)) == 0)
+			exit (0);
+		write(fd[1], line, ft_strlen(line));
+		free(line);
+		write (STDOUT_FILENO, "> ", 2);
+	}
+}
+
 int	ft_heredoc_mode(char *delim)
 {
 	int		fd[2];
-	char	*line;
 
 	if (pipe(fd) != 0)
 		perror("pipe error");
 	if (fork() == 0)
-	{
-		ft_handle_fork_signals();
-		close(fd[0]);
-		write (STDOUT_FILENO, "> ", 2);
-		while (ft_gnl(&line, STDIN_FILENO))
-		{
-			if (ft_strncmp(line, delim, ft_strlen(delim)) == 0)
-				exit (0);
-			write(fd[1], line, ft_strlen(line));
-			write (STDOUT_FILENO, "> ", 2);
-			free(line);
-		}
-	}
+		ft_heredoc_mode_loop(fd, delim);
 	else
 	{
 		close(fd[1]);

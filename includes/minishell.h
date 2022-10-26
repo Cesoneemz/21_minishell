@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/26 00:01:13 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/26 09:25:38 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,8 @@ int				ft_is_head(t_token_types type);
 int				ft_get_redirection_count(t_tokens *temp);
 int				ft_is_field(t_token_types type);
 void			ft_free_all_lists(char **cmd_list);
+char			**ft_get_redirect(t_tokens *temp);
+char			*ft_parse_cmd_part3(t_token_types type, char *cmd, int *index);
 
 /* SIGNALS */
 

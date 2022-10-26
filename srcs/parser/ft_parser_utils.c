@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 15:20:32 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/26 01:20:26 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/26 09:27:49 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,25 +65,18 @@ char ***save, char ***cmd_list)
 
 char	**ft_parse_loop(t_tokens *temp, char ***cmd_list, char ***save)
 {
-	int		redirect_count;
 	char	**redirect;
 	int		jndex;
 	int		zndex;
 	int		xndex;
 
-	redirect_count = ft_get_redirection_count(temp);
-	redirect = NULL;
-	if (redirect_count > 0)
-	{
-		redirect = malloc(sizeof(char *) * (redirect_count + 1));
-		redirect[redirect_count] = NULL;
-	}
 	jndex = 0;
 	zndex = 0;
 	xndex = 0;
+	redirect = ft_get_redirect(temp);
 	while (temp)
 	{
-		if (ft_is_head(temp->type) && redirect_count > 0)
+		if (ft_is_head(temp->type) && redirect)
 			redirect[xndex++] = ft_strdup(temp->value);
 		else if (ft_is_field(temp->type) && save)
 			(*cmd_list)[jndex++] = ft_strdup(temp->value);
