@@ -32,7 +32,6 @@ int	ft_main_loop(t_info **info, t_tokens **tokens, char *str)
 	{
 		if (tokens)
 			ft_free_tokens(tokens);
-		free(str);
 		return (-2);
 	}
 	(*info)->token_head = (*tokens);
@@ -67,6 +66,8 @@ int	main_1st_loop(t_info *info)
 	{
 		tokens = ft_new_token();
 		str = ft_readline(" (_*_) MiniShell v.1.0 $> ");
+		if (!str)
+			exit(1);
 		if (ft_strlen(str) <= 0 || !ft_check_str_is_empty(str) \
 		|| ft_main_loop(&info, &tokens, str) == -2)
 		{

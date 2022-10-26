@@ -57,6 +57,19 @@ void	ft_init_env_misc(t_env **env)
 	ft_set_env(env, "PWD", (char *)getcwd(NULL, 0));
 }
 
+char	**ft_split_env_var(char **envp, int index)
+{
+	char	**split_content;
+
+	split_content = ft_split(envp[index], '=');
+	if (!split_content)
+	{
+		perror("Corrupted env");
+		exit(errno);
+	}
+	return (split_content);
+}
+
 t_env	*ft_init_env(char **envp)
 {
 	int		index;
@@ -69,9 +82,7 @@ t_env	*ft_init_env(char **envp)
 	head = env;
 	while (envp[index] != NULL)
 	{
-		split_content = ft_split(envp[index], '=');
-		if (!split_content)
-			return (NULL);
+		split_content = ft_split_env_var(envp, index);
 		env->key = ft_strdup(split_content[0]);
 		if (split_content[1])
 			env->value = ft_strdup(split_content[1]);
@@ -83,5 +94,6 @@ t_env	*ft_init_env(char **envp)
 		index++;
 	}
 	env = head;
+	ft_init_env_misc(&env);
 	return (env);
 }
