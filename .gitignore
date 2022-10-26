@@ -1,8 +1,11 @@
 .vscode/
 .idea/
+.DS_Store
 
+*.dSYM
 *.o
 *.d
+*.txt
 
 minishell
 

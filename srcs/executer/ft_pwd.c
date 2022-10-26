@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_tokens.c                                   :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/15 04:56:23 by wlanette          #+#    #+#             */
-/*   Updated: 2022/09/15 04:56:23 by wlanette         ###   ########.fr       */
+/*   Created: 2022/09/23 16:11:23 by wmiyu             #+#    #+#             */
+/*   Updated: 2022/10/21 15:28:12 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "executer.h"
 
-t_tokens	*ft_new_token(void)
+int	ft_pwd(char **arglist)
 {
-	t_tokens	*tokens;
+	char	cwd[1024];
 
-	tokens = (t_tokens *)malloc(sizeof(t_tokens));
-	if (!tokens)
-		return (NULL);
-	tokens->len = 0;
-	tokens->value = NULL;
-	tokens->next = NULL;
-	tokens->type = 0;
-	return (tokens);
+	(void)arglist;
+	cwd[0] = '\0';
+	if (getcwd(cwd, 1024))
+	{
+		write(STDOUT_FILENO, cwd, ft_strlen(cwd));
+		write(STDOUT_FILENO, "\n", 1);
+		return (0);
+	}
+	else
+		return (-53);
 }

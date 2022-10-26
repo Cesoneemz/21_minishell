@@ -1,45 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init.c                                          :+:      :+:    :+:   */
+/*   ft_env_set.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/06 13:14:46 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/23 19:12:42 by wlanette         ###   ########.fr       */
+/*   Created: 2022/09/29 00:36:11 by wlanette          #+#    #+#             */
+/*   Updated: 2022/09/29 01:05:10 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_check_str_is_empty(char *str)
+void	ft_set_env(t_env **env, char *key, char *value)
 {
-	int	index;
-	int	flag;
+	t_env	*head;
 
-	index = 0;
-	flag = 0;
-	while (str[index] != '\0')
+	head = *env;
+	while (*env)
 	{
-		if (!ft_is_space(str[index]))
+		if (ft_strncmp((*env)->key, key, ft_strlen(key) + 1) == 0)
 		{
-			flag = 1;
+			free((*env)->value);
+			if (value)
+				(*env)->value = ft_strdup(value);
+			else
+				(*env)->value = ft_strdup("");
 			break ;
 		}
-		index++;
+		(*env) = (*env)->next;
 	}
-	return (flag);
-}
-
-t_info	*ft_init_info(void)
-{
-	t_info	*info;
-
-	info = (t_info *)malloc(sizeof(t_info));
-	if (!info)
-		return (NULL);
-	info->cmd_list = NULL;
-	info->cmd_count = 0;
-	info->exit_code = 0;
-	return (info);
+	(*env) = head;
 }
