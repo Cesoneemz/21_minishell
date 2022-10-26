@@ -68,6 +68,9 @@ char	*ft_check_dollar_exceptions(char *cmd, int *index, t_info *info)
 	}
 	if (cmd[(*index)] == '$' && \
 	(!ft_isascii(cmd[(*index) + 1]) || cmd[(*index) + 1] == '\0'))
+	{
+		(*index)++;
 		return (ft_strdup("$"));
+	}
 	return (NULL);
 }
