@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 15:20:32 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/25 19:53:15 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/26 09:27:49 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ static int	ft_count_args(t_tokens *tokens, int *args_len)
 	index = 0;
 	while (temp)
 	{
-		if (temp->type == WORD || temp->type == BUILTIN)
+		if (ft_is_field(temp->type))
 			index++;
-		else
+		else if (!ft_is_head(temp->type))
 			(*args_len)++;
 		temp = temp->next;
 	}
@@ -51,36 +51,39 @@ char ***save, char ***cmd_list)
 
 	args_len = 0;
 	len = ft_count_args((*info)->cmd_list[index].sep_tokens, &args_len);
-	*save = (char **)malloc(sizeof(char *) * (args_len + 1));
-	*cmd_list = (char **)malloc(sizeof(char *) * (len + 1));
+	if (args_len > 0)
+	{
+		*save = (char **)malloc(sizeof(char *) * (args_len + 1));
+		(*save)[args_len] = NULL;
+	}
+	if (len > 0)
+	{
+		*cmd_list = (char **)malloc(sizeof(char *) * (len + 1));
+		(*cmd_list)[len] = NULL;
+	}
 }
 
 char	**ft_parse_loop(t_tokens *temp, char ***cmd_list, char ***save)
 {
-	int		redirect_count;
 	char	**redirect;
 	int		jndex;
 	int		zndex;
 	int		xndex;
 
-	redirect_count = ft_get_redirection_count(temp);
-	redirect = malloc(sizeof(char *) * (redirect_count + 1));
 	jndex = 0;
 	zndex = 0;
 	xndex = 0;
+	redirect = ft_get_redirect(temp);
 	while (temp)
 	{
-		if (ft_is_head(temp->type))
+		if (ft_is_head(temp->type) && redirect)
 			redirect[xndex++] = ft_strdup(temp->value);
-		else if (ft_is_field(temp->type))
+		else if (ft_is_field(temp->type) && save)
 			(*cmd_list)[jndex++] = ft_strdup(temp->value);
-		else
+		else if (save)
 			(*save)[zndex++] = ft_strdup(temp->value);
 		temp = temp->next;
 	}
-	redirect[xndex] = NULL;
-	(*cmd_list)[jndex] = NULL;
-	(*save)[zndex] = NULL;
 	return (redirect);
 }
 
@@ -90,7 +93,6 @@ int	ft_get_exec_line(t_info **info, char ***cmd_list, char ***save)
 	char		**redirect;
 	t_tokens	*new_list;
 	t_tokens	*temp;
-	t_tokens	*free_me;
 
 	index = 0;
 	while (index < (*info)->cmd_count)
@@ -99,13 +101,14 @@ int	ft_get_exec_line(t_info **info, char ***cmd_list, char ***save)
 		ft_init_exec_line(info, index, save, cmd_list);
 		temp = (*info)->cmd_list[index].sep_tokens;
 		redirect = ft_parse_loop(temp, cmd_list, save);
-		ft_rebuild_cmd(redirect, &new_list);
-		ft_rebuild_cmd((*cmd_list), &new_list);
-		ft_rebuild_cmd((*save), &new_list);
-		free_me = (*info)->cmd_list[index].sep_tokens;
+		if (redirect)
+			ft_rebuild_cmd(redirect, &new_list);
+		if (*cmd_list)
+			ft_rebuild_cmd((*cmd_list), &new_list);
+		if (*save)
+			ft_rebuild_cmd((*save), &new_list);
+		ft_free_tokens(&(*info)->cmd_list[index].sep_tokens);
 		(*info)->cmd_list[index].sep_tokens = new_list;
-		free(free_me);
-		free_me = NULL;
 		index++;
 	}
 	return (0);

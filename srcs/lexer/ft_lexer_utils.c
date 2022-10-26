@@ -33,7 +33,7 @@ int	ft_tokenize_sep(char *str, int index, t_tokens *tokens)
 	int	temp;
 
 	temp = index;
-	while (str[index] == ' ')
+	while (ft_is_space(str[index]))
 	{
 		tokens->len++;
 		index++;

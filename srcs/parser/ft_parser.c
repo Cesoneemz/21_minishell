@@ -6,45 +6,34 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:05:58 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/24 16:57:53 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/26 09:30:25 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_is_quote(char c)
-{
-	if (c == '\'' || c == '\"')
-	{
-		return (1);
-	}
-	return (0);
-}
-
 char	*ft_parse_cmd_part_2(int *index, t_info **info, char *cmd, \
 t_token_types type)
 {
-	char	*expanded;
-	char	*var;
+	char		*expanded;
+	char		*var;
+	char		*temp;
 
 	expanded = ft_calloc(1, sizeof(char));
 	while (cmd[(*index)] != 0 && cmd[(*index)] != '\0')
 	{
 		if (cmd[*index] == '$')
 		{
+			temp = expanded;
 			var = ft_dollar_treatment(cmd, *info, index);
 			if (var == NULL && ft_strlen(expanded) <= 0)
-				expanded = ft_strjoin(expanded, "\n");
+				expanded = ft_strjoin(expanded, " ");
 			else
 				expanded = ft_strjoin(expanded, var);
+			free(temp);
 			continue ;
 		}
-		if ((cmd[*index] == '\'' || cmd[*index] == '\"') && type == WORD)
-			expanded = ft_strjoin(expanded, \
-			ft_word_treatment(cmd, index, cmd[*index]));
-		if (ft_isascii(cmd[*index]) && !ft_is_quote(cmd[*index]))
-			expanded = ft_add_char_to_str(expanded, cmd[*index]);
-		(*index)++;
+		expanded = ft_strjoin(expanded, ft_parse_cmd_part3(type, cmd, index));
 	}
 	if (ft_strlen(expanded) <= 0)
 		expanded = ft_strjoin(expanded, cmd);

@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:25:02 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/25 01:23:09 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/25 22:22:05 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,13 @@ void	ft_free_all_lists(char **cmd_list)
 	int			index;
 
 	index = 0;
-	while (cmd_list[index++])
-		free(cmd_list[index]);
-	free(cmd_list);
+	while (cmd_list && *cmd_list && cmd_list[index])
+		free(cmd_list[index++]);
+	if (cmd_list)
+	{
+		*cmd_list = NULL;
+		free(cmd_list);
+	}
 }
 
 void	ft_add_back(t_tokens **lst, t_tokens *new)

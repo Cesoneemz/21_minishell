@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 05:04:52 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/25 20:10:28 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/25 23:50:58 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ char	*ft_add_char_to_str(char *str, char c)
 	if (!result)
 		return (NULL);
 	s_str = str;
+	if (!s_str)
+		ft_calloc(1, sizeof(char));
 	result[0] = c;
 	result[1] = '\0';
 	tmp = result;
