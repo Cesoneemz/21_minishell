@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_file_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:25:21 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/21 16:55:43 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/27 01:28:23 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	file_in_redir(char *filename, char *redirect)
 	return (file);
 }
 
-int	file_opn_redir(char *filename, char *redirect)
+int	file_opn_redir(char *filename, char *redirect, int touch)
 {
 	int	file;
 	int	file_mode;
@@ -76,7 +76,8 @@ int	file_opn_redir(char *filename, char *redirect)
 		perror(filename);
 		return (-1);
 	}
-	dup2(file, STDOUT_FILENO);
+	if (touch == 0)
+		dup2(file, STDOUT_FILENO);
 	close(file);
 	return (file);
 }
@@ -86,8 +87,16 @@ void	ft_try_open_redir(int t_cnt, char **argv)
 	if (t_cnt >= 3 && (argv[t_cnt - 2][0] == '>' || \
 	(argv[t_cnt - 2][0] == '>' && argv[t_cnt - 2][1] == '>' )))
 	{
-		if (file_opn_redir(argv[t_cnt - 1], argv[t_cnt - 2]) > 0)
+		if (file_opn_redir(argv[t_cnt - 1], argv[t_cnt - 2], 0) > 0)
 			argv[t_cnt - 2] = NULL;
+		t_cnt -= 2;
+	}
+	while (t_cnt >= 3 && (argv[t_cnt - 2][0] == '>' || \
+	(argv[t_cnt - 2][0] == '>' && argv[t_cnt - 2][1] == '>' )))
+	{
+		if (file_opn_redir(argv[t_cnt - 1], argv[t_cnt - 2], 1) > 0)
+			argv[t_cnt - 2] = NULL;
+		t_cnt -= 2;
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:29:43 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/25 18:20:24 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/25 21:01:37 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	main_1st_loop(t_info *info)
 			continue ;
 		cmd_list = make_cmd_list2(info);
 		env_list = make_env_list(info->env);
+		print_tmp_tokens(info);
 		if (info->cmd_count == 1 && check_builtins2(cmd_list[1]))
 			info->exit_code = ft_run_builtin2(cmd_list, info);
 		else
@@ -77,7 +78,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	rl_catch_signals = 0;
+	//rl_catch_signals = 0;
 	info = ft_init_info();
 	info->env = ft_init_env(envp);
 	ft_handle_global_signals();

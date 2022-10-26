@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+         #
+#    By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/05 18:30:46 by wlanette          #+#    #+#              #
-#    Updated: 2022/10/25 20:05:00 by wlanette         ###   ########.fr        #
+#    Updated: 2022/10/27 01:33:53 by wmiyu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ INCLUDE_FLAGS = -I./includes/ -I $(LIBFT_PATH)
 L_FLAGS = -lreadline
 #READLINE = -L /Users/$(USER)/.brew/opt/readline/lib
 #READLINE_INC = -I /Users/$(USER)/.brew/opt/readline/include
-READLINE = -L/opt/homebrew/opt/readline/lib
-READLINE_INC = -I/opt/homebrew/opt/readline/include
+READLINE = -L/usr/local/opt/readline/lib
+READLINE_INC = -I/usr/local/opt/readline/include
 
 RM = rm -f
 
@@ -37,7 +37,7 @@ SRC =	$(SRC_PATH)main.c $(SRC_PATH)ft_init.c $(SRC_PATH)lexer/ft_lexer.c $(SRC_P
 		$(SRC_PATH)parser/ft_parser.c $(SRC_PATH)parser/ft_treatment.c $(SRC_PATH)env/ft_env_list.c \
 		$(SRC_PATH)env/ft_env_set.c $(SRC_PATH)lexer/ft_validators_2.c $(SRC_PATH)parser/ft_parser_validators.c\
 		$(SRC_PATH)parser/ft_parser_utils.c $(SRC_PATH)utils/ft_free_in_loop.c $(SRC_PATH)parser/ft_cmd_rebuild.c\
-		$(SRC_PATH)executer/ft_builtins.c $(SRC_PATH)executer/ft_exec_z.c \
+		$(SRC_PATH)executer/ft_builtins.c \
 		$(SRC_PATH)executer/ft_execute.c $(SRC_PATH)executer/ft_joiner.c \
 		$(SRC_PATH)executer/ft_file_redir.c $(SRC_PATH)executer/ft_split.c $(SRC_PATH)executer/ft_strjoin.c \
 		$(SRC_PATH)executer/ft_make_cmd.c $(SRC_PATH)executer/ft_cd.c $(SRC_PATH)executer/ft_pwd.c \
