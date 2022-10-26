@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 11:17:17 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/23 14:29:30 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/27 01:46:52 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int				ft_echo(char **arglist);
 int				ft_pwd(char **arglist);
 int				ft_built_env(char **arglist, t_env *env);
 int				ft_write_env(char **arglist, char	**env_list);
-int				ft_exec_z(char *cmd_path, char **newargv, char **envp);
 char			**make_env_list(t_env *env);
 int				ft_export_env(char **arglist, t_env *env);
 t_env			*ft_lstlast_env(t_env *lst);
@@ -41,7 +40,6 @@ int				ft_exec_semi(int tmp_fd, char **argv, char **envp);
 int				param_count(char ***par);
 void			param_shift(char ***par, int offset);
 int				file_in_redir(char *filename, char *redirect);
-int				file_opn_redir(char *filename, char *redirect);
 int				check_builtins2(char *cmd);
 int				check_builtins3(char *cmd);
 int				ft_run_builtin2(char **arglist, t_info *info);
