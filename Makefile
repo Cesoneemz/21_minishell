@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC = clang
-CC_FLAGS = -Wall -Werror -Wextra -fsanitize=address 
+CC_FLAGS = -Wall -Werror -Wextra -fsanitize=address -g
 INCLUDE_FLAGS = -I./includes/ -I $(LIBFT_PATH)
 L_FLAGS = -lreadline
 #READLINE = -L /Users/$(USER)/.brew/opt/readline/lib
