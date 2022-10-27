@@ -43,10 +43,10 @@ static int	ft_redirect_check(t_token_types type, t_tokens *next)
 		}
 		else
 		{
-			while (next->type == SEP)
+			while (next && next->type == SEP)
 			{
 				next = next->next;
-				if (ft_is_redirect(next->type))
+				if (next && ft_is_redirect(next->type))
 				{
 					ft_print_error("Invalid syntax: parse error near \'\\n\'\n");
 					return (-1);
