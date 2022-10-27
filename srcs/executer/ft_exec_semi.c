@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_semi.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:33:07 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/25 18:14:12 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/27 16:03:59 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,11 @@ int	ft_execute3(char **argv, int i, int fd_in, char **envp)
 
 	argv[i] = NULL;
 	t_cnt = param_count(&argv);
-	if (t_cnt >= 3 && (argv[0][0] == '<') && \
+	dup2(fd_in, STDIN_FILENO);
+	close(fd_in);
+	while (t_cnt >= 3 && (argv[0][0] == '<') && \
 		file_in_redir(argv[1], argv[0]) > 0)
 		param_shift(&argv, 2);
-	else
-	{
-		dup2(fd_in, STDIN_FILENO);
-		close(fd_in);
-	}
 	t_cnt = param_count(&argv);
 	ft_try_open_redir(t_cnt, argv);
 	if (check_builtins3(argv[0]))

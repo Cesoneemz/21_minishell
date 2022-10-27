@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 14:55:18 by WMiyu             #+#    #+#             */
-/*   Updated: 2022/10/23 15:20:39 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/27 15:47:27 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,22 +66,3 @@ char	*find_cmd_in_path(char *cmd, char **envp)
 	}
 	return (cmdpath);
 }
-/*
-int	execute(char **newargv, char **envp)
-{
-	char	*cmd_path;
-
-	if (access(newargv[0], F_OK) == 0)
-		cmd_path = newargv[0];
-	else
-		cmd_path = find_cmd_in_path(newargv[0], envp);
-	if (cmd_path != NULL)
-		return (ft_exec_z(cmd_path, newargv, envp));
-	else
-	{
-		printf("minishell: %s: command not found\n", (newargv[0]));
-		exit(127);
-	}
-	return (-777);
-}
-*/

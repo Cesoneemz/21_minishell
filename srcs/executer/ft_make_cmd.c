@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_make_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:32:00 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/25 00:49:24 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/27 15:42:51 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ char	**make_cmd_list2(t_info *info)
 	}
 	return (cmd_argv);
 }
-/*void	print_tmp_tokens(t_info *info)
+
+void	print_tmp_tokens(t_info *info)
 {
 	int			i;
 	t_tokens	*tmp_tokens;
@@ -109,4 +110,3 @@ char	**make_cmd_list2(t_info *info)
 			printf("-=-=-=-= | -=-=-=-=s\n");
 	}
 }
-*/
