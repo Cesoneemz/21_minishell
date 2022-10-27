@@ -41,10 +41,17 @@ static int	ft_redirect_check(t_token_types type, t_tokens *next)
 			ft_print_error("Invalid syntax: parse error near \'\\n\'\n");
 			return (-1);
 		}
-		else if (ft_is_redirect(next->type))
+		else
 		{
-			ft_print_error("Invalid syntax: parse error near \'\\n\'\n");
-			return (-1);
+			while (next->type == SEP)
+			{
+				next = next->next;
+				if (ft_is_redirect(next->type))
+				{
+					ft_print_error("Invalid syntax: parse error near \'\\n\'\n");
+					return (-1);
+				}
+			}
 		}
 	}
 	return (0);
