@@ -6,7 +6,7 @@
 /*   By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 15:20:32 by wlanette          #+#    #+#             */
-/*   Updated: 2022/10/26 09:27:49 by wlanette         ###   ########.fr       */
+/*   Updated: 2022/10/27 13:22:17 by wlanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ char ***save, char ***cmd_list)
 	int	args_len;
 
 	args_len = 0;
+	if (index > 0)
+	{
+		*cmd_list = NULL;
+		*save = NULL;
+	}
 	len = ft_count_args((*info)->cmd_list[index].sep_tokens, &args_len);
 	if (args_len > 0)
 	{
