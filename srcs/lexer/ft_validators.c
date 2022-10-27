@@ -32,7 +32,7 @@ static int	ft_parse_quote(char *str, char c)
 	return (1);
 }
 
-static int	ft_redirect_check(t_token_types type, t_tokens *next)
+static int	ft_redirect_check(t_token_types type, t_tokens *next, char *redirect)
 {
 	if (ft_is_redirect(type))
 	{
@@ -46,7 +46,8 @@ static int	ft_redirect_check(t_token_types type, t_tokens *next)
 			ft_print_error("Invalid syntax: parse error near \'\\n\'\n");
 			return (-1);
 		}
-		else if (next->next == NULL || (next->next->next == NULL))
+		else if (next->next == NULL || (ft_strncmp(redirect, "<", 1) == 0 \
+		&& (next->next->next == NULL)))
 		{
 			ft_print_error("Invalid syntax: no command to enter\n");
 			return (-1);
@@ -66,7 +67,7 @@ int	ft_finally_lex_analyze(t_tokens *tokens)
 	{
 		if (ft_check_pipes(temp, prev) == -1)
 			return (-1);
-		if (ft_redirect_check(temp->type, temp->next))
+		if (ft_redirect_check(temp->type, temp->next, temp->value))
 			return (-1);
 		prev = temp;
 		temp = temp->next;
