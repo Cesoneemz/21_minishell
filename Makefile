@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wlanette <wlanette@student.21-school.ru    +#+  +:+       +#+         #
+#    By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/05 18:30:46 by wlanette          #+#    #+#              #
-#    Updated: 2022/10/26 09:25:02 by wlanette         ###   ########.fr        #
+#    Updated: 2022/10/27 15:45:42 by wmiyu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = clang
-CC_FLAGS = -Wall -Werror -Wextra -gdwarf-4 -fsanitize=address 
+CC_FLAGS = -Wall -Werror -Wextra -fsanitize=address 
 INCLUDE_FLAGS = -I./includes/ -I $(LIBFT_PATH)
 L_FLAGS = -lreadline
 #READLINE = -L /Users/$(USER)/.brew/opt/readline/lib
@@ -37,7 +37,7 @@ SRC =	$(SRC_PATH)main.c $(SRC_PATH)ft_init.c $(SRC_PATH)lexer/ft_lexer.c $(SRC_P
 		$(SRC_PATH)parser/ft_parser.c $(SRC_PATH)parser/ft_treatment.c $(SRC_PATH)env/ft_env_list.c \
 		$(SRC_PATH)env/ft_env_set.c $(SRC_PATH)lexer/ft_validators_2.c $(SRC_PATH)parser/ft_parser_validators.c\
 		$(SRC_PATH)parser/ft_parser_utils.c $(SRC_PATH)utils/ft_free_in_loop.c $(SRC_PATH)parser/ft_cmd_rebuild.c\
-		$(SRC_PATH)executer/ft_builtins.c $(SRC_PATH)executer/ft_exec_z.c $(SRC_PATH)parser/ft_parser_additional.c \
+		$(SRC_PATH)executer/ft_builtins.c $(SRC_PATH)parser/ft_parser_additional.c \
 		$(SRC_PATH)executer/ft_execute.c $(SRC_PATH)executer/ft_joiner.c \
 		$(SRC_PATH)executer/ft_file_redir.c $(SRC_PATH)executer/ft_split.c $(SRC_PATH)executer/ft_strjoin.c \
 		$(SRC_PATH)executer/ft_make_cmd.c $(SRC_PATH)executer/ft_cd.c $(SRC_PATH)executer/ft_pwd.c \
