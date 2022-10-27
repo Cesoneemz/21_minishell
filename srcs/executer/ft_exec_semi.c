@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:33:07 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/27 16:03:59 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/27 18:11:49 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ int	ft_execute3(char **argv, int i, int fd_in, char **envp)
 	t_cnt = param_count(&argv);
 	dup2(fd_in, STDIN_FILENO);
 	close(fd_in);
-	while (t_cnt >= 3 && (argv[0][0] == '<') && \
-		file_in_redir(argv[1], argv[0]) > 0)
+	while (t_cnt >= 3 && argv[0][0] == '<')
+	{
+		if (ft_strncmp(argv[0], "<<", 2) != 0)
+			file_in_redir(argv[1], argv[0]);
 		param_shift(&argv, 2);
+	}
 	t_cnt = param_count(&argv);
 	ft_try_open_redir(t_cnt, argv);
 	if (check_builtins3(argv[0]))
