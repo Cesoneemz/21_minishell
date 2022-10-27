@@ -6,7 +6,7 @@
 /*   By: wmiyu <wmiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:33:07 by wmiyu             #+#    #+#             */
-/*   Updated: 2022/10/27 18:11:49 by wmiyu            ###   ########.fr       */
+/*   Updated: 2022/10/27 18:37:44 by wmiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	ft_execute3(char **argv, int i, int fd_in, char **envp)
 		if (ft_strncmp(argv[0], "<<", 2) != 0)
 			file_in_redir(argv[1], argv[0]);
 		param_shift(&argv, 2);
+		t_cnt = param_count(&argv);
 	}
-	t_cnt = param_count(&argv);
 	ft_try_open_redir(t_cnt, argv);
 	if (check_builtins3(argv[0]))
 		return (ft_run_builtin3(&argv[0], envp));
